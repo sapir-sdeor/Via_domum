@@ -7,6 +7,8 @@ TagManager:
   - blowUp
   - stone
   - button
+  - fly
+  - connect
   layers:
   - Default
   - TransparentFX

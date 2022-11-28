@@ -60,20 +60,23 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("button"))
+        /*if (other.gameObject.CompareTag("button"))
             ClickButton();
         else if (other.gameObject.CompareTag("stone"))
-            CollectStone(other);
-        else if (other.gameObject.CompareTag("blowUp"))
+            CollectStone(other);*/
+        if (other.gameObject.name == "act")
             Act(other);
     }
 
     private void Act(Collision2D other)
     {
+        //TODO: need to check if the act is active - press on the right key 
+        
         Destroy(other.gameObject);
-        gameObject.AddComponent<ConnectBubbles>();
-        gameObject.GetComponent<ConnectBubbles>().SetCollider(_collider);
-        gameObject.GetComponent<ConnectBubbles>().ApplyMechanic();
+        MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, _collider);
+        coreMechanic.ApplyMechanic();
+        
     }
 
     private void CollectStone(Collision2D other)
