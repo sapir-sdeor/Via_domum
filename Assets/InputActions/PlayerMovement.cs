@@ -44,6 +44,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""BlowUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee8ce3b9-de6c-4395-a4ce-bd3f22af36a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -123,6 +132,17 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10a6eec3-9e3e-40bf-aab1-29eb871bc0f7"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BlowUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +153,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action = asset.FindActionMap("Player_Action", throwIfNotFound: true);
         m_Player_Action_Movement = m_Player_Action.FindAction("Movement", throwIfNotFound: true);
         m_Player_Action_Jump = m_Player_Action.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Action_BlowUp = m_Player_Action.FindAction("BlowUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -194,12 +215,14 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private IPlayer_ActionActions m_Player_ActionActionsCallbackInterface;
     private readonly InputAction m_Player_Action_Movement;
     private readonly InputAction m_Player_Action_Jump;
+    private readonly InputAction m_Player_Action_BlowUp;
     public struct Player_ActionActions
     {
         private @PlayerMovement m_Wrapper;
         public Player_ActionActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Action_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Action_Jump;
+        public InputAction @BlowUp => m_Wrapper.m_Player_Action_BlowUp;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -215,6 +238,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
+                @BlowUp.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnBlowUp;
+                @BlowUp.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnBlowUp;
+                @BlowUp.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnBlowUp;
             }
             m_Wrapper.m_Player_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -225,6 +251,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @BlowUp.started += instance.OnBlowUp;
+                @BlowUp.performed += instance.OnBlowUp;
+                @BlowUp.canceled += instance.OnBlowUp;
             }
         }
     }
@@ -233,5 +262,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnBlowUp(InputAction.CallbackContext context);
     }
 }

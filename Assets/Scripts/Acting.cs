@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CoreMechanic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,14 +11,10 @@ public class Acting : MonoBehaviour
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    
-    //private PlayerMovement _playerActions;
+    [SerializeField] private Collider2D _collider;
     private Rigidbody2D _rigidbody;
-
-    private float horizontal;
-
+    private float _horizontal;
     private bool _isFacingRight;
-    //private Vector2 _moveInput;
 
  
     private void Start()
@@ -29,21 +26,20 @@ public class Acting : MonoBehaviour
     {
         if (context.performed && IsGrounded())
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
-        /*if (context.canceled && _rigidbody.velocity.y > 0)
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y * 0.5f);*/
     }   
     
     public void Move(InputAction.CallbackContext context)
     {
-        horizontal = context.ReadValue<Vector2>().x;
+        _horizontal = context.ReadValue<Vector2>().x;
     }
 
     private void Flip()
     {
         _isFacingRight = !_isFacingRight;
-        Vector3 localScale = transform.localScale;
+        var tran = transform;
+        Vector3 localScale = tran.localScale;
         localScale.x *= -1f;
-        transform.localScale = localScale;
+        tran.localScale = localScale;
     }
     
     private bool IsGrounded()
@@ -54,30 +50,33 @@ public class Acting : MonoBehaviour
 
     void Update()
     {
-        _rigidbody.velocity = new Vector2(horizontal * speed, _rigidbody.velocity.y);
-        if (!_isFacingRight && horizontal > 0f) Flip();
-        else if (_isFacingRight && horizontal < 0f) Flip();
+        _rigidbody.velocity = new Vector2(_horizontal * speed, _rigidbody.velocity.y);
+        if (!_isFacingRight && _horizontal > 0f) Flip();
+        else if (_isFacingRight && _horizontal < 0f) Flip();
     }
 
     
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("button"))
             ClickButton();
         else if (other.gameObject.CompareTag("stone"))
             CollectStone(other);
-        else if (other.gameObject.CompareTag("act"))
+        else if (other.gameObject.CompareTag("blowUp"))
             Act(other);
 
     }
 
-    private void Act(Collision other)
+    private void Act(Collision2D other)
     {
         Destroy(other.gameObject);
+        gameObject.AddComponent<DestroyBubble>();
+        gameObject.GetComponent<DestroyBubble>().SetCollider(_collider);
+       
     }
 
-    private void CollectStone(Collision other)
+    private void CollectStone(Collision2D other)
     {
         Destroy(other.gameObject);
     }
