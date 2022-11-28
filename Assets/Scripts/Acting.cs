@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CoreMechanic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,13 +16,13 @@ public class Acting : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private float _horizontal;
     private bool _isFacingRight;
-
+    private PlayerMovement _inputAction;
  
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
-    
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && IsGrounded())
@@ -65,15 +66,14 @@ public class Acting : MonoBehaviour
             CollectStone(other);
         else if (other.gameObject.CompareTag("blowUp"))
             Act(other);
-
     }
 
     private void Act(Collision2D other)
     {
         Destroy(other.gameObject);
-        gameObject.AddComponent<DestroyBubble>();
-        gameObject.GetComponent<DestroyBubble>().SetCollider(_collider);
-       
+        gameObject.AddComponent<ConnectBubbles>();
+        gameObject.GetComponent<ConnectBubbles>().SetCollider(_collider);
+        gameObject.GetComponent<ConnectBubbles>().ApplyMechanic();
     }
 
     private void CollectStone(Collision2D other)

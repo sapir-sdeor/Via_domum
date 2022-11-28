@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "BlowUp",
+                    "name": "Actions",
                     "type": "Button",
                     "id": "ee8ce3b9-de6c-4395-a4ce-bd3f22af36a2",
                     "expectedControlType": "Button",
@@ -113,12 +113,12 @@
                 },
                 {
                     "name": "",
-                    "id": "10a6eec3-9e3e-40bf-aab1-29eb871bc0f7",
-                    "path": "<Keyboard>/x",
+                    "id": "0c34ece9-75f6-4683-8a55-a56106c7c4de",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "BlowUp",
+                    "action": "Actions",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

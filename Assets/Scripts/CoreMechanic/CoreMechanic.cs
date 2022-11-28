@@ -1,6 +1,6 @@
 ﻿namespace CoreMechanic
 {
-    public interface CoreMechanic
+    public interface ICoreMechanic
     {
         public void ApplyMechanic();
     }
