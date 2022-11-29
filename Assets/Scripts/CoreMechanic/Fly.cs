@@ -6,16 +6,26 @@ namespace CoreMechanic
     {
         private float _time;
         private bool _fly;
+        private Vector3 _flyPos;
+        private float speed = 6f;
+
+        public void SetFlyPosition(Vector3 flyPosition)
+        {
+            _flyPos = flyPosition;
+        }
         private void Update()
         {
-            if (_fly)
-                _time += Time.deltaTime;
-            if (_time > 2)
+            if (Vector3.Distance(transform.position, _flyPos) < 0.3f)
             {
-                GetComponent<Rigidbody2D>().gravityScale = 0;
                 _fly = false;
-                _time = 0;
+                GetComponent<Rigidbody2D>().gravityScale = 1;
             }
+            if (_fly)
+            {
+                float step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, _flyPos, step);
+            }
+           
         }
 
         public void ApplyMechanic()

@@ -13,9 +13,12 @@ public class Acting : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Collider2D _collider;
+    [SerializeField] private SpriteMask _spriteMask;
+    [SerializeField] private Vector3 flyPosition;
     private Rigidbody2D _rigidbody;
     private float _horizontal;
     private bool _isFacingRight;
+    private int _stoneNumber;
     private PlayerMovement _inputAction;
  
     private void Start()
@@ -60,11 +63,11 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        /*if (other.gameObject.CompareTag("button"))
+        if (other.gameObject.CompareTag("button"))
             ClickButton();
         else if (other.gameObject.CompareTag("stone"))
-            CollectStone(other);*/
-        if (other.gameObject.name == "act")
+            CollectStone(other);
+        else if (other.gameObject.name == "act")
             Act(other);
     }
 
@@ -74,18 +77,21 @@ public class Acting : MonoBehaviour
         
         Destroy(other.gameObject);
         MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, _collider);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
+            _collider, flyPosition, _spriteMask);
         coreMechanic.ApplyMechanic();
-        
     }
 
     private void CollectStone(Collision2D other)
     {
+        //TODO: add display to UI 
+        
+        _stoneNumber++;
         Destroy(other.gameObject);
     }
 
     private void ClickButton()
     {
-        
+        //TODO: should apply something 
     }
 }

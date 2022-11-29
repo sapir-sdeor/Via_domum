@@ -9,6 +9,7 @@ TagManager:
   - button
   - fly
   - connect
+  - moveWalls
   layers:
   - Default
   - TransparentFX
