@@ -1,12 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace CoreMechanic
 {
     public class MechanicFactory : MonoBehaviour
     {
         public ICoreMechanic CreateMechanic(String name, Collider2D collider2D, Vector3 flyPos,
-                                                    SpriteMask spriteMask)
+                                                    SpriteMask spriteMask,Light2D[] light2D)
         {
             switch (name)
             {
@@ -23,6 +24,10 @@ namespace CoreMechanic
                     gameObject.AddComponent<MoveBetweenWalls>();
                     gameObject.GetComponent<MoveBetweenWalls>().SetCollider(collider2D);
                     return gameObject.GetComponent<MoveBetweenWalls>();
+                case "light":
+                    gameObject.AddComponent<Light>();
+                    gameObject.GetComponent<Light>().SetLight(light2D);
+                    return gameObject.AddComponent<Light>();
             }
             return null;
         }

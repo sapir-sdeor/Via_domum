@@ -11,6 +11,7 @@ TagManager:
   - connect
   - moveWalls
   - light
+  - LightManager
   layers:
   - Default
   - TransparentFX

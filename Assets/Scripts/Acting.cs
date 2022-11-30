@@ -5,6 +5,7 @@ using System.Linq;
 using CoreMechanic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class Acting : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private Collider2D _collider;
     [SerializeField] private SpriteMask _spriteMask;
     [SerializeField] private Vector3 flyPosition;
+    [SerializeField] private Light2D[] _light2D;
     private Rigidbody2D _rigidbody;
     private float _horizontal;
     private bool _isFacingRight;
@@ -69,6 +71,8 @@ public class Acting : MonoBehaviour
             CollectStone(other);
         else if (other.gameObject.name == "act")
             Act(other);
+        else if (other.gameObject.CompareTag("light"))
+            Act(other);
     }
 
     private void Act(Collision2D other)
@@ -78,7 +82,7 @@ public class Acting : MonoBehaviour
         Destroy(other.gameObject);
         MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            _collider, flyPosition, _spriteMask);
+            _collider, flyPosition, _spriteMask, _light2D);
         coreMechanic.ApplyMechanic();
     }
 
