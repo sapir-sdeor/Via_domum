@@ -7,7 +7,7 @@ namespace CoreMechanic
     public class MechanicFactory : MonoBehaviour
     {
         public ICoreMechanic CreateMechanic(String name, Collider2D collider2D, Vector3 flyPos,
-                                                    SpriteMask spriteMask,Light2D[] light2D)
+                                                    Sprite sprite, GameObject background, Light2D[] light2D)
         {
             switch (name)
             {
@@ -18,7 +18,7 @@ namespace CoreMechanic
                 case "connect":
                     gameObject.AddComponent<ConnectBubbles>();
                     gameObject.GetComponent<ConnectBubbles>().SetCollider(collider2D);
-                    gameObject.GetComponent<ConnectBubbles>().SetSpriteMask(spriteMask);
+                    gameObject.GetComponent<ConnectBubbles>().SetSprite(sprite, background);
                     return gameObject.GetComponent<ConnectBubbles>();
                 case "moveWalls":
                     gameObject.AddComponent<MoveBetweenWalls>();
