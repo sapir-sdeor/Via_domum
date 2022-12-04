@@ -14,7 +14,8 @@ public class Acting : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Collider2D _collider;
-    [SerializeField] private SpriteMask _spriteMask;
+    [SerializeField] private Sprite sprite;
+    [SerializeField] private GameObject background;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] _light2D;
     private Rigidbody2D _rigidbody;
@@ -75,6 +76,12 @@ public class Acting : MonoBehaviour
             Act(other);
     }
 
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("wall"))
+            _rigidbody.velocity = Vector2.zero;
+    }
+
     private void Act(Collision2D other)
     {
         //TODO: need to check if the act is active - press on the right key 
@@ -82,7 +89,7 @@ public class Acting : MonoBehaviour
         Destroy(other.gameObject);
         MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            _collider, flyPosition, _spriteMask, _light2D);
+            _collider, flyPosition, sprite, background, _light2D);
         coreMechanic.ApplyMechanic();
     }
 

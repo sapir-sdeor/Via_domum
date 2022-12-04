@@ -12,6 +12,7 @@ TagManager:
   - moveWalls
   - light
   - LightManager
+  - wall
   layers:
   - Default
   - TransparentFX
