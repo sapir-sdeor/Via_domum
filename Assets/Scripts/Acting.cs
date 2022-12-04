@@ -95,7 +95,9 @@ public class Acting : MonoBehaviour
 
     private void CollectStone(Collision2D other)
     {
-        //TODO: add display to UI 
+        print(gameObject.name);
+
+       UIManager.CollectPowerPlayer(gameObject.name);
         
         _stoneNumber++;
         Destroy(other.gameObject);
