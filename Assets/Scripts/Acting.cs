@@ -18,14 +18,22 @@ public class Acting : MonoBehaviour
     [SerializeField] private GameObject background;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] _light2D;
+    [SerializeField] private Acting otherPlayer;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private LevelManager levelManager;
+    [SerializeField] private int playerNumber;
+    private static readonly Vector3 ScaleYoung = new(0.953071415f,0.716398299f,1f);
+    private bool _onButton;
+    private bool _onDiamond;
     private Rigidbody2D _rigidbody;
     private float _horizontal;
     private bool _isFacingRight;
-    private int _stoneNumber;
     private PlayerMovement _inputAction;
  
     private void Start()
     {
+        print(ButtonManger.Younger);
+        if (ButtonManger.Younger == playerNumber) gameObject.transform.localScale = ScaleYoung;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -83,10 +91,26 @@ public class Acting : MonoBehaviour
             _rigidbody.velocity = Vector2.zero;
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("button"))
+            ClickButton();
+        else if (other.gameObject.CompareTag("diamond"))
+            OnDiamond();
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("button"))
+            _onButton = false;
+        else if (other.gameObject.CompareTag("diamond"))
+            _onDiamond = false;
+    }
+
+
     private void Act(Collision2D other)
     {
         //TODO: need to check if the act is active - press on the right key 
-        
         Destroy(other.gameObject);
         MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
@@ -97,12 +121,30 @@ public class Acting : MonoBehaviour
     private void CollectStone(Collision2D other)
     {
         UIManager.CollectPowerPlayer(gameObject.name);
-       _stoneNumber++;
         Destroy(other.gameObject);
     }
 
     private void ClickButton()
     {
-        //TODO: should apply something 
+        _onButton = true;
+        if (otherPlayer.getOnButton())
+            gameManager.OpenGate();
+    }
+    
+    private void OnDiamond()
+    {
+        _onDiamond = true;
+        if (otherPlayer.getOnDiamond())
+            levelManager.LoadNextLevel();
+    }
+
+    private bool getOnButton()
+    {
+        return _onButton;
+    }
+    
+    private bool getOnDiamond()
+    {
+        return _onDiamond;
     }
 }
