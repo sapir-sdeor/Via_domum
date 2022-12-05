@@ -542,7 +542,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0f3788b6-3759-40ae-8f83-9fbbacbc38a9"",
-                    ""path"": ""<Keyboard>/slash"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",

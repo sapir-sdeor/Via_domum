@@ -22,21 +22,16 @@ public class UIManager : MonoBehaviour
         _buttonManager2 = buttonManager2;
     }
     
-    private void Update()
+
+    public void Cancel( InputAction.CallbackContext context)
     {
-        // if (Input.GetKey(KeyCode.K))
-        // {
-        //     SetActiveUIobject(_buttonManager1,false);
-        // }
-        // if(Input.GetKey(KeyCode.G))
-        // {
-        //     SetActiveUIobject(_buttonManager2,false);
-        // }
+        SetActiveUIobject(_buttonManager1,false);
+        SetActiveUIobject(_buttonManager2,false);
     }
 
-    public void View( InputAction.CallbackContext context)
+    public void Click(InputAction.CallbackContext context)
     {
-       
+        _buttonManager1[0].enabled = false;
     }
 
 
