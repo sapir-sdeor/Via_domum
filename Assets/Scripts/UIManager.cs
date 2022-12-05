@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button[] buttonManager1, buttonManager2;
      private PlayerMovement.UIActions UImanager;
 
-    private void Start()
+     private void Start()
     {
         _buttonManager1 = buttonManager1;
         _buttonManager2 = buttonManager2;
