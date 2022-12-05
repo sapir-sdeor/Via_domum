@@ -33,7 +33,8 @@ public class Acting : MonoBehaviour
     {
         if (context.performed && IsGrounded())
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
-    }   
+    } 
+    
     
     public void Move(InputAction.CallbackContext context)
     {
@@ -95,11 +96,8 @@ public class Acting : MonoBehaviour
 
     private void CollectStone(Collision2D other)
     {
-        print(gameObject.name);
-
-       UIManager.CollectPowerPlayer(gameObject.name);
-        
-        _stoneNumber++;
+        UIManager.CollectPowerPlayer(gameObject.name);
+       _stoneNumber++;
         Destroy(other.gameObject);
     }
 
