@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject gate;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OpenGate()
+    {
+        //TODO: play gate animation?
+        gate.GetComponent<Collider2D>().enabled = false;
+        gate.GetComponent<SpriteRenderer>().enabled = false;
     }
 }
