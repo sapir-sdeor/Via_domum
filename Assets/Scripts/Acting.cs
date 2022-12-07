@@ -22,6 +22,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private int playerNumber;
+    [SerializeField] private UIManager uiManager;
     private static readonly Vector3 ScaleYoung = new(0.953071415f,0.716398299f,1f);
     private bool _onButton;
     private bool _onDiamond;
@@ -47,7 +48,8 @@ public class Acting : MonoBehaviour
     {
         print("move");
         GetComponent<Animator>().SetBool("walk", true);
-        _horizontal = context.ReadValue<Vector2>().x;
+        if(!uiManager.getUIOpen1()) _horizontal = context.ReadValue<Vector2>().x;
+       
     }
 
     private void Flip()

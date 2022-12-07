@@ -217,6 +217,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelPlayer2"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f4d1654-cdfc-417b-aa2e-5de59dda62c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -487,7 +496,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0b327407-fb6e-4e74-acab-f248eb0fbc95"",
-                    ""path"": ""*/{Submit}"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
@@ -553,7 +562,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ae613f55-d0b3-423b-bf96-cd3f6c1b6559"",
-                    ""path"": ""<Keyboard>/backslash"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -648,6 +657,17 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56ea675f-6cbe-4bcb-ae73-a9b61d9e6ad7"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelPlayer2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -671,6 +691,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_CancelPlayer2 = m_UI.FindAction("CancelPlayer2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -789,6 +810,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_CancelPlayer2;
     public struct UIActions
     {
         private @PlayerMovement m_Wrapper;
@@ -803,6 +825,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @CancelPlayer2 => m_Wrapper.m_UI_CancelPlayer2;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -842,6 +865,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @CancelPlayer2.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelPlayer2;
+                @CancelPlayer2.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelPlayer2;
+                @CancelPlayer2.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelPlayer2;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -876,6 +902,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @CancelPlayer2.started += instance.OnCancelPlayer2;
+                @CancelPlayer2.performed += instance.OnCancelPlayer2;
+                @CancelPlayer2.canceled += instance.OnCancelPlayer2;
             }
         }
     }
@@ -898,5 +927,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnCancelPlayer2(InputAction.CallbackContext context);
     }
 }
