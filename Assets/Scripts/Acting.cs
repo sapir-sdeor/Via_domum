@@ -43,12 +43,14 @@ public class Acting : MonoBehaviour
         {
             if (gameObject.name == "Player1")
             {
-                if (!uiManager.getUIOpen1()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+                if (!uiManager) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+                else if (!uiManager.getUIOpen1()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
             }
 
             if (gameObject.name == "Player2")
             {
-                if(!uiManager.getUIOpen2()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+                if (!uiManager) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+                else if(uiManager &&!uiManager.getUIOpen2()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
             }
         }
         
@@ -60,12 +62,14 @@ public class Acting : MonoBehaviour
         GetComponent<Animator>().SetBool("walk", true);
         if (gameObject.name == "Player1")
         {
-            if (!uiManager.getUIOpen1()) _horizontal = context.ReadValue<Vector2>().x;
+            if (!uiManager) _horizontal = context.ReadValue<Vector2>().x;
+            else if (!uiManager.getUIOpen1()) _horizontal = context.ReadValue<Vector2>().x;
         }
 
         if (gameObject.name == "Player2")
         {
-            if(!uiManager.getUIOpen2()) _horizontal = context.ReadValue<Vector2>().x;
+            if (!uiManager) _horizontal = context.ReadValue<Vector2>().x;
+            else if(!uiManager.getUIOpen2()) _horizontal = context.ReadValue<Vector2>().x;
         }
         
        
