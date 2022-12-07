@@ -32,7 +32,6 @@ public class Acting : MonoBehaviour
  
     private void Start()
     {
-        print(ButtonManger.Younger);
         if (ButtonManger.Younger == playerNumber) gameObject.transform.localScale = ScaleYoung;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -46,6 +45,8 @@ public class Acting : MonoBehaviour
     
     public void Move(InputAction.CallbackContext context)
     {
+        print("move");
+        GetComponent<Animator>().SetBool("walk", true);
         _horizontal = context.ReadValue<Vector2>().x;
     }
 
@@ -69,6 +70,10 @@ public class Acting : MonoBehaviour
         _rigidbody.velocity = new Vector2(_horizontal * speed, _rigidbody.velocity.y);
         if (!_isFacingRight && _horizontal > 0f) Flip();
         else if (_isFacingRight && _horizontal < 0f) Flip();
+        if (_horizontal == 0)
+        {
+            GetComponent<Animator>().SetBool("walk", false);
+        }
     }
 
     
