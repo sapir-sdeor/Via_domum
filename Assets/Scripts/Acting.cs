@@ -40,15 +40,34 @@ public class Acting : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && IsGrounded())
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+        {
+            if (gameObject.name == "Player1")
+            {
+                if (!uiManager.getUIOpen1()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+            }
+
+            if (gameObject.name == "Player2")
+            {
+                if(!uiManager.getUIOpen2()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+            }
+        }
+        
     } 
     
     
     public void Move(InputAction.CallbackContext context)
     {
-        print("move");
         GetComponent<Animator>().SetBool("walk", true);
-        if(!uiManager.getUIOpen1()) _horizontal = context.ReadValue<Vector2>().x;
+        if (gameObject.name == "Player1")
+        {
+            if (!uiManager.getUIOpen1()) _horizontal = context.ReadValue<Vector2>().x;
+        }
+
+        if (gameObject.name == "Player2")
+        {
+            if(!uiManager.getUIOpen2()) _horizontal = context.ReadValue<Vector2>().x;
+        }
+        
        
     }
 

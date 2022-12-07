@@ -219,7 +219,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CancelPlayer2"",
+                    ""name"": ""Click2"",
                     ""type"": ""Button"",
                     ""id"": ""4f4d1654-cdfc-417b-aa2e-5de59dda62c1"",
                     ""expectedControlType"": ""Button"",
@@ -562,7 +562,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ae613f55-d0b3-423b-bf96-cd3f6c1b6559"",
-                    ""path"": ""<Keyboard>/g"",
+                    ""path"": ""<Keyboard>/period"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -665,7 +665,29 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CancelPlayer2"",
+                    ""action"": ""Click2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fa46480-ccc3-4e95-952c-c7ebe34e107b"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c736e6f3-b397-457f-b4b3-24a30a8a2267"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -691,7 +713,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        m_UI_CancelPlayer2 = m_UI.FindAction("CancelPlayer2", throwIfNotFound: true);
+        m_UI_Click2 = m_UI.FindAction("Click2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -810,7 +832,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
-    private readonly InputAction m_UI_CancelPlayer2;
+    private readonly InputAction m_UI_Click2;
     public struct UIActions
     {
         private @PlayerMovement m_Wrapper;
@@ -825,7 +847,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
-        public InputAction @CancelPlayer2 => m_Wrapper.m_UI_CancelPlayer2;
+        public InputAction @Click2 => m_Wrapper.m_UI_Click2;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -865,9 +887,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
-                @CancelPlayer2.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelPlayer2;
-                @CancelPlayer2.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelPlayer2;
-                @CancelPlayer2.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelPlayer2;
+                @Click2.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClick2;
+                @Click2.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClick2;
+                @Click2.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClick2;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -902,9 +924,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
-                @CancelPlayer2.started += instance.OnCancelPlayer2;
-                @CancelPlayer2.performed += instance.OnCancelPlayer2;
-                @CancelPlayer2.canceled += instance.OnCancelPlayer2;
+                @Click2.started += instance.OnClick2;
+                @Click2.performed += instance.OnClick2;
+                @Click2.canceled += instance.OnClick2;
             }
         }
     }
@@ -927,6 +949,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-        void OnCancelPlayer2(InputAction.CallbackContext context);
+        void OnClick2(InputAction.CallbackContext context);
     }
 }

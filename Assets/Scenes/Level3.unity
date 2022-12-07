@@ -1477,11 +1477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1514,7 +1514,7 @@ PrefabInstance:
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1154195844}
+      objectReference: {fileID: 1154195849}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1529,7 +1529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1541,11 +1541,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CancelPlayer2
+      value: Click1
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: Click2
       objectReference: {fileID: 0}
     - target: {fileID: 3060147558301031875, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1817,6 +1817,7 @@ MonoBehaviour:
   - {fileID: 937809012}
   - {fileID: 420213044}
   - {fileID: 14001176}
+  gameManager: {fileID: 704043027}
 --- !u!1 &1199484080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2256,7 @@ MonoBehaviour:
   m_SubmitAction: {fileID: -2602176466937193028, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}
   m_CancelAction: {fileID: -6082912141293493604, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}
   m_LeftClickAction: {fileID: -7568126179266653267, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}
-  m_MiddleClickAction: {fileID: -2701918512987687446, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}
+  m_MiddleClickAction: {fileID: 2600394440353967247, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}
   m_RightClickAction: {fileID: -2771140055074021236, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}
   m_ScrollWheelAction: {fileID: -3452364008636577814, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}
   m_TrackedDevicePositionAction: {fileID: -8562007508512107895, guid: 4a8aaf7289834df48b93b9a47811279c, type: 3}

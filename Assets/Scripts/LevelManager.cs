@@ -11,6 +11,12 @@ public class LevelManager : MonoBehaviour
         _level++;
         SceneManager.LoadScene("Level" + _level);
     }
+
+    public static int getLevel()
+    {
+        return _level;
+    }
+        
     
     
 }
