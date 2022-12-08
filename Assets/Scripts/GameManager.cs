@@ -8,8 +8,7 @@ public class GameManager : MonoBehaviour
 
     public void OpenGate()
     {
-        //TODO: play gate animation?
+        gate.GetComponent<Animator>().SetTrigger("open");
         gate.GetComponent<Collider2D>().enabled = false;
-        gate.GetComponent<SpriteRenderer>().enabled = false;
     }
 }
