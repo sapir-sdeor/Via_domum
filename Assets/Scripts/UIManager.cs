@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
     {
         if (name== Player1)
         {
-            UIOpen1 = true;
+            // UIOpen1 = true;
             SetActiveUIobject(_buttonManager1,UIOpen1);
             _buttonManager1[powerCounterPlayer1].interactable = true;
             powerCounterPlayer1++;
@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
         }
         else if (name == Player2)
         {
-            UIOpen2 = true;
+            // UIOpen2 = true;
             SetActiveUIobject(_buttonManager2,UIOpen2);
             _buttonManager2[powerCounterPlayer2].interactable = true;
             powerCounterPlayer2++;
