@@ -594,17 +594,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""15b0101b-59c4-48ba-8690-0366da7fa2a5"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""389795ef-aa63-420a-8005-2f36811b27e6"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",

@@ -7,12 +7,13 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private static int powerCounterPlayer1=0;
-    private static  int powerCounterPlayer2 = 0;
+    private static int powerCounterPlayer1;
+    private static  int powerCounterPlayer2;
     private static string Player1 = "Player1";
     private static string Player2 = "Player2";
     private static bool UIOpen1, UIOpen2;
     private static Button[] _buttonManager1, _buttonManager2;
+    private int _indexPowerPlayer1, _indexPowerPlayer2;
     
     [SerializeField] private Button[] buttonManager1, buttonManager2;
     [SerializeField] private GameManager gameManager;
@@ -25,8 +26,7 @@ public class UIManager : MonoBehaviour
         SetActiveUIobject(_buttonManager1, false);
         SetActiveUIobject(_buttonManager2,false);
     }
-    
-
+     
     public void CancelPlayer1( InputAction.CallbackContext context)
     {
         UIOpen1 = !UIOpen1;
@@ -52,6 +52,20 @@ public class UIManager : MonoBehaviour
         if(powerCounterPlayer2 >= 1) gameManager.OpenGate();
     }
     
+    public void ApplyPowerPlayer1(InputAction.CallbackContext context)
+    {
+        // if the power is fly we need to fly to other player
+        if (powerCounterPlayer1 < 1) return;
+        if (buttonManager1[_indexPowerPlayer1].gameObject.CompareTag("fly"))
+            gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject);
+        else gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject);
+    }
+    
+    public void ApplyPowerPlayer2(InputAction.CallbackContext context)
+    {
+        if (powerCounterPlayer2 < 1) return;
+        gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
+    }
 
     private static void SetActiveUIobject(Button[] buttonManager,bool active)
     {
@@ -81,8 +95,6 @@ public class UIManager : MonoBehaviour
             SetActiveUIobject(_buttonManager1,UIOpen1);
             _buttonManager1[powerCounterPlayer1].interactable = true;
             powerCounterPlayer1++;
-            
-
         }
         else if (name == Player2)
         {

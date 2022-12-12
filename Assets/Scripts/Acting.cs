@@ -37,6 +37,11 @@ public class Acting : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
+    public int GETPlayerNumber()
+    {
+        return playerNumber;
+    }
+    
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && IsGrounded())
@@ -96,11 +101,12 @@ public class Acting : MonoBehaviour
         if (!_isFacingRight && _horizontal > 0f) Flip();
         else if (_isFacingRight && _horizontal < 0f) Flip();
         if (_horizontal == 0)
-        {
             GetComponent<Animator>().SetBool("walk", false);
+        if (gameManager.JumpEachOther())
+        {
+            //TODO: play animation
         }
     }
-
     
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -110,15 +116,25 @@ public class Acting : MonoBehaviour
         else if (other.gameObject.CompareTag("stone"))
             CollectStone(other);
         else if (other.gameObject.name == "act")
-            Act(other);
+        {
+            Destroy(other.gameObject);
+            Act(other.gameObject);
+        }
+            
         else if (other.gameObject.CompareTag("light"))
-            Act(other);
+        {
+            Destroy(other.gameObject);
+            Act(other.gameObject);
+        }
+            
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("wall"))
-            _rigidbody.velocity = Vector2.zero;
+        if (other.gameObject.CompareTag("wall")){
+            FindObjectOfType<Camera>().GetComponent<Animator>().SetTrigger("move");
+            _rigidbody.velocity = Vector2.zero; 
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -138,10 +154,8 @@ public class Acting : MonoBehaviour
     }
 
 
-    private void Act(Collision2D other)
+    public void Act(GameObject other)
     {
-        //TODO: need to check if the act is active - press on the right key 
-        Destroy(other.gameObject);
         MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
             _collider, flyPosition, sprite, background, _light2D);

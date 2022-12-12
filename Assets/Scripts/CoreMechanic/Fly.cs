@@ -7,7 +7,7 @@ namespace CoreMechanic
         private float _time;
         private bool _fly;
         private Vector3 _flyPos;
-        private float speed = 6f;
+        private float speed = 1.5f;
 
         public void SetFlyPosition(Vector3 flyPosition)
         {
@@ -19,6 +19,9 @@ namespace CoreMechanic
             {
                 _fly = false;
                 GetComponent<Rigidbody2D>().gravityScale = 1;
+                GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                GetComponent<Collider2D>().enabled = true;
+                GetComponent<Animator>().SetBool("fly", false);
             }
             if (_fly)
             {
@@ -31,6 +34,9 @@ namespace CoreMechanic
         public void ApplyMechanic()
         {
             GetComponent<Rigidbody2D>().gravityScale = 0;
+            GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<Animator>().SetBool("fly", true);
             _fly = true;
         }
     }
