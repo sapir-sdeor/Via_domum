@@ -19,12 +19,15 @@ namespace CoreMechanic
             {
                 _fly = false;
                 GetComponent<Rigidbody2D>().gravityScale = 1;
-                GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 GetComponent<Collider2D>().enabled = true;
                 GetComponent<Animator>().SetBool("fly", false);
             }
             if (_fly)
             {
+                // GameObject particle = GameObject.FindWithTag("particle system");
+                // particle.gameObject.GetComponent<ParticleSystem>().enableEmission = true;
+                // var ps = GetComponent<ParticleSystem>();
                 float step = speed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, _flyPos, step);
             }

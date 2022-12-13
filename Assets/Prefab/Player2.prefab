@@ -142,12 +142,13 @@ MonoBehaviour:
   _collider: {fileID: 0}
   sprite: {fileID: 0}
   background: {fileID: 0}
-  flyPosition: {x: 2.4131, y: 3.7713, z: -0.0285812}
+  flyPosition: {x: -1.73, y: 2.13, z: 0}
   _light2D: []
   otherPlayer: {fileID: 0}
   gameManager: {fileID: 0}
   levelManager: {fileID: 0}
   playerNumber: 2
+  uiManager: {fileID: 0}
 --- !u!50 &719413792566357748
 Rigidbody2D:
   serializedVersion: 4
