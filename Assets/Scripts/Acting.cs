@@ -30,9 +30,11 @@ public class Acting : MonoBehaviour
     private float _horizontal;
     private bool _isFacingRight;
     private PlayerMovement _inputAction;
+    private Animator _animator;
  
     private void Start()
     {
+        _animator = GetComponent<Animator>();
         if (ButtonManger.Younger == playerNumber) gameObject.transform.localScale = ScaleYoung;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -44,27 +46,36 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
+        _animator.SetTrigger("jump");
+        _animator.SetBool("wait", false);
         if (context.performed && IsGrounded())
         {
             if (gameObject.name == "Player1")
             {
-                if (!uiManager) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
-                else if (!uiManager.getUIOpen1()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+                if (!uiManager) StartCoroutine(WaitSecondForJump());
+                else if (!uiManager.getUIOpen1()) StartCoroutine(WaitSecondForJump());
             }
 
             if (gameObject.name == "Player2")
             {
-                if (!uiManager) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
-                else if(uiManager &&!uiManager.getUIOpen2()) _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+                if (!uiManager) StartCoroutine(WaitSecondForJump());
+                else if(uiManager &&!uiManager.getUIOpen2()) StartCoroutine(WaitSecondForJump());
             }
         }
         
-    } 
+    }
+
+    IEnumerator WaitSecondForJump()
+    {
+        yield return new WaitForSeconds(0.4f);
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+    }
     
     
     public void Move(InputAction.CallbackContext context)
     {
-        GetComponent<Animator>().SetBool("walk", true);
+        _animator.SetBool("wait", false);
+        _animator.SetBool("walk", true);
         if (gameObject.name == "Player1")
         {
             if (!uiManager) _horizontal = context.ReadValue<Vector2>().x;
@@ -101,7 +112,7 @@ public class Acting : MonoBehaviour
         if (!_isFacingRight && _horizontal > 0f) Flip();
         else if (_isFacingRight && _horizontal < 0f) Flip();
         if (_horizontal == 0)
-            GetComponent<Animator>().SetBool("walk", false);
+            _animator.SetBool("walk", false);
         if (gameManager.JumpEachOther())
         {
             //TODO: play animation
@@ -180,6 +191,7 @@ public class Acting : MonoBehaviour
         _onDiamond = true;
         if (otherPlayer.getOnDiamond())
             levelManager.LoadNextLevel();
+        _animator.SetBool("wait", true);
     }
 
     private bool getOnButton()
