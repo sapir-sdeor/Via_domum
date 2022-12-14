@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gate;
+    [SerializeField] private GameObject diamond;
     private GameObject player1;
     private GameObject player2;
 
@@ -26,6 +27,22 @@ public class GameManager : MonoBehaviour
     {
         gate.GetComponent<Animator>().SetTrigger("open");
         gate.GetComponent<Collider2D>().enabled = false;
+    }
+    
+    public void FallDiamond()
+    {
+        diamond.GetComponent<Rigidbody2D>().gravityScale = 1;
+        StartCoroutine(DisableDiamond());
+
+    }
+    
+    IEnumerator DisableDiamond()
+    {
+        yield return new WaitForSeconds(3.5f);
+        diamond.GetComponent<Rigidbody2D>().gravityScale = 0;
+        diamond.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        diamond.GetComponent<Collider2D>().isTrigger = true;
+
     }
 
     public bool JumpEachOther()

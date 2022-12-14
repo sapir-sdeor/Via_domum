@@ -16,6 +16,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private Collider2D _collider;
     [SerializeField] private Sprite sprite;
     [SerializeField] private GameObject background;
+    [SerializeField] private GameObject bubbleFly;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] _light2D;
     [SerializeField] private Acting otherPlayer;
@@ -46,20 +47,26 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        _animator.SetTrigger("jump");
-        _animator.SetBool("wait", false);
+        
         if (context.performed && IsGrounded())
         {
             if (gameObject.name == "Player1")
             {
-                if (!uiManager) StartCoroutine(WaitSecondForJump());
-                else if (!uiManager.getUIOpen1()) StartCoroutine(WaitSecondForJump());
+                if (!uiManager || !uiManager.getUIOpen1())
+                {
+                    _animator.SetTrigger("jump");
+                    _animator.SetBool("wait", false);
+                    StartCoroutine(WaitSecondForJump());
+                }
             }
-
             if (gameObject.name == "Player2")
             {
-                if (!uiManager) StartCoroutine(WaitSecondForJump());
-                else if(uiManager &&!uiManager.getUIOpen2()) StartCoroutine(WaitSecondForJump());
+                if (!uiManager || !uiManager.getUIOpen2())
+                {
+                    _animator.SetTrigger("jump");
+                    _animator.SetBool("wait", false);
+                    StartCoroutine(WaitSecondForJump());
+                }
             }
         }
         
@@ -67,25 +74,32 @@ public class Acting : MonoBehaviour
 
     IEnumerator WaitSecondForJump()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
     }
     
     
     public void Move(InputAction.CallbackContext context)
     {
-        _animator.SetBool("wait", false);
-        _animator.SetBool("walk", true);
+       
         if (gameObject.name == "Player1")
         {
-            if (!uiManager) _horizontal = context.ReadValue<Vector2>().x;
-            else if (!uiManager.getUIOpen1()) _horizontal = context.ReadValue<Vector2>().x;
+            if (!uiManager || !uiManager.getUIOpen1())
+            {
+                _animator.SetBool("wait", false);
+                _animator.SetBool("walk", true);
+                _horizontal = context.ReadValue<Vector2>().x;
+            }
         }
 
         if (gameObject.name == "Player2")
         {
-            if (!uiManager) _horizontal = context.ReadValue<Vector2>().x;
-            else if(!uiManager.getUIOpen2()) _horizontal = context.ReadValue<Vector2>().x;
+            if (!uiManager || !uiManager.getUIOpen2())
+            {
+                _animator.SetBool("wait", false);
+                _animator.SetBool("walk", true);
+                _horizontal = context.ReadValue<Vector2>().x;
+            }
         }
         
        
@@ -102,7 +116,8 @@ public class Acting : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)
+               || gameManager.JumpEachOther();
     }
 
 
@@ -169,7 +184,7 @@ public class Acting : MonoBehaviour
     {
         MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            _collider, flyPosition, sprite, background, _light2D);
+            _collider, flyPosition, sprite, background, _light2D, bubbleFly);
         coreMechanic.ApplyMechanic();
     }
 

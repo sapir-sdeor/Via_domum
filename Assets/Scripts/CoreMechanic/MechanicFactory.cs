@@ -7,7 +7,8 @@ namespace CoreMechanic
     public class MechanicFactory : MonoBehaviour
     {
         public ICoreMechanic CreateMechanic(String name, Collider2D collider2D, Vector3 flyPos,
-                                                    Sprite sprite, GameObject background, Light2D[] light2D)
+                                                    Sprite sprite, GameObject background,
+                                                    Light2D[] light2D, GameObject fly)
         {
             switch (name)
             {
@@ -27,7 +28,12 @@ namespace CoreMechanic
                 case "light":
                     gameObject.AddComponent<Light>();
                     gameObject.GetComponent<Light>().SetLight(light2D);
-                    return gameObject.AddComponent<Light>();
+                    return gameObject.GetComponent<Light>();
+                case "blowUp":
+                    gameObject.AddComponent<Blow>();
+                    gameObject.GetComponent<Blow>().SetBubbleFly(fly);
+                    return gameObject.GetComponent<Blow>();
+                    
             }
             return null;
         }
