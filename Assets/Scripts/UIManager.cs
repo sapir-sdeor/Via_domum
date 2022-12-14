@@ -18,8 +18,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button[] buttonManager1, buttonManager2;
     [SerializeField] private GameManager gameManager;
     private PlayerMovement.UIActions UImanager;
+    private static readonly int Collect = Animator.StringToHash("collect");
 
-     private void Start()
+    private void Start()
     {
         _buttonManager1 = buttonManager1;
         _buttonManager2 = buttonManager2;
@@ -87,22 +88,34 @@ public class UIManager : MonoBehaviour
 
 
     //when one of the players collect power - update the counter and make the power available
-    public static void CollectPowerPlayer(String name)
+    public void CollectPowerPlayer(GameObject player,Collision2D message)
     {
-        if (name== Player1)
+        if (player.name== Player1)
         {
-            // UIOpen1 = true;
-            SetActiveUIobject(_buttonManager1,UIOpen1);
             _buttonManager1[powerCounterPlayer1].interactable = true;
             powerCounterPlayer1++;
-        }
-        else if (name == Player2)
-        {
-            // UIOpen2 = true;
-            SetActiveUIobject(_buttonManager2,UIOpen2);
-            _buttonManager2[powerCounterPlayer2].interactable = true;
-            powerCounterPlayer2++;
+            ShowNewPower(player,message);
            
         }
+        else if (player.name == Player2)
+        {
+            _buttonManager2[powerCounterPlayer2].interactable = true;
+            powerCounterPlayer2++;
+            ShowNewPower(player,message);
+        }
+    }
+
+    private void ShowNewPower(GameObject player,Collision2D message)
+    {
+        var pos = player.transform.position;
+        Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),Quaternion.identity,player.transform );
+        player.transform.GetChild(2).gameObject.GetComponent<Animator>().SetBool(Collect, true);
+        StartCoroutine(SetOffMessage(player.transform.GetChild(2).gameObject)); 
+    }
+    static IEnumerator SetOffMessage(GameObject message)
+    {
+        print("should destroy");
+        yield return new WaitForSeconds(2);
+        Destroy(message);
     }
 }

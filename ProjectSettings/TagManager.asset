@@ -16,6 +16,7 @@ TagManager:
   - diamond
   - legs
   - head
+  - particle system
   layers:
   - Default
   - TransparentFX

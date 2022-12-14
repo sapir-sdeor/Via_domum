@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace CoreMechanic
 {
@@ -8,6 +9,7 @@ namespace CoreMechanic
         private bool _fly;
         private Vector3 _flyPos;
         private float speed = 1.5f;
+        private GameObject particle;
 
         public void SetFlyPosition(Vector3 flyPosition)
         {
@@ -19,9 +21,12 @@ namespace CoreMechanic
             {
                 _fly = false;
                 GetComponent<Rigidbody2D>().gravityScale = 1;
-                GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 GetComponent<Collider2D>().enabled = true;
                 GetComponent<Animator>().SetBool("fly", false);
+                
+                //stop particle system
+                if (particle) particle.GetComponent<ParticleSystem>().Stop();
             }
             if (_fly)
             {
@@ -33,11 +38,21 @@ namespace CoreMechanic
 
         public void ApplyMechanic()
         {
+            //activate particle system
+            particle = GameObject.FindWithTag("particle system");
+            if (particle) particle.GetComponent<ParticleSystem>().Play();
+            StartCoroutine(StartAnimation());
+        }
+
+        IEnumerator StartAnimation()
+        {
+            yield return new WaitForSeconds(2);
             GetComponent<Rigidbody2D>().gravityScale = 0;
             GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
             GetComponent<Collider2D>().enabled = false;
             GetComponent<Animator>().SetBool("fly", true);
             _fly = true;
         }
+        
     }
 }
