@@ -158,7 +158,7 @@ public class Acting : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("wall")){
-            FindObjectOfType<Camera>().GetComponent<Animator>().SetTrigger("move");
+          //  FindObjectOfType<Camera>().GetComponent<Animator>().SetTrigger("move");
             _rigidbody.velocity = Vector2.zero; 
         }
     }
