@@ -112,6 +112,11 @@ public class Acting : MonoBehaviour
         Vector3 localScale = tran.localScale;
         localScale.x *= -1f;
         tran.localScale = localScale;
+        
+        /*
+        var vector3 = tran.GetChild(2).localScale;
+        vector3.x *= -1f;
+        tran.GetChild(2).localScale = vector3;*/
     }
     
     private bool IsGrounded()

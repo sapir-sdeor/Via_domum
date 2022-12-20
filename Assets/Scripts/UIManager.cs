@@ -14,14 +14,17 @@ public class UIManager : MonoBehaviour
     private static bool UIOpen1, UIOpen2;
     private static Button[] _buttonManager1, _buttonManager2;
     private int _indexPowerPlayer1, _indexPowerPlayer2;
+    private LevelManager _levelManager;
     
     [SerializeField] private Button[] buttonManager1, buttonManager2;
     [SerializeField] private GameManager gameManager;
+
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
 
     private void Start()
     {
+        _levelManager = FindObjectOfType<LevelManager>();
         _buttonManager1 = buttonManager1;
         _buttonManager2 = buttonManager2;
         SetActiveUIobject(_buttonManager1, false);
@@ -32,15 +35,16 @@ public class UIManager : MonoBehaviour
     {
         UIOpen1 = !UIOpen1;
         SetActiveUIobject(_buttonManager1,UIOpen1);
-        print("cancel player 2" + UIOpen2);
+        _levelManager.CloseUIMessagePlayer1();
+        print("cancel player 1");
     }
 
     public void CancelPlayer2(InputAction.CallbackContext context)
     {
         UIOpen2 = !UIOpen2;
         SetActiveUIobject(_buttonManager2,UIOpen2);
-       
-        print("cancel player 2" + UIOpen2);
+        _levelManager.CloseUIMessagePlayer2();
+        print("cancel player 2");
     }
 
     public void Click1(InputAction.CallbackContext context)
@@ -92,13 +96,14 @@ public class UIManager : MonoBehaviour
     {
         if (player.name== Player1)
         {
+            _levelManager.OpenUIMessagePlayer1();
             _buttonManager1[powerCounterPlayer1].interactable = true;
             powerCounterPlayer1++;
             ShowNewPower(player,message);
-           
         }
         else if (player.name == Player2)
         {
+            _levelManager.OpenUIMessagePlayer2();
             _buttonManager2[powerCounterPlayer2].interactable = true;
             powerCounterPlayer2++;
             ShowNewPower(player,message);
@@ -108,9 +113,10 @@ public class UIManager : MonoBehaviour
     private void ShowNewPower(GameObject player,Collision2D message)
     {
         var pos = player.transform.position;
-        Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),Quaternion.identity,player.transform );
-        player.transform.GetChild(2).gameObject.GetComponent<Animator>().SetBool(Collect, true);
-        StartCoroutine(SetOffMessage(player.transform.GetChild(2).gameObject)); 
+        Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),Quaternion.identity,player.transform);
+        var childCount = player.transform.childCount;
+        player.transform.GetChild(childCount-1).gameObject.GetComponent<Animator>().SetBool(Collect, true);
+        StartCoroutine(SetOffMessage(player.transform.GetChild(childCount-1).gameObject));
     }
     static IEnumerator SetOffMessage(GameObject message)
     {
