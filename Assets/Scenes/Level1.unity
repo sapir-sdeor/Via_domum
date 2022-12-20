@@ -1782,8 +1782,8 @@ GameObject:
   m_Component:
   - component: {fileID: 944309150}
   - component: {fileID: 944309152}
-  - component: {fileID: 944309151}
   - component: {fileID: 944309153}
+  - component: {fileID: 944309154}
   m_Layer: 0
   m_Name: powerBlow
   m_TagString: stone
@@ -1806,22 +1806,6 @@ Transform:
   m_Father: {fileID: 1508170560}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &944309151
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944309149}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0000009536743, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!212 &944309152
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1894,6 +1878,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &944309154
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944309149}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10502145, y: -0.17065984}
+  serializedVersion: 2
+  m_Radius: 0.747848
 --- !u!1 &972450690
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,7 +2069,7 @@ GameObject:
   - component: {fileID: 1046034457}
   m_Layer: 5
   m_Name: power1 (3)
-  m_TagString: Untagged
+  m_TagString: blowUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2781,7 +2781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1553077714
 Transform:
   m_ObjectHideFlags: 0
@@ -3853,7 +3853,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1751741056}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: a2a3e241cd5f5b845837a42b1281d8f9, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
@@ -4308,7 +4308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1951338119
 Transform:
   m_ObjectHideFlags: 0
@@ -4707,8 +4707,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f4a5302c4b02d4599c85b38693c04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openUImessage1: {fileID: 0}
-  openUImessage2: {fileID: 0}
+  canvesDontDestroy: {fileID: 2137829327}
+  openUImessage1: {fileID: 1553077713}
+  openUImessage2: {fileID: 1951338118}
   usePowerMessage1: {fileID: 0}
   usePowerMessage2: {fileID: 0}
 --- !u!1 &2094762169

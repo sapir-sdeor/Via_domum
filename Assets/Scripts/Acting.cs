@@ -74,7 +74,7 @@ public class Acting : MonoBehaviour
 
     IEnumerator WaitSecondForJump()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
     }
     
@@ -202,7 +202,7 @@ public class Acting : MonoBehaviour
     private void ClickButton()
     {
         _onButton = true;
-        if (otherPlayer.getOnButton())
+        if (otherPlayer.getOnButton() || LevelManager.GETLevel() == 2)
             gameManager.OpenGate();
     }
     

@@ -1408,6 +1408,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7988132112019543298, guid: 38c9521ffeb4c5f488f593c2df7447e0, type: 3}
+      propertyPath: m_Size.x
+      value: 1.8966873
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988132112019543298, guid: 38c9521ffeb4c5f488f593c2df7447e0, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.00040760636
+      objectReference: {fileID: 0}
     - target: {fileID: 7988132112019543299, guid: 38c9521ffeb4c5f488f593c2df7447e0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2098,14 +2106,6 @@ PolygonCollider2D:
       - {x: 0.26, y: -3.1999998}
       - {x: 0.26, y: -3.26}
       - {x: 0.26, y: -3.25}
-    - - {x: 9.3, y: 4.36}
-      - {x: 9.2699995, y: 4.3199997}
-      - {x: 9.2699995, y: 4.2999997}
-      - {x: 9.29, y: 4.2799997}
-      - {x: 9.349999, y: 4.2799997}
-      - {x: 9.38, y: 4.3199997}
-      - {x: 9.38, y: 4.35}
-      - {x: 9.36, y: 4.36}
 --- !u!1001 &549981581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2834,14 +2834,6 @@ PolygonCollider2D:
       - {x: 0.26, y: -3.1999998}
       - {x: 0.26, y: -3.26}
       - {x: 0.26, y: -3.25}
-    - - {x: 9.3, y: 4.36}
-      - {x: 9.2699995, y: 4.3199997}
-      - {x: 9.2699995, y: 4.2999997}
-      - {x: 9.29, y: 4.2799997}
-      - {x: 9.349999, y: 4.2799997}
-      - {x: 9.38, y: 4.3199997}
-      - {x: 9.38, y: 4.35}
-      - {x: 9.36, y: 4.36}
 --- !u!1001 &704324306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5040,6 +5032,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f4a5302c4b02d4599c85b38693c04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvesDontDestroy: {fileID: 0}
+  openUImessage1: {fileID: 0}
+  openUImessage2: {fileID: 0}
+  usePowerMessage1: {fileID: 0}
+  usePowerMessage2: {fileID: 0}
 --- !u!4 &1588005674
 Transform:
   m_ObjectHideFlags: 0

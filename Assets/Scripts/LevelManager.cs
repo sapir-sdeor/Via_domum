@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     private static int _level = 2;
     private bool _tutorial;
+    [SerializeField] private GameObject canvesDontDestroy;
     [SerializeField] private GameObject openUImessage1;
     [SerializeField] private GameObject openUImessage2;
     [SerializeField] private GameObject usePowerMessage1;
@@ -20,7 +21,8 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
-        SceneManager.LoadScene("Level" + _level);
+        DontDestroyOnLoad(canvesDontDestroy);
+        SceneManager.LoadScene("middlleLevel");
     }
 
     public static int GETLevel()

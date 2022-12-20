@@ -10,6 +10,8 @@ namespace CoreMechanic
         private Vector3 _flyPos;
         private float speed = 1.5f;
         private GameObject particle;
+        private GameObject flower;
+        private static readonly int Explode = Animator.StringToHash("explode");
 
         public void SetFlyPosition(Vector3 flyPosition)
         {
@@ -40,7 +42,9 @@ namespace CoreMechanic
         {
             //activate particle system
             particle = GameObject.FindWithTag("particle system");
+            flower = GameObject.FindWithTag("flower");
             if (particle) particle.GetComponent<ParticleSystem>().Play();
+            if (flower) flower.GetComponent<Animator>().SetBool(Explode, true);
             StartCoroutine(StartAnimation());
         }
 

@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     private static Button[] _buttonManager1, _buttonManager2;
     private int _indexPowerPlayer1, _indexPowerPlayer2;
     private LevelManager _levelManager;
+    private bool _flyAlready;
     
     [SerializeField] private Button[] buttonManager1, buttonManager2;
     [SerializeField] private GameManager gameManager;
@@ -62,7 +63,11 @@ public class UIManager : MonoBehaviour
         // if the power is fly we need to fly to other player
         if (powerCounterPlayer1 < 1) return;
         if (buttonManager1[_indexPowerPlayer1].gameObject.CompareTag("fly"))
+        {
+            if (_flyAlready) return;
             gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject);
+            _flyAlready = true;
+        }
         else gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject);
     }
     
@@ -113,7 +118,8 @@ public class UIManager : MonoBehaviour
     private void ShowNewPower(GameObject player,Collision2D message)
     {
         var pos = player.transform.position;
-        Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),Quaternion.identity,player.transform);
+        GameObject newPower = Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),Quaternion.identity,player.transform);
+        newPower.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
         var childCount = player.transform.childCount;
         player.transform.GetChild(childCount-1).gameObject.GetComponent<Animator>().SetBool(Collect, true);
         StartCoroutine(SetOffMessage(player.transform.GetChild(childCount-1).gameObject));
