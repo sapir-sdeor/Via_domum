@@ -47,7 +47,8 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
         if (context.performed && IsGrounded())
         {
             if (gameObject.name == "Player1")
@@ -112,11 +113,13 @@ public class Acting : MonoBehaviour
         Vector3 localScale = tran.localScale;
         localScale.x *= -1f;
         tran.localScale = localScale;
-        
-        /*
-        var vector3 = tran.GetChild(2).localScale;
-        vector3.x *= -1f;
-        tran.GetChild(2).localScale = vector3;*/
+
+        if (tran.childCount > 2)
+        {
+            var vector3 = tran.GetChild(2).localScale;
+            vector3.x *= -1f;
+            tran.GetChild(2).localScale = vector3;
+        }
     }
     
     private bool IsGrounded()

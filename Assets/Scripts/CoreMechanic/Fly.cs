@@ -9,8 +9,8 @@ namespace CoreMechanic
         private bool _fly;
         private Vector3 _flyPos;
         private float speed = 1.5f;
-        private GameObject particle;
-        private GameObject flower;
+        private GameObject _particle;
+        private GameObject _flower;
         private static readonly int Explode = Animator.StringToHash("explode");
 
         public void SetFlyPosition(Vector3 flyPosition)
@@ -28,7 +28,7 @@ namespace CoreMechanic
                 GetComponent<Animator>().SetBool("fly", false);
                 
                 //stop particle system
-                if (particle) particle.GetComponent<ParticleSystem>().Stop();
+                if (_particle) _particle.GetComponent<ParticleSystem>().Stop();
             }
             if (_fly)
             {
@@ -41,21 +41,26 @@ namespace CoreMechanic
         public void ApplyMechanic()
         {
             //activate particle system
-            particle = GameObject.FindWithTag("particle system");
-            flower = GameObject.FindWithTag("flower");
-            if (particle) particle.GetComponent<ParticleSystem>().Play();
-            if (flower) flower.GetComponent<Animator>().SetBool(Explode, true);
+            _particle = GameObject.FindWithTag("particle system");
+            _flower = GameObject.FindWithTag("flower");
+            if (_particle) _particle.GetComponent<ParticleSystem>().Play();
+            if (_flower) _flower.GetComponent<Animator>().SetBool(Explode, true);
             StartCoroutine(StartAnimation());
         }
 
         IEnumerator StartAnimation()
         {
             yield return new WaitForSeconds(2);
+            _fly = true;
             GetComponent<Rigidbody2D>().gravityScale = 0;
             GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
             GetComponent<Collider2D>().enabled = false;
             GetComponent<Animator>().SetBool("fly", true);
-            _fly = true;
+        }
+
+        public bool GETFly()
+        {
+            return _fly;
         }
         
     }
