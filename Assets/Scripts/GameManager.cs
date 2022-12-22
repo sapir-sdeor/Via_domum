@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     
     IEnumerator DisableDiamond()
     {
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(1f);
         diamond.GetComponent<Rigidbody2D>().gravityScale = 0;
         diamond.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         diamond.GetComponent<Collider2D>().isTrigger = true;

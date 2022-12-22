@@ -17,6 +17,7 @@ TagManager:
   - legs
   - head
   - particle system
+  - flower
   layers:
   - Default
   - TransparentFX

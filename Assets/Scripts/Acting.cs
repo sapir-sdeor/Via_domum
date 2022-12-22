@@ -47,6 +47,8 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
         if (context.performed && IsGrounded())
         {
             if (gameObject.name == "Player1")
@@ -73,7 +75,8 @@ public class Acting : MonoBehaviour
 
     IEnumerator WaitSecondForJump()
     {
-        yield return new WaitForSeconds(0.05f);
+
+        yield return new WaitForSeconds(0.1f);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
     }
     
@@ -111,6 +114,13 @@ public class Acting : MonoBehaviour
         Vector3 localScale = tran.localScale;
         localScale.x *= -1f;
         tran.localScale = localScale;
+
+        if (tran.childCount > 2)
+        {
+            var vector3 = tran.GetChild(2).localScale;
+            vector3.x *= -1f;
+            tran.GetChild(2).localScale = vector3;
+        }
     }
     
     private bool IsGrounded()
@@ -157,7 +167,7 @@ public class Acting : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("wall")){
-            FindObjectOfType<Camera>().GetComponent<Animator>().SetTrigger("move");
+          //  FindObjectOfType<Camera>().GetComponent<Animator>().SetTrigger("move");
             _rigidbody.velocity = Vector2.zero; 
         }
     }
@@ -196,7 +206,7 @@ public class Acting : MonoBehaviour
     private void ClickButton()
     {
         _onButton = true;
-        if (otherPlayer.getOnButton())
+        if (otherPlayer.getOnButton() || LevelManager.GETLevel() == 2)
             gameManager.OpenGate();
     }
     

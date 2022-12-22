@@ -7,21 +7,29 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private static int powerCounterPlayer1;
-    private static  int powerCounterPlayer2;
+    private static bool _openFirstUI1 = true;
+    private static bool _openFirstUI2 = true;
+    private static bool _useFirstPower1 = true;
+    private static bool _useFirstPower2 = true;
+    private static int _powerCounterPlayer1;
+    private static  int _powerCounterPlayer2;
     private static string Player1 = "Player1";
     private static string Player2 = "Player2";
-    private static bool UIOpen1, UIOpen2;
+    private static bool _uiOpen1, _uiOpen2;
     private static Button[] _buttonManager1, _buttonManager2;
     private int _indexPowerPlayer1, _indexPowerPlayer2;
+    private LevelManager _levelManager;
+    private bool _flyAlready;
     
     [SerializeField] private Button[] buttonManager1, buttonManager2;
     [SerializeField] private GameManager gameManager;
+
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
 
     private void Start()
     {
+        _levelManager = FindObjectOfType<LevelManager>();
         _buttonManager1 = buttonManager1;
         _buttonManager2 = buttonManager2;
         SetActiveUIobject(_buttonManager1, false);
@@ -30,41 +38,56 @@ public class UIManager : MonoBehaviour
      
     public void CancelPlayer1( InputAction.CallbackContext context)
     {
-        UIOpen1 = !UIOpen1;
-        SetActiveUIobject(_buttonManager1,UIOpen1);
-        print("cancel player 2" + UIOpen2);
+        _uiOpen1 = !_uiOpen1;
+        SetActiveUIobject(_buttonManager1,_uiOpen1);
+        _levelManager.CloseUIMessagePlayer1();
+        if (_useFirstPower1)
+        {
+            _levelManager.UsePower1();
+            _useFirstPower1 = false;
+        }
+        print("cancel player 1");
     }
 
     public void CancelPlayer2(InputAction.CallbackContext context)
     {
-        UIOpen2 = !UIOpen2;
-        SetActiveUIobject(_buttonManager2,UIOpen2);
-       
-        print("cancel player 2" + UIOpen2);
+        _uiOpen2 = !_uiOpen2;
+        SetActiveUIobject(_buttonManager2,_uiOpen2);
+        _levelManager.CloseUIMessagePlayer2();
+        if (_useFirstPower2)
+        {
+            _levelManager.UsePower2();
+            _useFirstPower2 = false;
+        }
+        print("cancel player 2");
     }
 
     public void Click1(InputAction.CallbackContext context)
     {
-        if(powerCounterPlayer1 >= 1) gameManager.OpenGate();
+        if(_powerCounterPlayer1 >= 1) gameManager.OpenGate();
     }
     public void Click2(InputAction.CallbackContext context)
     {
-        print(powerCounterPlayer2);
-        if(powerCounterPlayer2 >= 1) gameManager.OpenGate();
+        print(_powerCounterPlayer2);
+        if(_powerCounterPlayer2 >= 1) gameManager.OpenGate();
     }
     
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
     {
+        if (_powerCounterPlayer1 < 1) return;
         // if the power is fly we need to fly to other player
-        if (powerCounterPlayer1 < 1) return;
         if (buttonManager1[_indexPowerPlayer1].gameObject.CompareTag("fly"))
+        {
+            if (_flyAlready) return;
             gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject);
+            _flyAlready = true;
+        }
         else gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject);
     }
     
     public void ApplyPowerPlayer2(InputAction.CallbackContext context)
     {
-        if (powerCounterPlayer2 < 1) return;
+        if (_powerCounterPlayer2 < 1) return;
         gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
     }
 
@@ -78,12 +101,12 @@ public class UIManager : MonoBehaviour
 
     public bool getUIOpen1()
     {
-        return UIOpen1;
+        return _uiOpen1;
     }
     
     public bool getUIOpen2()
     {
-        return UIOpen2;
+        return _uiOpen2;
     } 
 
 
@@ -92,15 +115,24 @@ public class UIManager : MonoBehaviour
     {
         if (player.name== Player1)
         {
-            _buttonManager1[powerCounterPlayer1].interactable = true;
-            powerCounterPlayer1++;
+            if (_openFirstUI1)
+            {
+                _levelManager.OpenUIMessagePlayer1();
+                _openFirstUI1 = false;
+            }
+            _buttonManager1[_powerCounterPlayer1].interactable = true;
+            _powerCounterPlayer1++;
             ShowNewPower(player,message);
-           
         }
         else if (player.name == Player2)
         {
-            _buttonManager2[powerCounterPlayer2].interactable = true;
-            powerCounterPlayer2++;
+            if (_openFirstUI2)
+            {
+                _levelManager.OpenUIMessagePlayer2();
+                _openFirstUI2 = false;
+            }
+            _buttonManager2[_powerCounterPlayer2].interactable = true;
+            _powerCounterPlayer2++;
             ShowNewPower(player,message);
         }
     }
@@ -108,9 +140,12 @@ public class UIManager : MonoBehaviour
     private void ShowNewPower(GameObject player,Collision2D message)
     {
         var pos = player.transform.position;
-        Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),Quaternion.identity,player.transform );
-        player.transform.GetChild(2).gameObject.GetComponent<Animator>().SetBool(Collect, true);
-        StartCoroutine(SetOffMessage(player.transform.GetChild(2).gameObject)); 
+        GameObject newPower = Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),
+            Quaternion.identity,player.transform);
+        newPower.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+        var childCount = player.transform.childCount;
+        player.transform.GetChild(childCount-1).gameObject.GetComponent<Animator>().SetBool(Collect, true);
+        StartCoroutine(SetOffMessage(player.transform.GetChild(childCount-1).gameObject));
     }
     static IEnumerator SetOffMessage(GameObject message)
     {
