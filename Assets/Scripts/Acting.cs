@@ -47,7 +47,6 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        
         if (context.performed && IsGrounded())
         {
             if (gameObject.name == "Player1")
@@ -74,7 +73,7 @@ public class Acting : MonoBehaviour
 
     IEnumerator WaitSecondForJump()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.05f);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
     }
     
