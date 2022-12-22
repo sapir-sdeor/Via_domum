@@ -13,10 +13,11 @@ public class LevelManager : MonoBehaviour
     private GameObject _openUIInstantiate2;
     private readonly Vector3 _pos1 = new(7.03000021f, -4.3499999f, 0);
     private readonly Vector3 _pos2 = new(-6.86f, -4.3499999f, 0);
-    [SerializeField] private GameObject openUImessage1;
-    [SerializeField] private GameObject openUImessage2;
-    [SerializeField] private GameObject usePowerMessage1;
-    [SerializeField] private GameObject usePowerMessage2;
+    private float messeagePos = 0.7f;
+    [SerializeField] private GameObject openUImessage1,openUImessage2;
+    [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
+    [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;
+    
 
     private void Start()
     {
@@ -33,35 +34,41 @@ public class LevelManager : MonoBehaviour
     {
         return _level;
     }
+    
+    
 
-    public void OpenUIMessagePlayer1()
+    public void CloseUIMessage(String playerName)
     {
-        if (!openUImessage1) return;
-        Acting player1 = _gameManager.GETPlayer1();
-        Vector3 pos = player1.transform.position;
-        _openUIInstantiate1 = Instantiate(openUImessage1.gameObject,
-            new Vector3(pos.x+ 0.7f,pos.y,0),Quaternion.identity,player1.transform);
-    }
-
-    public void OpenUIMessagePlayer2()
-    {
-        if (!openUImessage2) return;
-        Acting player2 = _gameManager.GETPlayer2();
-        Vector3 pos = player2.transform.position;
-        _openUIInstantiate2 = Instantiate(openUImessage2.gameObject,
-            new Vector3(pos.x + 0.7f, pos.y, 0), Quaternion.identity, player2.transform);
-    }
-
-    public void CloseUIMessagePlayer1()
-    {
-        if (!_openUIInstantiate1) return;
-        _openUIInstantiate1.SetActive(false);
+        if (playerName == UIManager.PLAYER1)
+        {
+            if (!_openUIInstantiate1) return;
+            _openUIInstantiate1.SetActive(false);
+        }
+        else if(playerName == UIManager.PLAYER2)
+        {
+            if (!_openUIInstantiate2) return;
+            _openUIInstantiate2.SetActive(false); 
+        }
     }
     
-    public void CloseUIMessagePlayer2()
+    
+
+    public void OpenUIMessage(GameObject player)
     {
-        if (!_openUIInstantiate2) return;
-        _openUIInstantiate2.SetActive(false);
+        Vector3 pos = player.transform.position;
+        var trans = player.transform;
+        if (player.name == UIManager.PLAYER1)
+        {
+            if (!openUImessage1) return;
+            _openUIInstantiate1 = Instantiate(openUImessage1.gameObject,
+                new Vector3(pos.x+ messeagePos,pos.y,0),Quaternion.identity,trans);
+        }
+        else if (player.name == UIManager.PLAYER2)
+        {
+            if (!openUImessage2) return;
+            _openUIInstantiate2 = Instantiate(openUImessage2.gameObject,
+                new Vector3(pos.x + messeagePos, pos.y, 0), Quaternion.identity,trans);
+        }
     }
 
     public void UsePower1()
@@ -75,5 +82,24 @@ public class LevelManager : MonoBehaviour
         if (!usePowerMessage2) return;
         Instantiate(usePowerMessage2.gameObject, _pos2, Quaternion.identity);    
     }
-    
+
+    public void tryAnotherTimeMessage(String PlayerName)
+    {
+        if (PlayerName == UIManager.PLAYER1)
+        {
+            var player = _gameManager.GETPlayer1();
+            Vector3 pos = player.transform.position;
+            var trans = player.transform;
+            Instantiate(usePowerAnotherTimeMessage1.gameObject, pos + Vector3.right
+                , Quaternion.identity);
+        }
+        else if (PlayerName == UIManager.PLAYER2)
+        {
+            var player = _gameManager.GETPlayer2();
+            Vector3 pos = player.transform.position;
+            var trans = player.transform;
+            Instantiate(usePowerAnotherTimeMessage2.gameObject, pos + Vector3.right,
+                Quaternion.identity);
+        }
+    }
 }

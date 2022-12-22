@@ -9,6 +9,7 @@ using UnityEngine.Rendering.Universal;
 
 public class Acting : MonoBehaviour
 {
+    #region SeializeField
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
@@ -18,12 +19,27 @@ public class Acting : MonoBehaviour
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject bubbleFly;
     [SerializeField] private Vector3 flyPosition;
-    [SerializeField] private Light2D[] _light2D;
+    [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
+    #endregion
+
+    #region string constant
+
+    private const String Wait = "wait";
+    private const String JumpMove = "jump";
+    private const String Walk = "walk";
+    private const String Button = "button";
+    private const String Diamond = "diamond";
+    private const String ActString = "act";
+    
+
+    #endregion
+
+    #region prviate
     private static readonly Vector3 ScaleYoung = new(0.953071415f,0.716398299f,1f);
     private bool _onButton;
     private bool _onDiamond;
@@ -32,7 +48,14 @@ public class Acting : MonoBehaviour
     private bool _isFacingRight;
     private PlayerMovement _inputAction;
     private Animator _animator;
- 
+    private static readonly int Wait1 = Animator.StringToHash(Wait);
+    private static readonly int Walk1 = Animator.StringToHash(Walk);
+    private static readonly int Jump1 = Animator.StringToHash(JumpMove);
+
+
+    #endregion
+    
+   
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -51,31 +74,33 @@ public class Acting : MonoBehaviour
             return;
         if (context.performed && IsGrounded())
         {
-            if (gameObject.name == "Player1")
+            if (gameObject.name == UIManager.PLAYER1)
             {
-                if (!uiManager || !uiManager.getUIOpen1())
-                {
-                    _animator.SetTrigger("jump");
-                    _animator.SetBool("wait", false);
-                    StartCoroutine(WaitSecondForJump());
-                }
+                if (!uiManager || !uiManager.getUIOpen1()) SetJumpAnimation();
             }
-            if (gameObject.name == "Player2")
+            if (gameObject.name == UIManager.PLAYER2)
             {
-                if (!uiManager || !uiManager.getUIOpen2())
-                {
-                    _animator.SetTrigger("jump");
-                    _animator.SetBool("wait", false);
-                    StartCoroutine(WaitSecondForJump());
-                }
+                if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
             }
         }
-        
+    }
+
+    private void SetJumpAnimation()
+    {
+        _animator.SetTrigger(Jump1);
+        _animator.SetBool(Wait1, false);
+        StartCoroutine(WaitSecondForJump());
+    }
+
+    private void SetMoveAnimation(InputAction.CallbackContext context)
+    {
+        _animator.SetBool(Wait1, false);
+        _animator.SetBool(Walk1, true);
+        _horizontal = context.ReadValue<Vector2>().x;
     }
 
     IEnumerator WaitSecondForJump()
     {
-
         yield return new WaitForSeconds(0.1f);
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
     }
@@ -83,28 +108,15 @@ public class Acting : MonoBehaviour
     
     public void Move(InputAction.CallbackContext context)
     {
-       
-        if (gameObject.name == "Player1")
+        if (gameObject.name == UIManager.PLAYER1)
         {
-            if (!uiManager || !uiManager.getUIOpen1())
-            {
-                _animator.SetBool("wait", false);
-                _animator.SetBool("walk", true);
-                _horizontal = context.ReadValue<Vector2>().x;
-            }
+            if (!uiManager || !uiManager.getUIOpen1()) SetMoveAnimation(context);
         }
 
-        if (gameObject.name == "Player2")
+        if (gameObject.name == UIManager.PLAYER2)
         {
-            if (!uiManager || !uiManager.getUIOpen2())
-            {
-                _animator.SetBool("wait", false);
-                _animator.SetBool("walk", true);
-                _horizontal = context.ReadValue<Vector2>().x;
-            }
+            if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
         }
-        
-       
     }
 
     private void Flip()
@@ -136,7 +148,7 @@ public class Acting : MonoBehaviour
         if (!_isFacingRight && _horizontal > 0f) Flip();
         else if (_isFacingRight && _horizontal < 0f) Flip();
         if (_horizontal == 0)
-            _animator.SetBool("walk", false);
+            _animator.SetBool(Walk1, false);
         if (gameManager.JumpEachOther())
         {
             //TODO: play animation
@@ -146,11 +158,11 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("button"))
+        if (other.gameObject.CompareTag(Button))
             ClickButton();
         else if (other.gameObject.CompareTag("stone"))
             CollectStone(other);
-        else if (other.gameObject.name == "act")
+        else if (other.gameObject.name == ActString)
         {
             Destroy(other.gameObject);
             Act(other.gameObject);
@@ -174,17 +186,17 @@ public class Acting : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("button"))
+        if (other.gameObject.CompareTag(Button))
             ClickButton();
-        else if (other.gameObject.CompareTag("diamond"))
+        else if (other.gameObject.CompareTag(Diamond))
             OnDiamond();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("button"))
+        if (other.gameObject.CompareTag(Button))
             _onButton = false;
-        else if (other.gameObject.CompareTag("diamond"))
+        else if (other.gameObject.CompareTag(Diamond))
             _onDiamond = false;
     }
 
@@ -193,7 +205,7 @@ public class Acting : MonoBehaviour
     {
         MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            _collider, flyPosition, sprite, background, _light2D, bubbleFly);
+            _collider, flyPosition, sprite, background, light2D, bubbleFly);
         coreMechanic.ApplyMechanic();
     }
 
@@ -215,7 +227,7 @@ public class Acting : MonoBehaviour
         _onDiamond = true;
         if (otherPlayer.getOnDiamond())
             levelManager.LoadNextLevel();
-        _animator.SetBool("wait", true);
+        _animator.SetBool(Wait1, true);
     }
 
     private bool getOnButton()

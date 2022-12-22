@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8514063221160308618}
   - component: {fileID: -6464305315765753296}
   m_Layer: 0
-  m_Name: tutorial_use_2
+  m_Name: tutorial_use_anotherTime 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2132054412, guid: 602220f64429d294dba485d2c6515631, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd11648f21f0de94e8e34be27592a514, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

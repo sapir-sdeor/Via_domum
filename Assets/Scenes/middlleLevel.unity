@@ -4379,6 +4379,8 @@ MonoBehaviour:
   openUImessage2: {fileID: 6914025943302183235, guid: 1f2839547a771174198b05463d81091f, type: 3}
   usePowerMessage1: {fileID: 764023911404709622, guid: b48a38550a00b5e4488d814bf641d165, type: 3}
   usePowerMessage2: {fileID: 2139543975793751001, guid: d40592192c0411b40b75e11f4479092d, type: 3}
+  usePowerAnotherTimeMessage1: {fileID: 2139543975793751001, guid: 0af58945e2053884ba42116ef791b858, type: 3}
+  usePowerAnotherTimeMessage2: {fileID: 2139543975793751001, guid: d40592192c0411b40b75e11f4479092d, type: 3}
 --- !u!4 &699522339
 Transform:
   m_ObjectHideFlags: 0
@@ -6843,7 +6845,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-
 --- !u!1 &1452425328
 GameObject:
   m_ObjectHideFlags: 0
