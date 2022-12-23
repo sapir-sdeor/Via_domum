@@ -5,8 +5,9 @@ using UnityEngine;
 public class CloseStalactite : MonoBehaviour
 {
     [SerializeField] private float playerPos;
-    [SerializeField] private Vector3 target;
+    [SerializeField] private Transform targetPos;
     [SerializeField] private Transform player;
+    private Vector3 target;
     private float DampingTime = 1f;
     private Vector3 _velocity = Vector3.zero;
     private bool _reverse = false;
@@ -15,7 +16,7 @@ public class CloseStalactite : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = _startPos = transform.position;
+        target=_startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class CloseStalactite : MonoBehaviour
 
     private void MoveStalactite()
     {
-        target = _reverse ? _startPos : target;
+        target = _reverse ? _startPos : targetPos.position;
         _reverse = !_reverse;
         transform.position = Vector3.SmoothDamp(transform.position, target, ref _velocity, DampingTime);
     }
