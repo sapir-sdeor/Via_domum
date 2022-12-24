@@ -20,7 +20,7 @@ public class FlowersExplode : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         _animator.SetBool(Explode, true);
         if (transform.childCount > 0 && !_collide)
@@ -29,10 +29,8 @@ public class FlowersExplode : MonoBehaviour
             child.GetComponent<Animator>().SetBool(Appear, true);
             _collide = true;
         }
-        
-        /*changeColor = !changeColor;
-        if(changeColor) gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-        else gameObject.GetComponent<SpriteRenderer>().color = Color.white;*/
-        
     }
+     /*changeColor = !changeColor;
+           if(changeColor) gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+           else gameObject.GetComponent<SpriteRenderer>().color = Color.white;*/
 }

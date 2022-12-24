@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _levelManager = FindObjectOfType<LevelManager>();
+        gameManager = FindObjectOfType<GameManager>();
         SetActiveUIobject(buttonManager1, false);
         SetActiveUIobject(buttonManager2,false);
     }
@@ -63,12 +64,12 @@ public class UIManager : MonoBehaviour
     }
     public void Click2(InputAction.CallbackContext context)
     {
-        print(_powerCounterPlayer2);
         if(_powerCounterPlayer2 >= 1) gameManager.OpenGate();
     }
     
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
     {
+        print("apply power");
         if (_powerCounterPlayer1 < 1)
         {
             _levelManager.tryAnotherTimeMessage(PLAYER1);

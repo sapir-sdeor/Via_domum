@@ -18,6 +18,7 @@ TagManager:
   - head
   - particle system
   - flower
+  - little
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - UI
   - Ground
   - Bubble
-  - 
+  - zoomLayer
   - 
   - 
   - 

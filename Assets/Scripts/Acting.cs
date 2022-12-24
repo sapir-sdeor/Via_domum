@@ -39,7 +39,7 @@ public class Acting : MonoBehaviour
 
     #endregion
 
-    #region prviate
+    #region private
     private static readonly Vector3 ScaleYoung = new(0.953071415f,0.716398299f,1f);
     private bool _onButton;
     private bool _onDiamond;
@@ -66,6 +66,11 @@ public class Acting : MonoBehaviour
     public int GETPlayerNumber()
     {
         return playerNumber;
+    }
+
+    public bool IsFacingRight()
+    {
+        return _isFacingRight;
     }
     
     public void Jump(InputAction.CallbackContext context)
@@ -119,7 +124,7 @@ public class Acting : MonoBehaviour
         }
     }
 
-    private void Flip()
+    public void Flip()
     {
         _isFacingRight = !_isFacingRight;
         var tran = transform;
@@ -203,7 +208,9 @@ public class Acting : MonoBehaviour
 
     public void Act(GameObject other)
     {
-        MechanicFactory mechanicFactory = gameObject.AddComponent<MechanicFactory>();
+        MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
+        if (!mechanicFactory)
+            mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
             _collider, flyPosition, sprite, background, light2D, bubbleFly);
         coreMechanic.ApplyMechanic();

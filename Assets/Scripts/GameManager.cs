@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private GameObject player1;
     private GameObject player2;
 
-    private void Start()
+    private void Awake()
     {
         Acting[] players = FindObjectsOfType<Acting>();
         if (players[0].GETPlayerNumber() == 1) {
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
             player2 = players[0].gameObject;
         }
     }
+    
 
     public void OpenGate()
     {
@@ -29,20 +30,23 @@ public class GameManager : MonoBehaviour
         gate.GetComponent<Collider2D>().enabled = false;
     }
     
-    public void FallDiamond()
+    public void FallDiamond(GameObject stone)
     {
-        diamond.GetComponent<Rigidbody2D>().gravityScale = 1;
-        StartCoroutine(DisableDiamond());
-
+        if (!stone) stone = diamond;
+        stone.GetComponent<Rigidbody2D>().gravityScale = 1;
+        StartCoroutine(DisableDiamond(stone));
     }
     
-    IEnumerator DisableDiamond()
+    IEnumerator DisableDiamond(GameObject stone)
     {
-        yield return new WaitForSeconds(1f);
-        diamond.GetComponent<Rigidbody2D>().gravityScale = 0;
-        diamond.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        diamond.GetComponent<Collider2D>().isTrigger = true;
-
+        yield return new WaitForSeconds(1.5f);
+        if (stone == diamond)
+        {
+            stone.GetComponent<Rigidbody2D>().gravityScale = 0;
+            stone.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            stone.GetComponent<Collider2D>().isTrigger = true;
+        }
+        else if (stone.GetComponent<Rigidbody2D>()) Destroy(stone.GetComponent<Rigidbody2D>());
     }
 
     public bool JumpEachOther()

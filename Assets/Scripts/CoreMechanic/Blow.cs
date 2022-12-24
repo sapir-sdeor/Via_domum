@@ -20,7 +20,7 @@ namespace CoreMechanic
             if (!bubbleFly || !GetComponent<Collider2D>().IsTouching(bubbleFly.GetComponent<Collider2D>())) return;
             //TODO: animation of bubble fly
             bubbleFly.gameObject.SetActive(false);
-            FindObjectOfType<GameManager>().FallDiamond();
+            FindObjectOfType<GameManager>().FallDiamond(null);
         }
 
     }
