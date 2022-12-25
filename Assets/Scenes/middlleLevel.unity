@@ -4154,6 +4154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f4a5302c4b02d4599c85b38693c04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasToNotDestroy: {fileID: 0}
   openUImessage1: {fileID: 5172394112395596065, guid: b49bf80c629c8614aa15a7cbb6e066e6, type: 3}
   openUImessage2: {fileID: 6914025943302183235, guid: 1f2839547a771174198b05463d81091f, type: 3}
   usePowerMessage1: {fileID: 764023911404709622, guid: b48a38550a00b5e4488d814bf641d165, type: 3}
@@ -4880,7 +4881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &854823354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4888,22 +4889,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854823353}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ff42f4b59beaef4fbb953d4278d8631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonManager1:
-  - {fileID: 1874985933}
-  - {fileID: 498770737}
-  - {fileID: 163461834}
-  - {fileID: 1165185050}
-  buttonManager2:
-  - {fileID: 1059811164}
-  - {fileID: 2140844098}
-  - {fileID: 1299705775}
-  - {fileID: 1347916099}
-  gameManager: {fileID: 699522337}
 --- !u!114 &854823355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5934,8 +5924,8 @@ GameObject:
   - component: {fileID: 1201509952}
   - component: {fileID: 1201509951}
   m_Layer: 0
-  m_Name: powerBlow
-  m_TagString: stone
+  m_Name: stone
+  m_TagString: blowUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7720,7 +7710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1565536957
 Transform:
   m_ObjectHideFlags: 0
@@ -10686,7 +10676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120890, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_Name
-      value: powerBlow (1)
+      value: stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440928998622120890, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
+      propertyPath: m_TagString
+      value: fly
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_RootOrder
@@ -10807,6 +10801,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1565536957}
     m_Modifications:
+    - target: {fileID: 579823601447098294, guid: 786ca57f8506f544994618a80555e468, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3183016452660827216, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_Name
       value: Player1

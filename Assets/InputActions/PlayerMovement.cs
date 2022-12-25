@@ -166,7 +166,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Click"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""69b68340-4620-4b49-8907-ac2f45ad702f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -519,7 +519,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""ae613f55-d0b3-423b-bf96-cd3f6c1b6559"",
                     ""path"": ""<Keyboard>/period"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Click"",

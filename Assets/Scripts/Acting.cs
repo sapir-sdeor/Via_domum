@@ -165,7 +165,7 @@ public class Acting : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Button))
             ClickButton();
-        else if (other.gameObject.CompareTag("stone"))
+        else if (other.gameObject.name == "stone")
             CollectStone(other);
         else if (other.gameObject.name == ActString)
         {

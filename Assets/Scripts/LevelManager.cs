@@ -9,11 +9,13 @@ public class LevelManager : MonoBehaviour
 {
     private static int _level = 2;
     private GameManager _gameManager;
-    private GameObject _openUIInstantiate1;
-    private GameObject _openUIInstantiate2;
+    private GameObject _openUIInstantiate1, _openUIInstantiate2;
     private readonly Vector3 _pos1 = new(7.03000021f, -4.3499999f, 0);
     private readonly Vector3 _pos2 = new(-6.86f, -4.3499999f, 0);
-    private float messeagePos = 0.7f;
+    private float _messagePos = 0.7f;
+    private Vector3 _nextPos1 = new(0.412364721f, -3.23540664f, 0.0770537108f);
+    private Vector3 _nextPos2 = new(-3.63643527f,1.41309333f,0.0770537108f);
+    [SerializeField] private GameObject canvasToNotDestroy;
     [SerializeField] private GameObject openUImessage1,openUImessage2;
     [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
     [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;
@@ -27,6 +29,11 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
+        DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
+        DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
+        DontDestroyOnLoad(canvasToNotDestroy);
+        _gameManager.GETPlayer1().gameObject.transform.position = _nextPos1;
+        _gameManager.GETPlayer2().gameObject.transform.position = _nextPos2;
         SceneManager.LoadScene("middlleLevel");
     }
 
@@ -61,13 +68,13 @@ public class LevelManager : MonoBehaviour
         {
             if (!openUImessage1) return;
             _openUIInstantiate1 = Instantiate(openUImessage1.gameObject,
-                new Vector3(pos.x+ messeagePos,pos.y,0),Quaternion.identity,trans);
+                new Vector3(pos.x+ _messagePos,pos.y,0),Quaternion.identity,trans);
         }
         else if (player.name == UIManager.PLAYER2)
         {
             if (!openUImessage2) return;
             _openUIInstantiate2 = Instantiate(openUImessage2.gameObject,
-                new Vector3(pos.x + messeagePos, pos.y, 0), Quaternion.identity,trans);
+                new Vector3(pos.x + _messagePos, pos.y, 0), Quaternion.identity,trans);
         }
     }
 
