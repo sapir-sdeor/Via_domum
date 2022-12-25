@@ -166,7 +166,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Click"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""69b68340-4620-4b49-8907-ac2f45ad702f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

@@ -16,24 +16,29 @@ public class UIManager : MonoBehaviour
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
     private static bool _uiOpen1, _uiOpen2;
+    
     private int _indexPowerPlayer1, _indexPowerPlayer2;
     private LevelManager _levelManager;
     private bool _flyAlready;
-    [SerializeField] private Button[] buttonManager1, buttonManager2;
-    [SerializeField] private GameManager gameManager;
+    private Button[] buttonManager1, buttonManager2;
+    private GameManager gameManager;
 
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
 
     private void Start()
     {
+        buttonManager1 = transform.GetChild(0).gameObject.GetComponentsInChildren<Button>();
+        buttonManager2 = transform.GetChild(1).gameObject.GetComponentsInChildren<Button>();
         _levelManager = FindObjectOfType<LevelManager>();
+        gameManager = FindObjectOfType<GameManager>();
         SetActiveUIobject(buttonManager1, false);
         SetActiveUIobject(buttonManager2,false);
     }
+
     
-     
-    public void CancelPlayer1( InputAction.CallbackContext context)
+
+    public void CancelPlayer1(InputAction.CallbackContext context)
     {
         _uiOpen1 = !_uiOpen1;
         SetActiveUIobject(buttonManager1,_uiOpen1);
@@ -63,44 +68,50 @@ public class UIManager : MonoBehaviour
     }
     public void Click2(InputAction.CallbackContext context)
     {
-        print(_powerCounterPlayer2);
         if(_powerCounterPlayer2 >= 1) gameManager.OpenGate();
     }
     
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
     {
-        if (_powerCounterPlayer1 < 1)
+        if (context.performed)
         {
-            _levelManager.tryAnotherTimeMessage(PLAYER1);
-            return;
-        }
-        // if the power is fly we need to fly to other player
-        if (buttonManager1[_indexPowerPlayer1].gameObject.CompareTag("fly"))
-        {
-            if (_flyAlready)
+            if (_powerCounterPlayer1 < 1)
             {
                 _levelManager.tryAnotherTimeMessage(PLAYER1);
                 return;
             }
-            gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject);
-            _flyAlready = true;
+            // if the power is fly we need to fly to other player
+            if (buttonManager1[_indexPowerPlayer1].gameObject.CompareTag("fly"))
+            {
+                if (_flyAlready)
+                {
+                    _levelManager.tryAnotherTimeMessage(PLAYER1);
+                    return;
+                }
+                gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject);
+                _flyAlready = true;
+            }
+            else gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject);
         }
-        else gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject);
+       
     }
     
     public void ApplyPowerPlayer2(InputAction.CallbackContext context)
     {
-        if (_powerCounterPlayer2 < 1)
+        if (context.performed)
         {
-            _levelManager.tryAnotherTimeMessage(PLAYER2);
-            return;
+            if (_powerCounterPlayer2 < 1)
+            {
+                _levelManager.tryAnotherTimeMessage(PLAYER2);
+                return;
+            }
+            gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
         }
-        gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
     }
 
     private static void SetActiveUIobject(Button[] buttonManager,bool active)
     {
-        foreach (Button _button in buttonManager )
+        foreach (Button _button in buttonManager)
         {
             _button.gameObject.SetActive(active);
         }
@@ -122,6 +133,7 @@ public class UIManager : MonoBehaviour
     {
         if (player.name== PLAYER1)
         {
+            buttonManager1[_indexPowerPlayer1].gameObject.tag = message.gameObject.tag;
             if (_openFirstUI1)
             {
                 _levelManager.OpenUIMessage(player);
@@ -133,6 +145,7 @@ public class UIManager : MonoBehaviour
         }
         else if (player.name == PLAYER2)
         {
+            buttonManager2[_indexPowerPlayer2].gameObject.tag = message.gameObject.tag;
             if (_openFirstUI2)
             {
                 _levelManager.OpenUIMessage(player);
