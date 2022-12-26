@@ -7,21 +7,19 @@ using UnityEngine.Serialization;
 
 public class LevelManager : MonoBehaviour
 {
-    private static int _level = 2;
+    private static int _level = 1;
     private GameManager _gameManager;
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
     private readonly Vector3 _pos1 = new(7.03000021f, -4.3499999f, 0);
     private readonly Vector3 _pos2 = new(-6.86f, -4.3499999f, 0);
     private float _messagePos = 0.7f;
-    private Vector3 _nextPos1 = new(0.412364721f, -3.23540664f, 0.0770537108f);
-    private Vector3 _nextPos2 = new(-3.63643527f,1.41309333f,0.0770537108f);
     [SerializeField] private GameObject canvasToNotDestroy;
     [SerializeField] private GameObject openUImessage1,openUImessage2;
     [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
     [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;
     
 
-    private void Start()
+    private void Awake()
     {
         _gameManager = FindObjectOfType<GameManager>();
     }
@@ -32,11 +30,20 @@ public class LevelManager : MonoBehaviour
         DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
         DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
         DontDestroyOnLoad(canvasToNotDestroy);
-        _gameManager.GETPlayer1().gameObject.transform.position = _nextPos1;
-        _gameManager.GETPlayer2().gameObject.transform.position = _nextPos2;
-        SceneManager.LoadScene("middlleLevel");
+        DontDestroyOnLoad(_gameManager);
+        SceneManager.LoadScene("characterSelecter" + _level);
     }
 
+    public void SetPosPlayer1(Vector3 pos)
+    {
+        _gameManager.GETPlayer1().gameObject.transform.position = pos;
+    }
+    
+    public void SetPosPlayer2(Vector3 pos)
+    {
+        _gameManager.GETPlayer2().gameObject.transform.position = pos;
+    }
+    
     public static int GETLevel()
     {
         return _level;

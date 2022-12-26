@@ -105,6 +105,16 @@ public class UIManager : MonoBehaviour
                 _levelManager.tryAnotherTimeMessage(PLAYER2);
                 return;
             }
+            if (buttonManager2[_indexPowerPlayer2].gameObject.CompareTag("fly"))
+            {
+                if (_flyAlready)
+                {
+                    _levelManager.tryAnotherTimeMessage(PLAYER2);
+                    return;
+                }
+                gameManager.GETPlayer1().Act(buttonManager2[_indexPowerPlayer2].gameObject);
+                _flyAlready = true;
+            }
             gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
         }
     }

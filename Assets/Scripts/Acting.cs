@@ -40,7 +40,8 @@ public class Acting : MonoBehaviour
     #endregion
 
     #region private
-    private static readonly Vector3 ScaleYoung = new(0.953071415f,0.716398299f,1f);
+    
+    private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
     private bool _onButton;
     private bool _onDiamond;
     private Rigidbody2D _rigidbody;

@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
             player2 = players[0].gameObject;
         }
     }
-    
 
     public void OpenGate()
     {

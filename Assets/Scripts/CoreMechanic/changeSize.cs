@@ -18,8 +18,8 @@ namespace CoreMechanic
             if (_little)
             {
                 transform.localScale = _regularScale;
-                if (GetComponent<Acting>().IsFacingRight() && _regularScale.x > 0 || 
-                    !GetComponent<Acting>().IsFacingRight() && _regularScale.x < 0)
+                if (GetComponent<Acting>().IsFacingRight() && transform.localScale.x > 0 || 
+                    !GetComponent<Acting>().IsFacingRight() && transform.localScale.x < 0)
                 {
                     GetComponent<Acting>().Flip();
                 }
