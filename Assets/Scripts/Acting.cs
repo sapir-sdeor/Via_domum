@@ -60,7 +60,7 @@ public class Acting : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        if (ButtonManger.Younger == playerNumber) gameObject.transform.localScale = ScaleYoung;
+      //  if (ButtonManger.Younger == playerNumber) gameObject.transform.localScale = ScaleYoung;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 

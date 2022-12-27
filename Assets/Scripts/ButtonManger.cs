@@ -8,6 +8,8 @@ public class ButtonManger : MonoBehaviour
 {
     public static int Younger;
     private LevelManager _levelManager;
+    [SerializeField] private RuntimeAnimatorController animatorBigPlayer;
+    [SerializeField] private RuntimeAnimatorController animatorYoungPlayer;
     
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);

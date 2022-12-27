@@ -46,6 +46,16 @@ public class LevelManager : MonoBehaviour
         _gameManager.GETPlayer2().gameObject.transform.position = pos;
     }
     
+    public void SetAnimatorPlayer1(RuntimeAnimatorController animator)
+    {
+        _gameManager.GETPlayer1().GetComponent<Animator>().runtimeAnimatorController = animator;
+    }
+    
+    public void SetAnimatorPlayer2(RuntimeAnimatorController animator)
+    {
+        _gameManager.GETPlayer2().GetComponent<Animator>().runtimeAnimatorController = animator;
+    }
+    
     public static int GETLevel()
     {
         return _level;

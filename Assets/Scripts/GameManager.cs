@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gate;
     [SerializeField] private GameObject diamond;
+    [SerializeField] private RuntimeAnimatorController animatorBigPlayer;
+    [SerializeField] private RuntimeAnimatorController animatorYoungPlayer;
     private GameObject player1;
     private GameObject player2;
 
@@ -20,6 +23,16 @@ public class GameManager : MonoBehaviour
         else {
             player1 = players[1].gameObject;
             player2 = players[0].gameObject;
+        }
+        if (LevelManager.GETLevel() == 1 && ButtonManger.Younger == 1)
+        {
+            player1.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
+            player2.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
+        }
+        else if (LevelManager.GETLevel() == 1 && ButtonManger.Younger == 2)
+        {
+            player1.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
+            player2.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
         }
     }
 

@@ -1268,6 +1268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2107189824}
   - component: {fileID: 2107189823}
+  - component: {fileID: 2107189825}
   m_Layer: 0
   m_Name: ButtonManager
   m_TagString: Untagged
@@ -1287,6 +1288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9aae68c55594954a827cd6777a4352a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorBigPlayer: {fileID: 9100000, guid: f9ea3c39e7d8b4770aefdaa6ae881ae0, type: 2}
+  animatorYoungPlayer: {fileID: 9100000, guid: 25d3a8624b4cc2247939539737cb5482, type: 2}
 --- !u!4 &2107189824
 Transform:
   m_ObjectHideFlags: 0
@@ -1302,3 +1305,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2107189825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107189822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f4a5302c4b02d4599c85b38693c04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasToNotDestroy: {fileID: 0}
+  openUImessage1: {fileID: 0}
+  openUImessage2: {fileID: 0}
+  usePowerMessage1: {fileID: 0}
+  usePowerMessage2: {fileID: 0}
+  usePowerAnotherTimeMessage1: {fileID: 0}
+  usePowerAnotherTimeMessage2: {fileID: 0}
