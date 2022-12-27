@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -205, y: -31}
+  m_AnchoredPosition: {x: -193, y: -28}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &176919658
@@ -559,7 +559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 214, y: -31}
+  m_AnchoredPosition: {x: 193, y: -28}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1034591232
@@ -691,8 +691,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 26.29, y: 89.38}
-  m_SizeDelta: {x: 457.78, y: 56.48}
+  m_AnchoredPosition: {x: 16.41, y: 89.38}
+  m_SizeDelta: {x: 438.01, y: 56.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1402549460
 MonoBehaviour:
@@ -714,7 +714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Which of you is younger?
+  m_text: Which of you is afraid of the dark?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -748,8 +748,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1268,6 +1268,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2107189824}
   - component: {fileID: 2107189823}
+  - component: {fileID: 2107189826}
+  - component: {fileID: 2107189825}
   m_Layer: 0
   m_Name: ButtonManager
   m_TagString: Untagged
@@ -1302,3 +1304,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2107189825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107189822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f4a5302c4b02d4599c85b38693c04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasToNotDestroy: {fileID: 0}
+  openUImessage1: {fileID: 0}
+  openUImessage2: {fileID: 0}
+  usePowerMessage1: {fileID: 0}
+  usePowerMessage2: {fileID: 0}
+  usePowerAnotherTimeMessage1: {fileID: 0}
+  usePowerAnotherTimeMessage2: {fileID: 0}
+--- !u!114 &2107189826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107189822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5955ac3f5203f14b8cff10cd29e9ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gate: {fileID: 0}
+  diamond: {fileID: 0}

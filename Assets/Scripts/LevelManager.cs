@@ -10,8 +10,10 @@ public class LevelManager : MonoBehaviour
     private static int _level = 1;
     private GameManager _gameManager;
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
-    private readonly Vector3 _pos1 = new(7.03000021f, -4.3499999f, 0);
-    private readonly Vector3 _pos2 = new(-6.86f, -4.3499999f, 0);
+    private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
+    private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);
+
+    
     private float _messagePos = 0.7f;
     [SerializeField] private GameObject canvasToNotDestroy;
     [SerializeField] private GameObject openUImessage1,openUImessage2;
@@ -88,13 +90,13 @@ public class LevelManager : MonoBehaviour
     public void UsePower1()
     {
         if (!usePowerMessage1) return;
-        Instantiate(usePowerMessage1.gameObject, _pos1, Quaternion.identity);    
+        Instantiate(usePowerMessage1.gameObject, _pos1Message, Quaternion.identity);    
     }
     
     public void UsePower2()
     {
         if (!usePowerMessage2) return;
-        Instantiate(usePowerMessage2.gameObject, _pos2, Quaternion.identity);    
+        Instantiate(usePowerMessage2.gameObject, _pos2Message, Quaternion.identity);    
     }
 
     public void tryAnotherTimeMessage(String PlayerName)

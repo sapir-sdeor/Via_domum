@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     private static bool _uiOpen1, _uiOpen2;
     
     private int _indexPowerPlayer1, _indexPowerPlayer2;
+    private int _indexHor1, _indexVer1,_indexHor2,_indexVer2;
     private LevelManager _levelManager;
     private bool _flyAlready;
     private Button[] buttonManager1, buttonManager2;
@@ -41,6 +42,12 @@ public class UIManager : MonoBehaviour
     public void CancelPlayer1(InputAction.CallbackContext context)
     {
         _uiOpen1 = !_uiOpen1;
+        if (_uiOpen1)
+        {
+            _indexHor1 = 0;
+            _indexVer1 = 0;
+        }
+        
         SetActiveUIobject(buttonManager1,_uiOpen1);
         _levelManager.CloseUIMessage(PLAYER1);
         if (_useFirstPower1)
@@ -53,6 +60,11 @@ public class UIManager : MonoBehaviour
     public void CancelPlayer2(InputAction.CallbackContext context)
     {
         _uiOpen2 = !_uiOpen2;
+        if (_uiOpen2)
+        {
+            _indexHor2 = 0;
+            _indexVer2 = 0;
+        }
         SetActiveUIobject(buttonManager2,_uiOpen2);
         _levelManager.CloseUIMessage(PLAYER2);
         if (_useFirstPower2)
@@ -114,8 +126,8 @@ public class UIManager : MonoBehaviour
                 }
                 gameManager.GETPlayer1().Act(buttonManager2[_indexPowerPlayer2].gameObject);
                 _flyAlready = true;
-            }
-            gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
+            } 
+            else gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
         }
     }
 
@@ -165,6 +177,24 @@ public class UIManager : MonoBehaviour
             _powerCounterPlayer2++;
             ShowNewPower(player,message);
         }
+    }
+
+    public void NavigateMenu1(InputAction.CallbackContext context)
+    {
+        print(context.ReadValue<Vector2>().x);
+        // if (context.ReadValue<Vector2>().x > 0 && _indexHor1 < _indexPowerPlayer1) _indexHor1++;
+        // else if (context.ReadValue<Vector2>().x < 0 && _indexHor1 >= 1) _indexHor1--;
+        if (_indexHor1 > 0 && _indexHor1 < _indexPowerPlayer1) _indexHor1 += (int) context.ReadValue<Vector2>().x;
+        buttonManager1[_indexHor1].image.color = Color.magenta;
+        for (int i = 0; i < buttonManager1.Length; i++)
+        {
+            if(i!= _indexHor1) buttonManager1[i].image.color = Color.white;
+        }
+    }
+
+    public void NavigateMenu2(InputAction.CallbackContext context)
+    {
+        
     }
 
     private void ShowNewPower(GameObject player,Collision2D message)
