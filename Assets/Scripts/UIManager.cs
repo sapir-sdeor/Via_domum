@@ -126,8 +126,8 @@ public class UIManager : MonoBehaviour
                 }
                 gameManager.GETPlayer1().Act(buttonManager2[_indexPowerPlayer2].gameObject);
                 _flyAlready = true;
-            }
-            gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
+            } 
+            else gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
         }
     }
 

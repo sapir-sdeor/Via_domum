@@ -9,8 +9,11 @@ public class ButtonManger : MonoBehaviour
     public static int Younger;
     private LevelManager _levelManager;
     
-    private Vector3 _nextPos1 = new(2.16000009f,-2.10665536f,0.0770537108f);
-    private Vector3 _nextPos2 = new(-3.63643527f,1.41309333f,0.0770537108f);
+    private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
+    private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
+
+    private readonly Vector3 _pos1Level3 = new(4.01999998f, -4.07000017f, 0.0770537108f);
+    private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
     private void Start()
     {
         _levelManager = FindObjectOfType<LevelManager>();
@@ -23,34 +26,46 @@ public class ButtonManger : MonoBehaviour
 
     public void SelectPlayer1()
     {
-        if (LevelManager.GETLevel() == 1)
+        switch (LevelManager.GETLevel())
         {
-            Younger = 1;
-            SceneManager.LoadScene("Level1");
+            case 1:
+                Younger = 1;
+                SceneManager.LoadScene("Level1");
+                break;
+            case 2:
+                _levelManager.SetPosPlayer1(_pos1Level2);
+                _levelManager.SetPosPlayer2(_pos2Level2);
+                SceneManager.LoadScene("Level2");
+                break;
+            case 3:
+                _levelManager.SetPosPlayer1(_pos1Level3);
+                _levelManager.SetPosPlayer2(_pos2Level3);
+                SceneManager.LoadScene("Level3");
+                break;
         }
-        else if (LevelManager.GETLevel() == 2)
-        {
-            _levelManager.SetPosPlayer1(_nextPos1);
-            _levelManager.SetPosPlayer2(_nextPos2);
-            SceneManager.LoadScene("Level2");
-        }
-       
+
     }
     
     public void SelectPlayer2()
     {
-        if (LevelManager.GETLevel() == 1)
+        switch (LevelManager.GETLevel())
         {
-            Younger = 2;
-            SceneManager.LoadScene("Level1");
+            case 1:
+                Younger = 2;
+                SceneManager.LoadScene("Level1");
+                break;
+            case 2:
+                _levelManager.SetPosPlayer1(_pos2Level2);
+                _levelManager.SetPosPlayer2(_pos1Level2);
+                SceneManager.LoadScene("Level2");
+                break;
+            case 3:
+                _levelManager.SetPosPlayer1(_pos2Level3);
+                _levelManager.SetPosPlayer2(_pos1Level3);
+                SceneManager.LoadScene("Level3");
+                break;
         }
-        else if (LevelManager.GETLevel() == 2)
-        {
-            _levelManager.SetPosPlayer1(_nextPos2);
-            _levelManager.SetPosPlayer2(_nextPos1);
-            SceneManager.LoadScene("Level2");
-        }
-        
+
     }
     
 }

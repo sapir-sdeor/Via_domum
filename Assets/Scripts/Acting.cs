@@ -114,6 +114,8 @@ public class Acting : MonoBehaviour
     
     public void Move(InputAction.CallbackContext context)
     {
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
         if (gameObject.name == UIManager.PLAYER1)
         {
             if (!uiManager || !uiManager.getUIOpen1()) SetMoveAnimation(context);
@@ -176,7 +178,6 @@ public class Acting : MonoBehaviour
             Destroy(other.gameObject);
             Act(other.gameObject);
         }
-            
         else if (other.gameObject.CompareTag("light"))
         {
             Destroy(other.gameObject);
