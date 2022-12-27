@@ -117,11 +117,14 @@ public class Acting : MonoBehaviour
         if (gameObject.name == UIManager.PLAYER1)
         {
             if (!uiManager || !uiManager.getUIOpen1()) SetMoveAnimation(context);
+            else  uiManager.NavigateMenu1(context);
         }
 
         if (gameObject.name == UIManager.PLAYER2)
         {
             if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
+            else uiManager.NavigateMenu2(context);
+
         }
     }
 
