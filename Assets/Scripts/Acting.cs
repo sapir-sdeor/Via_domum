@@ -41,7 +41,7 @@ public class Acting : MonoBehaviour
 
     #region private
     
-    private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
+   // private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
     private bool _onButton;
     private bool _onDiamond;
     private Rigidbody2D _rigidbody;
@@ -52,7 +52,7 @@ public class Acting : MonoBehaviour
     private static readonly int Wait1 = Animator.StringToHash(Wait);
     private static readonly int Walk1 = Animator.StringToHash(Walk);
     private static readonly int Jump1 = Animator.StringToHash(JumpMove);
-
+    private static readonly int ONGround = Animator.StringToHash("onGround");
 
     #endregion
     
@@ -95,6 +95,8 @@ public class Acting : MonoBehaviour
     {
         _animator.SetTrigger(Jump1);
         _animator.SetBool(Wait1, false);
+        _animator.SetBool("belowOther", false);
+        otherPlayer.GetComponent<SpriteRenderer>().enabled = true;
         StartCoroutine(WaitSecondForJump());
     }
 
@@ -103,6 +105,8 @@ public class Acting : MonoBehaviour
         _animator.SetBool(Wait1, false);
         _animator.SetBool(Walk1, true);
         _horizontal = context.ReadValue<Vector2>().x;
+        _animator.SetBool("belowOther", false);
+        otherPlayer.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     IEnumerator WaitSecondForJump()
@@ -130,7 +134,7 @@ public class Acting : MonoBehaviour
         }
     }
 
-    public void Flip()
+    private void Flip()
     {
         _isFacingRight = !_isFacingRight;
         var tran = transform;
@@ -149,7 +153,7 @@ public class Acting : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)
-               || gameManager.JumpEachOther();
+               || gameManager.JumpEachOtherWhoUp() != 0;
     }
 
 
@@ -160,10 +164,20 @@ public class Acting : MonoBehaviour
         else if (_isFacingRight && _horizontal < 0f) Flip();
         if (_horizontal == 0)
             _animator.SetBool(Walk1, false);
-        if (gameManager.JumpEachOther())
+        print(gameManager.JumpEachOtherWhoUp());
+        if (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2)
         {
-            //TODO: play animation
+            _animator.SetBool("belowOther", true);
+            otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
+            otherPlayer.GetComponent<Rigidbody2D>().velocity = _rigidbody.velocity;
         }
+        else if (gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1)
+        {
+            _animator.SetBool("belowOther", true);
+            otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
+            otherPlayer.GetComponent<Rigidbody2D>().velocity = _rigidbody.velocity;
+        }
+        _animator.SetBool(ONGround, IsGrounded());
     }
     
 
@@ -183,7 +197,7 @@ public class Acting : MonoBehaviour
             Destroy(other.gameObject);
             Act(other.gameObject);
         }
-            
+
     }
 
     private void OnCollisionStay2D(Collision2D other)

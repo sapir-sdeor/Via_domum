@@ -61,12 +61,13 @@ public class GameManager : MonoBehaviour
         else if (stone.GetComponent<Rigidbody2D>()) Destroy(stone.GetComponent<Rigidbody2D>());
     }
 
-    public bool JumpEachOther()
+    public int JumpEachOtherWhoUp()
     {
         Collider2D[] colliderPlayer1 = player1.GetComponentsInChildren<Collider2D>();
         Collider2D[] colliderPlayer2 = player2.GetComponentsInChildren<Collider2D>();
-        if (colliderPlayer1.Length != 3 && colliderPlayer2.Length != 3) return false;
-        return colliderPlayer1[1].IsTouching(colliderPlayer2[2]) || colliderPlayer1[2].IsTouching(colliderPlayer2[1]);
+        if (colliderPlayer1.Length != 3 && colliderPlayer2.Length != 3) return 0;
+        if (colliderPlayer1[1].IsTouching(colliderPlayer2[2])) return 1;
+        return colliderPlayer1[2].IsTouching(colliderPlayer2[1]) ? 2 : 0;
     }
 
     public Acting GETPlayer1()
