@@ -19,9 +19,6 @@ TagManager:
   - particle system
   - flower
   - little
-  - upTunnel
-  - middleTunnel
-  - downTunnel
   layers:
   - Default
   - TransparentFX
