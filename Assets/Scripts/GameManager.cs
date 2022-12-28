@@ -36,8 +36,7 @@ public class GameManager : MonoBehaviour
             _player2.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
         }
     }
-
-   
+    
 
     public void OpenGate()
     {
@@ -47,6 +46,7 @@ public class GameManager : MonoBehaviour
     
     public void FallDiamond(GameObject stone)
     {
+        print("fall");
         if (!stone) stone = diamond;
         stone.GetComponent<Rigidbody2D>().gravityScale = 1;
         StartCoroutine(DisableDiamond(stone));

@@ -266,9 +266,13 @@ public class UIManager : MonoBehaviour
     static IEnumerator SetOffMessage(Transform gameObjects)
     {
         yield return new WaitForSeconds(2);
-        foreach (Transform newPower in gameObjects)
+        if (gameObjects)
         {
-           Destroy(newPower.gameObject);
+            foreach (Transform newPower in gameObjects)
+            {
+                Destroy(newPower.gameObject);
+            }
+            Destroy(gameObjects.gameObject);
         }
     }
 }
