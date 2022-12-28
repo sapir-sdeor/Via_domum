@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     private static bool _openFirstUI2 = true;
     private static bool _useFirstPower1 = true;
     private static bool _useFirstPower2 = true;
-    private static int _powerCounterPlayer1;
+    private static int _powerCounterPlayer1 = -1;
     private static  int _powerCounterPlayer2;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
         {
             _indexHor1 = 0;
             _indexVer1 = 0;
+            buttonManager1[_indexHor1].image.color = Color.magenta;
         }
         
         SetActiveUIobject(buttonManager1,_uiOpen1);
@@ -87,7 +88,7 @@ public class UIManager : MonoBehaviour
     {
         if (context.performed)
         {
-            if (_powerCounterPlayer1 < 1)
+            if (_powerCounterPlayer1 < 0)
             {
                 _levelManager.tryAnotherTimeMessage(PLAYER1);
                 return;
@@ -112,7 +113,7 @@ public class UIManager : MonoBehaviour
     {
         if (context.performed)
         {
-            if (_powerCounterPlayer2 < 1)
+            if (_powerCounterPlayer2 < 0)
             {
                 _levelManager.tryAnotherTimeMessage(PLAYER2);
                 return;
@@ -161,8 +162,9 @@ public class UIManager : MonoBehaviour
                 _levelManager.OpenUIMessage(player);
                 _openFirstUI1 = false;
             }
-            buttonManager1[_powerCounterPlayer1].interactable = true;
             _powerCounterPlayer1++;
+            buttonManager1[_powerCounterPlayer1].interactable = true;
+           
             ShowNewPower(player,message);
         }
         else if (player.name == PLAYER2)
@@ -173,8 +175,8 @@ public class UIManager : MonoBehaviour
                 _levelManager.OpenUIMessage(player);
                 _openFirstUI2 = false;
             }
-            buttonManager2[_powerCounterPlayer2].interactable = true;
             _powerCounterPlayer2++;
+            buttonManager2[_powerCounterPlayer2].interactable = true;
             ShowNewPower(player,message);
         }
     }
@@ -182,13 +184,13 @@ public class UIManager : MonoBehaviour
     public void NavigateMenu1(InputAction.CallbackContext context)
     {
         print(context.ReadValue<Vector2>().x);
-        // if (context.ReadValue<Vector2>().x > 0 && _indexHor1 < _indexPowerPlayer1) _indexHor1++;
-        // else if (context.ReadValue<Vector2>().x < 0 && _indexHor1 >= 1) _indexHor1--;
-        if (_indexHor1 > 0 && _indexHor1 < _indexPowerPlayer1) _indexHor1 += (int) context.ReadValue<Vector2>().x;
-        buttonManager1[_indexHor1].image.color = Color.magenta;
-        for (int i = 0; i < buttonManager1.Length; i++)
+        print(_indexHor1+" hor "+ _powerCounterPlayer1+" player");
+        if (context.ReadValue<Vector2>().x > 0 && _indexHor1 < _powerCounterPlayer1) _indexHor1++;
+        else if (context.ReadValue<Vector2>().x < 0 && _indexHor1 >= 1) _indexHor1--;
+        for (int i = 0; i <= _powerCounterPlayer1; i++)
         {
             if(i!= _indexHor1) buttonManager1[i].image.color = Color.white;
+            else{buttonManager1[_indexHor1].image.color = Color.magenta;}
         }
     }
 

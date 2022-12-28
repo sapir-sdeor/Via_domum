@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             stone.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             stone.GetComponent<Collider2D>().isTrigger = true;
         }
-        else if (stone.GetComponent<Rigidbody2D>()) Destroy(stone.GetComponent<Rigidbody2D>());
+        else if (stone && stone.GetComponent<Rigidbody2D>()) Destroy(stone.GetComponent<Rigidbody2D>());
     }
 
     public int JumpEachOtherWhoUp()
