@@ -282,6 +282,7 @@ public class Acting : MonoBehaviour
         }
     }
 
+   
 
     public void Act(GameObject other)
     {
