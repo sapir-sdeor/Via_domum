@@ -281,7 +281,7 @@ public class Acting : MonoBehaviour
     private void CollectStone(Collision2D other)
     {
         uiManager.CollectPowerPlayer(gameObject ,other);
-        Destroy(other.gameObject);
+        // Destroy(other.gameObject);
     }
 
     private void ClickButton()

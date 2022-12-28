@@ -23,8 +23,8 @@ public class UIManager : MonoBehaviour
     private bool _flyAlready;
     private Button[] buttonManager1, buttonManager2;
     private GameManager gameManager;
-    private bool setFalse1 = true;
-    private GameObject[] power1;
+    private bool setFalse1 = true,setFalse2 = true;
+    private GameObject[] power1,power2,power3;
 
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
@@ -154,28 +154,48 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (LevelManager.GETLevel() == 1&& setFalse1)
-        {
-            var gameObjects = GameObject.FindGameObjectsWithTag("little ui");
-            foreach (var newPower in gameObjects)
-            {
-                print(newPower.gameObject.tag +" set false");
-                newPower.gameObject.SetActive(false);
-               
-            }
-
-            power1 = gameObjects;
-            setFalse1 = false;
-        }
+        // if (LevelManager.GETLevel() == 1&& setFalse1)
+        // {
+        //     var gameObjects = GameObject.FindGameObjectsWithTag("little ui");
+        //     foreach (var newPower in gameObjects)
+        //     {
+        //         newPower.gameObject.SetActive(false);
+        //     } 
+        //     power1 = gameObjects;
+        //     setFalse1 = false;
+        // }
+        // else if (LevelManager.GETLevel() == 2 && setFalse2)
+        // {
+        //     print("level 2 should work");
+        //     var gameObjectsFly = GameObject.FindGameObjectsWithTag("fly ui");
+        //     var gameObjectsBlow = GameObject.FindGameObjectsWithTag("blowUp ui");
+        //     print(gameObjectsBlow.Length +" count blow");
+        //     print(gameObjectsFly.Length +"count fly");
+        //     
+        //     foreach (var newPower in gameObjectsFly)
+        //     {
+        //         print(newPower.gameObject.name + " name fly");
+        //         newPower.gameObject.SetActive(false);
+        //     }
+        //
+        //     foreach (var newPower in gameObjectsBlow)
+        //     {
+        //         print(newPower.gameObject.name + " name blow up");
+        //         newPower.gameObject.SetActive(false);
+        //     } 
+        //     power2 = gameObjectsFly;
+        //     power3 = gameObjectsBlow;
+        //     setFalse2 = false;
+        // }
     }
 
 
     //when one of the players collect power - update the counter and make the power available
-    public void CollectPowerPlayer(GameObject player,Collision2D message)
+    public void CollectPowerPlayer(GameObject player,Collision2D power)
     {
         if (player.name== PLAYER1)
         {
-            buttonManager1[_indexPowerPlayer1].gameObject.tag = message.gameObject.tag;
+            buttonManager1[_indexPowerPlayer1].gameObject.tag = power.gameObject.tag;
             if (_openFirstUI1)
             {
                 _levelManager.OpenUIMessage(player);
@@ -183,12 +203,11 @@ public class UIManager : MonoBehaviour
             }
             _powerCounterPlayer1++;
             buttonManager1[_powerCounterPlayer1].interactable = true;
-           
-            ShowNewPower(player,message);
+            ShowNewPower(power.transform);
         }
         else if (player.name == PLAYER2)
         {
-            buttonManager2[_indexPowerPlayer2].gameObject.tag = message.gameObject.tag;
+            buttonManager2[_indexPowerPlayer2].gameObject.tag = power.gameObject.tag;
             if (_openFirstUI2)
             {
                 _levelManager.OpenUIMessage(player);
@@ -196,7 +215,7 @@ public class UIManager : MonoBehaviour
             }
             _powerCounterPlayer2++;
             buttonManager2[_powerCounterPlayer2].interactable = true;
-            ShowNewPower(player,message);
+            ShowNewPower(power.transform);
         }
     }
 
@@ -218,23 +237,38 @@ public class UIManager : MonoBehaviour
         
     }
 
-    private void ShowNewPower(GameObject player,Collision2D power)
+    private void ShowNewPower(Transform power)
     {
-        foreach (var newPower in power1)
+        foreach (Transform newPowerChild in power)
         {
-            print(newPower.gameObject.tag +" new power tag");
-            newPower.gameObject.SetActive(true);
-            
+            print(newPowerChild.gameObject +" new power tag");
+            newPowerChild.gameObject.SetActive(true);
         }
-      
-       StartCoroutine(SetOffMessage(power1));
+        StartCoroutine(SetOffMessage(power));
+        
+        // GameObject[] power;
+        // switch (powerName)
+        // {
+        //     case "little":
+        //         power = power1;
+        //         break;
+        //     case "fly":
+        //         power = power2;
+        //         break;
+        //     case "blowUp":
+        //         power = power3;
+        //         break;
+        //     default:
+        //         power = null;
+        //         break;
+        // }
     }
-    static IEnumerator SetOffMessage(GameObject[] gameObjects)
+    static IEnumerator SetOffMessage(Transform gameObjects)
     {
         yield return new WaitForSeconds(2);
-        foreach (var newPower in gameObjects)
+        foreach (Transform newPower in gameObjects)
         {
-           Destroy(newPower);
+           Destroy(newPower.gameObject);
         }
     }
 }

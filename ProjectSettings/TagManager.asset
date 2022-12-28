@@ -21,6 +21,8 @@ TagManager:
   - little
   - Shrink
   - little ui
+  - fly ui
+  - blowUp ui
   layers:
   - Default
   - TransparentFX
