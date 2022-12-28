@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class ButtonManger : MonoBehaviour
 {
     public static int Younger;
+    public static int PlayerNumberInDownTunnel = 1;
     private LevelManager _levelManager;
     
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
@@ -40,6 +41,7 @@ public class ButtonManger : MonoBehaviour
             case 3:
                 _levelManager.SetPosPlayer1(_pos1Level3);
                 _levelManager.SetPosPlayer2(_pos2Level3);
+                PlayerNumberInDownTunnel = 1;
                 SceneManager.LoadScene("Level3");
                 break;
         }
@@ -62,6 +64,7 @@ public class ButtonManger : MonoBehaviour
             case 3:
                 _levelManager.SetPosPlayer1(_pos2Level3);
                 _levelManager.SetPosPlayer2(_pos1Level3);
+                PlayerNumberInDownTunnel = 2;
                 SceneManager.LoadScene("Level3");
                 break;
         }

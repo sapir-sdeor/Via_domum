@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
     private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);
     private float _messagePos = 0.7f;
-    
+   
     [SerializeField] private GameObject canvasToNotDestroy;
     [SerializeField] private GameObject openUImessage1,openUImessage2;
     [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
         _gameManager = FindObjectOfType<GameManager>();
     }
 
+    
     public void LoadNextLevel()
     {
         _level++;

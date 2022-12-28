@@ -27,7 +27,6 @@ public class flyAnimal : MonoBehaviour
             _startFly = false;
             _time = 0;
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)
