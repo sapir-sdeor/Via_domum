@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
     private bool _flyAlready;
     private Button[] buttonManager1, buttonManager2;
     private GameManager gameManager;
+    private bool setFalse1 = true;
+    private GameObject[] power1;
 
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
@@ -148,7 +150,24 @@ public class UIManager : MonoBehaviour
     public bool getUIOpen2()
     {
         return _uiOpen2;
-    } 
+    }
+
+    private void Update()
+    {
+        if (LevelManager.GETLevel() == 1&& setFalse1)
+        {
+            var gameObjects = GameObject.FindGameObjectsWithTag("little ui");
+            foreach (var newPower in gameObjects)
+            {
+                print(newPower.gameObject.tag +" set false");
+                newPower.gameObject.SetActive(false);
+               
+            }
+
+            power1 = gameObjects;
+            setFalse1 = false;
+        }
+    }
 
 
     //when one of the players collect power - update the counter and make the power available
@@ -199,20 +218,23 @@ public class UIManager : MonoBehaviour
         
     }
 
-    private void ShowNewPower(GameObject player,Collision2D message)
+    private void ShowNewPower(GameObject player,Collision2D power)
     {
-        var pos = player.transform.position;
-        GameObject newPower = Instantiate(message.gameObject,new Vector3(pos.x,pos.y + 1f,0),
-            Quaternion.identity,player.transform);
-        newPower.GetComponent<Collider2D>().enabled = false;
-        newPower.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-        var childCount = player.transform.childCount;
-        player.transform.GetChild(childCount-1).gameObject.GetComponent<Animator>().SetBool(Collect, true);
-        StartCoroutine(SetOffMessage(player.transform.GetChild(childCount-1).gameObject));
+        foreach (var newPower in power1)
+        {
+            print(newPower.gameObject.tag +" new power tag");
+            newPower.gameObject.SetActive(true);
+            
+        }
+      
+       StartCoroutine(SetOffMessage(power1));
     }
-    static IEnumerator SetOffMessage(GameObject message)
+    static IEnumerator SetOffMessage(GameObject[] gameObjects)
     {
         yield return new WaitForSeconds(2);
-        Destroy(message);
+        foreach (var newPower in gameObjects)
+        {
+           Destroy(newPower);
+        }
     }
 }

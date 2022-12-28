@@ -19,6 +19,8 @@ TagManager:
   - particle system
   - flower
   - little
+  - Shrink
+  - little ui
   layers:
   - Default
   - TransparentFX

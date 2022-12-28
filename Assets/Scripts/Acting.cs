@@ -26,6 +26,8 @@ public class Acting : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private float fallingThreshold = -0.01f; 
+    [SerializeField] private bool falling = false;
     #endregion
 
     #region string constant
@@ -50,13 +52,13 @@ public class Acting : MonoBehaviour
     private bool _isFacingRight;
     private PlayerMovement _inputAction;
     private Animator _animator;
+    
     private static readonly int Wait1 = Animator.StringToHash(Wait);
     private static readonly int Walk1 = Animator.StringToHash(Walk);
     private static readonly int Jump1 = Animator.StringToHash(JumpMove);
     private static readonly int ONGround = Animator.StringToHash("onGround");
     private static readonly int BelowOther = Animator.StringToHash("belowOther");
-    [SerializeField] private float fallingThreshold = -0.01f; 
-    [SerializeField] private bool falling = false;
+    
 
     #endregion
     
@@ -214,7 +216,9 @@ public class Acting : MonoBehaviour
             //_animator.SetBool(ONGround, true);
             _animator.SetBool("falling", falling);
         }
+
         
+      
     }
     
 

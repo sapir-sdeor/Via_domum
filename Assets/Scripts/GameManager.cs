@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+   
+
     public void OpenGate()
     {
         gate.GetComponent<Animator>().SetTrigger("open");
@@ -80,4 +82,6 @@ public class GameManager : MonoBehaviour
     {
         return _player2.GetComponent<Acting>();
     }
+    
+    
 }
