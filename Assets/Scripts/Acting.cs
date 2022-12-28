@@ -49,7 +49,7 @@ public class Acting : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private float _horizontal;
     private bool _isFacingRight;
-    private bool _removeEachOther;
+    private static bool _removeEachOther;
     private PlayerMovement _inputAction;
     private Animator _animator;
     private static readonly int Wait1 = Animator.StringToHash(Wait);
@@ -59,6 +59,7 @@ public class Acting : MonoBehaviour
     private static readonly int BelowOther = Animator.StringToHash("belowOther");
     [SerializeField] private float fallingThreshold = -0.01f; 
     [SerializeField] private bool falling = false;
+    private static readonly int Falling = Animator.StringToHash("falling");
 
     #endregion
     
@@ -66,7 +67,6 @@ public class Acting : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-      //  if (ButtonManger.Younger == playerNumber) gameObject.transform.localScale = ScaleYoung;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -74,29 +74,50 @@ public class Acting : MonoBehaviour
     {
         return playerNumber;
     }
-
-    public bool IsFacingRight()
-    {
-        return _isFacingRight;
-    }
-    
     public void Jump(InputAction.CallbackContext context)
     {
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
-        if (context.performed && IsGrounded())
+        if (context.performed && (IsGrounded() || _removeEachOther))
         {
             if (gameObject.name == UIManager.PLAYER1)
             {
                 if (!uiManager || !uiManager.getUIOpen1()) SetJumpAnimation();
             }
-            // if (gameObject.name == UIManager.PLAYER2)
-            // {
-            //     if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
-            // }
         }
     }
 
+    public void Jump2(InputAction.CallbackContext context)
+    { 
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
+        if (context.performed && (IsGrounded() || _removeEachOther))
+        {
+            if (gameObject.name == UIManager.PLAYER2)
+            {
+                if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
+            }
+        }
+    }
+    
+    public void Move(InputAction.CallbackContext context)
+    {
+        if (gameObject.name != UIManager.PLAYER1) return; 
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
+        if (!uiManager || !uiManager.getUIOpen1()) SetMoveAnimation(context);
+        else  uiManager.NavigateMenu1(context);
+    }
+
+    public void Move2(InputAction.CallbackContext context)
+    {
+        if (gameObject.name != UIManager.PLAYER2) return;
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
+        if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
+        else uiManager.NavigateMenu2(context);
+
+    }
     private void SetJumpAnimation()
     {
         removeOnEachOther();
@@ -112,56 +133,20 @@ public class Acting : MonoBehaviour
         _animator.SetBool(Walk1, true);
         _horizontal = context.ReadValue<Vector2>().x;
     }
-
+    
     IEnumerator WaitSecondForJump()
     {
         yield return new WaitForSeconds(0.1f);
         if (_rigidbody)
         {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
-            StopCoroutine(WaitSecond());
         }
     }
     
     IEnumerator WaitSecond()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         _removeEachOther = false;
-    }
-    
-    
-    public void Move(InputAction.CallbackContext context)
-    {
-        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
-            return;
-        if (gameObject.name == UIManager.PLAYER1)
-        {
-            if (!uiManager || !uiManager.getUIOpen1()) SetMoveAnimation(context);
-            else  uiManager.NavigateMenu1(context);
-        }
-        
-        // if (gameObject.name == UIManager.PLAYER2)
-        // {
-        //     if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
-        //     else uiManager.NavigateMenu2(context);
-        //
-        // }
-    }
-
-    public void Jump2(InputAction.CallbackContext context)
-    { 
-        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
-            return;
-        if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
-    }
-
-    public void Move2(InputAction.CallbackContext context)
-    {
-        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
-            return;
-        if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
-        else uiManager.NavigateMenu2(context);
-
     }
 
     private void Flip()
@@ -187,45 +172,48 @@ public class Acting : MonoBehaviour
     }
 
 
+    private void FixedUpdate()
+    {
+        if (_rigidbody)  _rigidbody.velocity = new Vector2(_horizontal * speed, _rigidbody.velocity.y);
+        switch (_isFacingRight)
+        {
+            case false when _horizontal > 0f:
+            case true when _horizontal < 0f:
+                Flip();
+                break;
+        }
+        if (_horizontal == 0) _animator.SetBool(Walk1, false);
+    }
+
     void Update()
     {
-        if (_rigidbody)
-        {
-            _rigidbody.velocity = new Vector2(_horizontal * speed, _rigidbody.velocity.y);
-            StopCoroutine(WaitSecond());
-        }
-        if (!_isFacingRight && _horizontal > 0f) Flip();
-        else if (_isFacingRight && _horizontal < 0f) Flip();
-        
-        if (_horizontal == 0)
-            _animator.SetBool(Walk1, false);
-
-        if (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 ||
-            gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1 && !_removeEachOther)
+        if ((gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 ||
+             gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)
         {
             setOnEachOther();
             _removeEachOther = true;
         }
-
         _animator.SetBool(ONGround, IsGrounded());
+        CheckFalling();
+    }
+
+    private void CheckFalling()
+    {
         if (_rigidbody && _rigidbody.velocity.y < fallingThreshold)
         {
             falling = true;
-            _animator.SetBool("falling", falling);
+            _animator.SetBool(Falling, falling);
         }
         else
         {
             falling = false;
-            //_animator.SetBool(ONGround, true);
-            _animator.SetBool("falling", falling);
+            _animator.SetBool(Falling, falling);
         }
-        
     }
 
     private void setOnEachOther()
     {
-        print("on");
-        otherPlayer._animator.SetTrigger("belowOther");
+        _animator.SetBool(BelowOther, true);
         otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
         otherPlayer.transform.parent = transform;
         if (otherPlayer.GetComponent<Rigidbody2D>())
@@ -237,13 +225,13 @@ public class Acting : MonoBehaviour
     
     private void removeOnEachOther()
     {
-        print("remove");
         if (!_rigidbody)
         {
             _rigidbody = this.AddComponent<Rigidbody2D>();
             _rigidbody.freezeRotation = true;
+            StartCoroutine(WaitSecond());
         }
-        otherPlayer._animator.SetTrigger("belowOther");
+        otherPlayer._animator.SetBool(BelowOther, false);
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<Animator>().enabled = true;
         transform.parent = null;
