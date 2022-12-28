@@ -17,12 +17,13 @@ namespace CoreMechanic
         {
             if (_little)
             {
-                transform.localScale = _regularScale;
-                if (GetComponent<Acting>().IsFacingRight() && transform.localScale.x > 0 || 
-                    !GetComponent<Acting>().IsFacingRight() && transform.localScale.x < 0)
+                
+                if (_regularScale.x < 0 && transform.localScale.x > 0 || 
+                    _regularScale.x > 0 && transform.localScale.x < 0)
                 {
-                    GetComponent<Acting>().Flip();
+                    transform.localScale = new Vector3(-_regularScale.x, _regularScale.y, _regularScale.z);
                 }
+                else transform.localScale = _regularScale;
                 _little = false;
             }
             else
