@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Acting[] players = FindObjectsOfType<Acting>();
+        if (players.Length < 2) return; 
         if (players[0].GETPlayerNumber() == 1) {
             _player1 = players[0].gameObject;
             _player2 = players[1].gameObject; 
