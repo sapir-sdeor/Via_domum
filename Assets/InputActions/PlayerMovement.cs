@@ -46,6 +46,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Jump2"",
+                    ""type"": ""Value"",
+                    ""id"": ""7959bcb8-d49e-4d09-8fb0-53b828dadecb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Actions"",
                     ""type"": ""Button"",
                     ""id"": ""ee8ce3b9-de6c-4395-a4ce-bd3f22af36a2"",
@@ -53,6 +62,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Movement2"",
+                    ""type"": ""Value"",
+                    ""id"": ""0814723d-3cb9-4070-8301-c99989d60cb8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -121,6 +139,61 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""Actions"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""12c2c07a-7e81-42fb-943b-6f3963570a3e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""faff92dc-84df-4281-88f3-7fdceb88f4d3"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4a0bb8a5-936c-4e1d-a447-c1225f54e333"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""b957e446-272e-4cc4-8e85-e15e70132ce0"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""2bb609a6-5a59-457a-93b3-b5eab7db7c85"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -623,7 +696,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action = asset.FindActionMap("Player_Action", throwIfNotFound: true);
         m_Player_Action_Movement = m_Player_Action.FindAction("Movement", throwIfNotFound: true);
         m_Player_Action_Jump = m_Player_Action.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Action_Jump2 = m_Player_Action.FindAction("Jump2", throwIfNotFound: true);
         m_Player_Action_Actions = m_Player_Action.FindAction("Actions", throwIfNotFound: true);
+        m_Player_Action_Movement2 = m_Player_Action.FindAction("Movement2", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -698,14 +773,18 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private IPlayer_ActionActions m_Player_ActionActionsCallbackInterface;
     private readonly InputAction m_Player_Action_Movement;
     private readonly InputAction m_Player_Action_Jump;
+    private readonly InputAction m_Player_Action_Jump2;
     private readonly InputAction m_Player_Action_Actions;
+    private readonly InputAction m_Player_Action_Movement2;
     public struct Player_ActionActions
     {
         private @PlayerMovement m_Wrapper;
         public Player_ActionActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Action_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Action_Jump;
+        public InputAction @Jump2 => m_Wrapper.m_Player_Action_Jump2;
         public InputAction @Actions => m_Wrapper.m_Player_Action_Actions;
+        public InputAction @Movement2 => m_Wrapper.m_Player_Action_Movement2;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -721,9 +800,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
+                @Jump2.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump2;
+                @Jump2.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump2;
+                @Jump2.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump2;
                 @Actions.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnActions;
                 @Actions.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnActions;
                 @Actions.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnActions;
+                @Movement2.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement2;
+                @Movement2.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement2;
+                @Movement2.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement2;
             }
             m_Wrapper.m_Player_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -734,9 +819,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Jump2.started += instance.OnJump2;
+                @Jump2.performed += instance.OnJump2;
+                @Jump2.canceled += instance.OnJump2;
                 @Actions.started += instance.OnActions;
                 @Actions.performed += instance.OnActions;
                 @Actions.canceled += instance.OnActions;
+                @Movement2.started += instance.OnMovement2;
+                @Movement2.performed += instance.OnMovement2;
+                @Movement2.canceled += instance.OnMovement2;
             }
         }
     }
@@ -858,7 +949,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnJump2(InputAction.CallbackContext context);
         void OnActions(InputAction.CallbackContext context);
+        void OnMovement2(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

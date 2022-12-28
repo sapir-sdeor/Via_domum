@@ -84,10 +84,10 @@ public class Acting : MonoBehaviour
             {
                 if (!uiManager || !uiManager.getUIOpen1()) SetJumpAnimation();
             }
-            if (gameObject.name == UIManager.PLAYER2)
-            {
-                if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
-            }
+            // if (gameObject.name == UIManager.PLAYER2)
+            // {
+            //     if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
+            // }
         }
     }
 
@@ -122,12 +122,27 @@ public class Acting : MonoBehaviour
             else  uiManager.NavigateMenu1(context);
         }
 
-        if (gameObject.name == UIManager.PLAYER2)
-        {
-            if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
-            else uiManager.NavigateMenu2(context);
+        // if (gameObject.name == UIManager.PLAYER2)
+        // {
+        //     if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
+        //     else uiManager.NavigateMenu2(context);
+        //
+        // }
+    }
 
-        }
+    public void Jump2(InputAction.CallbackContext context)
+    { 
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
+        if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
+    }
+
+    public void Move2(InputAction.CallbackContext context)
+    {
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
+        if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
+        else uiManager.NavigateMenu2(context);
     }
 
     public void Flip()
