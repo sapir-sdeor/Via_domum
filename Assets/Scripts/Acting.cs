@@ -6,6 +6,7 @@ using CoreMechanic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public class Acting : MonoBehaviour
 {
@@ -53,6 +54,9 @@ public class Acting : MonoBehaviour
     private static readonly int Walk1 = Animator.StringToHash(Walk);
     private static readonly int Jump1 = Animator.StringToHash(JumpMove);
     private static readonly int ONGround = Animator.StringToHash("onGround");
+    private static readonly int BelowOther = Animator.StringToHash("belowOther");
+    [SerializeField] private float fallingThreshold = -0.01f; 
+    [SerializeField] private bool falling = false;
 
     #endregion
     
@@ -155,6 +159,12 @@ public class Acting : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)
                || gameManager.JumpEachOtherWhoUp() != 0;
     }
+    
+    private bool IsCloseToGround()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.7f, groundLayer)
+               || gameManager.JumpEachOtherWhoUp() != 0;
+    }
 
 
     void Update()
@@ -164,20 +174,32 @@ public class Acting : MonoBehaviour
         else if (_isFacingRight && _horizontal < 0f) Flip();
         if (_horizontal == 0)
             _animator.SetBool(Walk1, false);
-        print(gameManager.JumpEachOtherWhoUp());
+        
         if (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2)
         {
-            _animator.SetBool("belowOther", true);
+            _animator.SetBool(BelowOther, true);
             otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
             otherPlayer.GetComponent<Rigidbody2D>().velocity = _rigidbody.velocity;
         }
         else if (gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1)
         {
-            _animator.SetBool("belowOther", true);
+            _animator.SetBool(BelowOther, true);
             otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
             otherPlayer.GetComponent<Rigidbody2D>().velocity = _rigidbody.velocity;
         }
         _animator.SetBool(ONGround, IsGrounded());
+        if (_rigidbody.velocity.y < fallingThreshold )
+        {
+            falling = true;
+            _animator.SetBool("falling", falling);
+        }
+        else
+        {
+            falling = false;
+            //_animator.SetBool(ONGround, true);
+            _animator.SetBool("falling", falling);
+        }
+        
     }
     
 
@@ -203,7 +225,6 @@ public class Acting : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("wall")){
-          //  FindObjectOfType<Camera>().GetComponent<Animator>().SetTrigger("move");
             _rigidbody.velocity = Vector2.zero; 
         }
     }
@@ -221,7 +242,10 @@ public class Acting : MonoBehaviour
         if (other.gameObject.CompareTag(Button))
             _onButton = false;
         else if (other.gameObject.CompareTag(Diamond))
+        {
+            _animator.SetBool(Wait1, false);
             _onDiamond = false;
+        }
     }
 
 

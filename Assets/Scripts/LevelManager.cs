@@ -12,9 +12,8 @@ public class LevelManager : MonoBehaviour
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
     private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
     private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);
-
-    
     private float _messagePos = 0.7f;
+    
     [SerializeField] private GameObject canvasToNotDestroy;
     [SerializeField] private GameObject openUImessage1,openUImessage2;
     [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
@@ -33,36 +32,29 @@ public class LevelManager : MonoBehaviour
         DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
         DontDestroyOnLoad(canvasToNotDestroy);
         DontDestroyOnLoad(_gameManager);
+        _gameManager.GETPlayer1().gameObject.SetActive(false);
+        _gameManager.GETPlayer2().gameObject.SetActive(false);
         SceneManager.LoadScene("characterSelecter" + _level);
     }
 
     public void SetPosPlayer1(Vector3 pos)
     {
+        _gameManager.GETPlayer1().gameObject.SetActive(true);
         _gameManager.GETPlayer1().gameObject.transform.position = pos;
     }
     
     public void SetPosPlayer2(Vector3 pos)
     {
+        _gameManager.GETPlayer2().gameObject.SetActive(true);
         _gameManager.GETPlayer2().gameObject.transform.position = pos;
     }
     
-    public void SetAnimatorPlayer1(RuntimeAnimatorController animator)
-    {
-        _gameManager.GETPlayer1().GetComponent<Animator>().runtimeAnimatorController = animator;
-    }
-    
-    public void SetAnimatorPlayer2(RuntimeAnimatorController animator)
-    {
-        _gameManager.GETPlayer2().GetComponent<Animator>().runtimeAnimatorController = animator;
-    }
     
     public static int GETLevel()
     {
         return _level;
     }
     
-    
-
     public void CloseUIMessage(String playerName)
     {
         if (playerName == UIManager.PLAYER1)
@@ -77,8 +69,6 @@ public class LevelManager : MonoBehaviour
         }
     }
     
-    
-
     public void OpenUIMessage(GameObject player)
     {
         Vector3 pos = player.transform.position;

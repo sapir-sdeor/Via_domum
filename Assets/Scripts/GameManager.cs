@@ -10,29 +10,29 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject diamond;
     [SerializeField] private RuntimeAnimatorController animatorBigPlayer;
     [SerializeField] private RuntimeAnimatorController animatorYoungPlayer;
-    private GameObject player1;
-    private GameObject player2;
+    private GameObject _player1;
+    private GameObject _player2;
 
     private void Awake()
     {
         Acting[] players = FindObjectsOfType<Acting>();
         if (players[0].GETPlayerNumber() == 1) {
-            player1 = players[0].gameObject;
-            player2 = players[1].gameObject; 
+            _player1 = players[0].gameObject;
+            _player2 = players[1].gameObject; 
         }
         else {
-            player1 = players[1].gameObject;
-            player2 = players[0].gameObject;
+            _player1 = players[1].gameObject;
+            _player2 = players[0].gameObject;
         }
         if (LevelManager.GETLevel() == 1 && ButtonManger.Younger == 1)
         {
-            player1.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
-            player2.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
+            _player1.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
+            _player2.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
         }
         else if (LevelManager.GETLevel() == 1 && ButtonManger.Younger == 2)
         {
-            player1.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
-            player2.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
+            _player1.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
+            _player2.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
         }
     }
 
@@ -63,8 +63,8 @@ public class GameManager : MonoBehaviour
 
     public int JumpEachOtherWhoUp()
     {
-        Collider2D[] colliderPlayer1 = player1.GetComponentsInChildren<Collider2D>();
-        Collider2D[] colliderPlayer2 = player2.GetComponentsInChildren<Collider2D>();
+        Collider2D[] colliderPlayer1 = _player1.GetComponentsInChildren<Collider2D>();
+        Collider2D[] colliderPlayer2 = _player2.GetComponentsInChildren<Collider2D>();
         if (colliderPlayer1.Length != 3 && colliderPlayer2.Length != 3) return 0;
         if (colliderPlayer1[1].IsTouching(colliderPlayer2[2])) return 1;
         return colliderPlayer1[2].IsTouching(colliderPlayer2[1]) ? 2 : 0;
@@ -72,11 +72,11 @@ public class GameManager : MonoBehaviour
 
     public Acting GETPlayer1()
     {
-        return player1.GetComponent<Acting>();
+        return _player1.GetComponent<Acting>();
     }
     
     public Acting GETPlayer2()
     {
-        return player2.GetComponent<Acting>();
+        return _player2.GetComponent<Acting>();
     }
 }
