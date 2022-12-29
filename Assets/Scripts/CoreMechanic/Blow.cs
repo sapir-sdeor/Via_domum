@@ -11,13 +11,10 @@ namespace CoreMechanic
     {
         [SerializeField] private GameObject bubbleFly;
 
-        public void SetBubbleFly(GameObject bubbleFly)
-        {
-            this.bubbleFly = bubbleFly;
-            print("bubbleFly");
-        }
+       
         public void ApplyMechanic()
         {
+            bubbleFly = GameObject.FindGameObjectWithTag("bubbleFly");
             if (!bubbleFly || !GetComponent<Collider2D>().IsTouching(bubbleFly.GetComponent<Collider2D>())) return;
             //TODO: animation of bubble fly
             bubbleFly.gameObject.SetActive(false);

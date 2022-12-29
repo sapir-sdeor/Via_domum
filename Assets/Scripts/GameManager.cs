@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Acting[] players = FindObjectsOfType<Acting>();
+        diamond = GameObject.FindGameObjectWithTag("diamond");
         if (players.Length < 2) return; 
         if (players[0].GETPlayerNumber() == 1) {
             _player1 = players[0].gameObject;
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
     
     public void FallDiamond(GameObject stone)
     {
-        print("fall");
+        diamond = GameObject.FindGameObjectWithTag("diamond");
         if (!stone) stone = diamond;
         stone.GetComponent<Rigidbody2D>().gravityScale = 1;
         StartCoroutine(DisableDiamond(stone));

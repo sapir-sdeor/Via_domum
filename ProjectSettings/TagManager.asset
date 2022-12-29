@@ -24,10 +24,8 @@ TagManager:
   - fly ui
   - blowUp ui
   - boom
-  - upTunnel
-  - downTunnel
-  - middleTunnel
   - obstcale
+  - bubbleFly
   layers:
   - Default
   - TransparentFX

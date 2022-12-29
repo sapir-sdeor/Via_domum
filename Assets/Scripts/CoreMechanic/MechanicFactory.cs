@@ -8,7 +8,7 @@ namespace CoreMechanic
     {
         public ICoreMechanic CreateMechanic(String name, Collider2D collider2D, Vector3 flyPos,
                                                     Sprite sprite, GameObject background,
-                                                    Light2D[] light2D, GameObject fly)
+                                                    Light2D[] light2D)
         {
             switch (name)
             {
@@ -37,7 +37,6 @@ namespace CoreMechanic
                     print("blow factory");
                     if (gameObject.GetComponent<Blow>()) return gameObject.GetComponent<Blow>();
                     gameObject.AddComponent<Blow>();
-                    gameObject.GetComponent<Blow>().SetBubbleFly(fly);
                     return gameObject.GetComponent<Blow>();
                 case "little":
                     if (gameObject.GetComponent<changeSize>()) return gameObject.GetComponent<changeSize>();

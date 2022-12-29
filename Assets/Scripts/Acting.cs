@@ -299,7 +299,7 @@ public class Acting : MonoBehaviour
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            _collider, flyPosition, sprite, background, light2D, bubbleFly);
+            _collider, flyPosition, sprite, background, light2D);
         coreMechanic.ApplyMechanic();
     }
 

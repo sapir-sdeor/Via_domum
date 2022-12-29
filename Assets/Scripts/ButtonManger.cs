@@ -13,7 +13,7 @@ public class ButtonManger : MonoBehaviour
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
 
-    private readonly Vector3 _pos1Level3 = new(4.01999998f, -4.07000017f, 0.0770537108f);
+    private readonly Vector3 _pos1Level3 = new(4.11999989f,-3.81999993f,0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
     private void Start()
     {
