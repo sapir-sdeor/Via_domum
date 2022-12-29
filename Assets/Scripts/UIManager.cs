@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour
         _levelManager.CloseUIMessage(PLAYER1);
         if (_useFirstPower1)
         {
-            _levelManager.UsePower1();
+          //  _levelManager.UsePower1();
             _useFirstPower1 = false;
         }
     }
@@ -90,7 +90,7 @@ public class UIManager : MonoBehaviour
         _levelManager.CloseUIMessage(PLAYER2);
         if (_useFirstPower2)
         {
-            _levelManager.UsePower2();
+            //_levelManager.UsePower2();
             _useFirstPower2 = false;
         }
     }
@@ -111,7 +111,7 @@ public class UIManager : MonoBehaviour
         {
             if (_powerCounterPlayer1 < 0)
             {
-                _levelManager.tryAnotherTimeMessage(PLAYER1);
+               // _levelManager.tryAnotherTimeMessage(PLAYER1);
                 return;
             }
             // if the power is fly we need to fly to other player
@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
             {
                 if (_flyAlready)
                 {
-                    _levelManager.tryAnotherTimeMessage(PLAYER1);
+                   // _levelManager.tryAnotherTimeMessage(PLAYER1);
                     return;
                 }
                 gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject);
@@ -137,14 +137,14 @@ public class UIManager : MonoBehaviour
         {
             if (_powerCounterPlayer2 < 0)
             {
-                _levelManager.tryAnotherTimeMessage(PLAYER2);
+               // _levelManager.tryAnotherTimeMessage(PLAYER2);
                 return;
             }
             if (buttonManager2[_indexPowerPlayer2].gameObject.CompareTag("fly"))
             {
                 if (_flyAlready)
                 {
-                    _levelManager.tryAnotherTimeMessage(PLAYER2);
+                   // _levelManager.tryAnotherTimeMessage(PLAYER2);
                     return;
                 }
                 gameManager.GETPlayer1().Act(buttonManager2[_indexPowerPlayer2].gameObject);
@@ -181,7 +181,7 @@ public class UIManager : MonoBehaviour
         {
             if (_openFirstUI1)
             {
-                _levelManager.OpenUIMessage(player);
+               // _levelManager.OpenUIMessage(player);
                 _openFirstUI1 = false;
             }
             _powerCounterPlayer1++;
@@ -203,7 +203,7 @@ public class UIManager : MonoBehaviour
         {
             if (_openFirstUI2)
             {
-                _levelManager.OpenUIMessage(player);
+               // _levelManager.OpenUIMessage(player);
                 _openFirstUI2 = false;
             }
             _powerCounterPlayer2++;

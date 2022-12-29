@@ -12,9 +12,9 @@ public class LevelManager : MonoBehaviour
     private float _messagePos = 0.7f;
    
     [SerializeField] private GameObject canvasToNotDestroy;
-    [SerializeField] private GameObject openUImessage1,openUImessage2;
+    /*[SerializeField] private GameObject openUImessage1,openUImessage2;
     [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
-    [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;
+    [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;*/
     
 
     private void Awake()
@@ -67,6 +67,7 @@ public class LevelManager : MonoBehaviour
         }
     }
     
+    /*
     public void OpenUIMessage(GameObject player)
     {
         Vector3 pos = player.transform.position;
@@ -96,8 +97,9 @@ public class LevelManager : MonoBehaviour
         if (!usePowerMessage2) return;
         Instantiate(usePowerMessage2.gameObject, _pos2Message, Quaternion.identity);    
     }
+    */
 
-    public void tryAnotherTimeMessage(String PlayerName)
+    /*public void tryAnotherTimeMessage(String PlayerName)
     {
         if (PlayerName == UIManager.PLAYER1)
         {
@@ -115,5 +117,5 @@ public class LevelManager : MonoBehaviour
             Instantiate(usePowerAnotherTimeMessage2.gameObject, pos + Vector3.right,
                 Quaternion.identity);
         }
-    }
+    }*/
 }
