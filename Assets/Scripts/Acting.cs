@@ -317,7 +317,14 @@ public class Acting : MonoBehaviour
     {
         _onDiamond = true;
         if (otherPlayer.getOnDiamond())
+        {
+            if (_removeEachOther)
+            {
+                _removeEachOther = false;
+                removeOnEachOther();
+            }
             levelManager.LoadNextLevel();
+        }
         _animator.SetBool(Wait1, true);
     }
 
