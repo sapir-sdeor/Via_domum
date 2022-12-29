@@ -23,6 +23,11 @@ TagManager:
   - little ui
   - fly ui
   - blowUp ui
+  - boom
+  - upTunnel
+  - downTunnel
+  - middleTunnel
+  - obstcale
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ namespace CoreMechanic
         public void SetBubbleFly(GameObject bubbleFly)
         {
             this.bubbleFly = bubbleFly;
+            print("bubbleFly");
         }
         public void ApplyMechanic()
         {
@@ -21,6 +22,7 @@ namespace CoreMechanic
             //TODO: animation of bubble fly
             bubbleFly.gameObject.SetActive(false);
             FindObjectOfType<GameManager>().FallDiamond(null);
+            print("blow");
         }
 
     }

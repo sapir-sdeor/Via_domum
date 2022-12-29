@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     public static string PLAYER2 = "Player2";
     private static bool _uiOpen1, _uiOpen2;
     
-    private int _indexPowerPlayer1=0, _indexPowerPlayer2;
+    private int _indexPowerPlayer1=0, _indexPowerPlayer2=0;
     private int _indexHor1,_indexHor2;
     private LevelManager _levelManager;
     private bool _flyAlready;
@@ -303,6 +303,9 @@ public class UIManager : MonoBehaviour
         {
             newPowerChild.gameObject.SetActive(true);
         }
+
+        power.gameObject.GetComponent<Collider2D>().enabled = false;
+        power.gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
         StartCoroutine(SetOffMessage(power));
     }
     static IEnumerator SetOffMessage(Transform gameObjects)

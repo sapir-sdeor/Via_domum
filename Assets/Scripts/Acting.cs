@@ -52,6 +52,7 @@ public class Acting : MonoBehaviour
     private static bool _removeEachOther;
     private PlayerMovement _inputAction;
     private Animator _animator;
+    private static bool destroyObstacle = false;
     
     private static readonly int Wait1 = Animator.StringToHash(Wait);
     private static readonly int Walk1 = Animator.StringToHash(Walk);
@@ -258,6 +259,10 @@ public class Acting : MonoBehaviour
             Destroy(other.gameObject);
             Act(other.gameObject);
         }
+        else if (other.gameObject.CompareTag("obstcale")&& destroyObstacle)
+        {
+            Destroy(other.gameObject);
+        }
 
     }
 
@@ -286,7 +291,6 @@ public class Acting : MonoBehaviour
             _onDiamond = false;
         }
     }
-
     
     
     public void Act(GameObject other)
@@ -328,5 +332,10 @@ public class Acting : MonoBehaviour
     private bool getOnDiamond()
     {
         return _onDiamond;
+    }
+
+    public static void SetDestroyObstcale()
+    {
+        destroyObstacle = true;
     }
 }

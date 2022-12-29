@@ -31,9 +31,10 @@ namespace CoreMechanic
                 case "light":
                     if (gameObject.GetComponent<Light>()) return gameObject.GetComponent<Light>();
                     gameObject.AddComponent<Light>();
-                    gameObject.GetComponent<Light>().SetLight(light2D);
+                    gameObject.GetComponent<Light>().SetLightOff(light2D);
                     return gameObject.GetComponent<Light>();
                 case "blowUp":
+                    print("blow factory");
                     if (gameObject.GetComponent<Blow>()) return gameObject.GetComponent<Blow>();
                     gameObject.AddComponent<Blow>();
                     gameObject.GetComponent<Blow>().SetBubbleFly(fly);
