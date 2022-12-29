@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class OilLamp : MonoBehaviour
@@ -10,8 +8,8 @@ public class OilLamp : MonoBehaviour
     [SerializeField] private int playerNumber;
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (playerNumber == 1 && other.gameObject.name == UIManager.PLAYER1||
-            playerNumber == 2 && other.gameObject.name == UIManager.PLAYER2)
+        if (other.gameObject.name == UIManager.PLAYER1||
+            other.gameObject.name == UIManager.PLAYER2)
         {
             var trans = other.gameObject.transform;
             var pos = trans.position;

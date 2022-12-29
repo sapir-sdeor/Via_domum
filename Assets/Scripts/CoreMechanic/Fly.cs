@@ -33,6 +33,7 @@ namespace CoreMechanic
             if (_fly)
             {
                 float step = speed * Time.deltaTime;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 transform.position = Vector3.MoveTowards(transform.position, _flyPos, step);
             }
            

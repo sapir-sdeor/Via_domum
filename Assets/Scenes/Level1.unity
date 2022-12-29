@@ -2588,7 +2588,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445841904}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.46, y: 2.2, z: -0.0285812}
+  m_LocalPosition: {x: -2.44, y: 2.15, z: -0.0285812}
   m_LocalScale: {x: 0.49338305, y: 0.3482, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2608,7 +2608,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15223259, y: 0.10480356}
+  m_Offset: {x: -0.09784603, y: 0.0921728}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2619,7 +2619,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9230715, y: 0.72165394}
+  m_Size: {x: 2.0318446, y: 0.74691546}
   m_EdgeRadius: 0
 --- !u!251 &1445841907
 PlatformEffector2D:
@@ -5250,12 +5250,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasToNotDestroy: {fileID: 2137829327}
-  openUImessage1: {fileID: 5172394112395596065, guid: b49bf80c629c8614aa15a7cbb6e066e6, type: 3}
-  openUImessage2: {fileID: 6914025943302183235, guid: 1f2839547a771174198b05463d81091f, type: 3}
-  usePowerMessage1: {fileID: 764023911404709622, guid: b48a38550a00b5e4488d814bf641d165, type: 3}
-  usePowerMessage2: {fileID: 2139543975793751001, guid: f6a8e4ef17f2269488c975a561592704, type: 3}
-  usePowerAnotherTimeMessage1: {fileID: 2139543975793751001, guid: 0af58945e2053884ba42116ef791b858, type: 3}
-  usePowerAnotherTimeMessage2: {fileID: 2139543975793751001, guid: d40592192c0411b40b75e11f4479092d, type: 3}
+  openUImessage1: {fileID: 0}
+  openUImessage2: {fileID: 0}
+  usePowerMessage1: {fileID: 0}
+  usePowerMessage2: {fileID: 0}
+  usePowerAnotherTimeMessage1: {fileID: 0}
+  usePowerAnotherTimeMessage2: {fileID: 0}
 --- !u!1 &2042083606
 GameObject:
   m_ObjectHideFlags: 0
