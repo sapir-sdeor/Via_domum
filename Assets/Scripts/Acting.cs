@@ -87,10 +87,7 @@ public class Acting : MonoBehaviour
             return;
         if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
         {
-            if (gameObject.name == UIManager.PLAYER1)
-            {
-                if (!uiManager || !uiManager.getUIOpen1()) SetJumpAnimation();
-            }
+            SetJumpAnimation();
         }
     }
 
@@ -99,11 +96,8 @@ public class Acting : MonoBehaviour
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
-        {
-            if (gameObject.name == UIManager.PLAYER2)
-            {
-                if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
-            }
+        { 
+            SetJumpAnimation();
         }
     }
     
@@ -111,9 +105,8 @@ public class Acting : MonoBehaviour
     {
         if (gameObject.name != UIManager.PLAYER1) return; 
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
-            return;
-        if (!uiManager || !uiManager.getUIOpen1()) SetMoveAnimation(context);
-        else  uiManager.NavigateMenu1(context);
+            return; 
+        SetMoveAnimation(context);
     }
 
     public void Move2(InputAction.CallbackContext context)
@@ -121,9 +114,7 @@ public class Acting : MonoBehaviour
         if (gameObject.name != UIManager.PLAYER2) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
-        if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
-        else uiManager.NavigateMenu2(context);
-
+        SetMoveAnimation(context);
     }
     private void SetJumpAnimation()
     {
