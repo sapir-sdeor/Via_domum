@@ -20,7 +20,6 @@ public class flyAnimal : MonoBehaviour
         if (_startFly) _time += Time.deltaTime;
         if (_time > 1.7f && !_animator.GetCurrentAnimatorStateInfo(0).IsName("flyAnim1"))
         {
-            print("finish");
             _gameManager.FallDiamond(stoneToFall);
             _startFly = false;
             _time = 0;

@@ -55,8 +55,8 @@ public class ButtonManger : MonoBehaviour
                 SceneManager.LoadScene("Level1");
                 break;
             case 2:
-                _levelManager.SetPosPlayer1(_pos2Level2);
-                _levelManager.SetPosPlayer2(_pos1Level2);
+                _levelManager.SetPosPlayer1(_pos1Level2);
+                _levelManager.SetPosPlayer2(_pos2Level2);
                 SceneManager.LoadScene("Level2");
                 break;
             case 3:

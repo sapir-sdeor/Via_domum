@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private static bool _openFirstUI1 = true;
-    private static bool _openFirstUI2 = true;
-    private static bool _useFirstPower1 = true;
-    private static bool _useFirstPower2 = true;
-    private static int _powerCounterPlayer1 = -1;
-    private static  int _powerCounterPlayer2=-1;
+    private bool _openFirstUI1 = true;
+    private bool _openFirstUI2 = true;
+    private bool _useFirstPower1 = true;
+    private bool _useFirstPower2 = true;
+    private int _powerCounterPlayer1 = -1;
+    private int _powerCounterPlayer2 = -1;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
-    private static bool _uiOpen1, _uiOpen2;
+    private bool _uiOpen1, _uiOpen2;
     
     private int _indexPowerPlayer1=0, _indexPowerPlayer2=0;
     private int _indexHor1,_indexHor2;
@@ -31,14 +31,21 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        _openFirstUI1 = true;
+        _openFirstUI2 = true;
+        _useFirstPower1 = true;
+        _useFirstPower2 = true;
+        _powerCounterPlayer1 = -1; _powerCounterPlayer2 = -1;
+        _indexPowerPlayer1 = 0; _indexPowerPlayer2 = 0;
+        _uiOpen1 = false;
+        _uiOpen2 = false;
         buttonManager1 = transform.GetChild(0).gameObject.GetComponentsInChildren<Button>();
         buttonManager2 = transform.GetChild(1).gameObject.GetComponentsInChildren<Button>();
         _levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
         SetActiveUIobject(buttonManager1, false);
-        SetActiveUIobject(buttonManager2,false);
+        SetActiveUIobject(buttonManager2, false);
     }
-
     
 
     public void CancelPlayer1(InputAction.CallbackContext context)
@@ -64,7 +71,6 @@ public class UIManager : MonoBehaviour
         _levelManager.CloseUIMessage(PLAYER1);
         if (_useFirstPower1)
         {
-          //  _levelManager.UsePower1();
             _useFirstPower1 = false;
         }
     }
@@ -117,15 +123,15 @@ public class UIManager : MonoBehaviour
             // if the power is fly we need to fly to other player
             if (buttonManager1[_indexPowerPlayer1].gameObject.CompareTag("fly"))
             {
-                if (_flyAlready)
-                {
-                   // _levelManager.tryAnotherTimeMessage(PLAYER1);
-                    return;
-                }
-                gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject);
-                _flyAlready = true;
+                gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject,
+                buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
+                //_flyAlready = true;
             }
-            else gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject);
+            else
+            {
+                gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject,
+                    buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
+            }
         }
        
     }
@@ -142,19 +148,19 @@ public class UIManager : MonoBehaviour
             }
             if (buttonManager2[_indexPowerPlayer2].gameObject.CompareTag("fly"))
             {
-                if (_flyAlready)
-                {
-                   // _levelManager.tryAnotherTimeMessage(PLAYER2);
-                    return;
-                }
-                gameManager.GETPlayer1().Act(buttonManager2[_indexPowerPlayer2].gameObject);
-                _flyAlready = true;
-            } 
-            else gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject);
+                gameManager.GETPlayer1().Act(buttonManager2[_indexPowerPlayer2].gameObject,
+                    buttonManager2[_indexPowerPlayer2].GetComponent<AudioSource>().clip);
+            }
+            else
+            {
+                buttonManager2[_indexPowerPlayer2].GetComponent<AudioSource>().Play();
+                gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject,
+                    buttonManager2[_indexPowerPlayer2].GetComponent<AudioSource>().clip);
+            }
         }
     }
 
-    private static void SetActiveUIobject(Button[] buttonManager,bool active)
+    public static void SetActiveUIobject(Button[] buttonManager,bool active)
     {
         foreach (Button _button in buttonManager)
         {
@@ -186,6 +192,10 @@ public class UIManager : MonoBehaviour
             }
             _powerCounterPlayer1++;
             buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
+            buttonManager1[_powerCounterPlayer1].gameObject.AddComponent<AudioSource>();
+            buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().clip = 
+                power.gameObject.GetComponent<AudioSource>().clip;
+            buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
             for (int j = 0; j <_sprites.Length; j++)
             {
                 String spriteName = _sprites[j].name;
@@ -208,6 +218,10 @@ public class UIManager : MonoBehaviour
             }
             _powerCounterPlayer2++;
             buttonManager2[_powerCounterPlayer2].gameObject.tag = power.gameObject.tag;
+            buttonManager2[_powerCounterPlayer2].gameObject.AddComponent<AudioSource>();
+            buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
+                power.gameObject.GetComponent<AudioSource>().clip;
+            buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
             for (int j = 0; j <_sprites.Length; j++)
             {
                 String spriteName = _sprites[j].name;
@@ -291,9 +305,7 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-
         _indexPowerPlayer2 = _indexHor2;
-        
     }
 
     private void ShowNewPower(Transform power)
@@ -302,11 +314,11 @@ public class UIManager : MonoBehaviour
         {
             newPowerChild.gameObject.SetActive(true);
         }
-
         power.gameObject.GetComponent<Collider2D>().enabled = false;
         power.gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
         StartCoroutine(SetOffMessage(power));
     }
+    
     static IEnumerator SetOffMessage(Transform gameObjects)
     {
         yield return new WaitForSeconds(2);
@@ -319,4 +331,56 @@ public class UIManager : MonoBehaviour
             Destroy(gameObjects.gameObject);
         }
     }
+
+    /*public void InitializedToLastCanvas1(int spritesToRemove)
+    {
+        for (int j = 0; j < spritesToRemove; j++)
+        {
+            buttonManager1[_indexPowerPlayer1-j].GetComponent<Image>().sprite = null; 
+        }
+    }
+    
+    public void InitializedToLastCanvas2(int spritesToRemove)
+    {
+        for (int j = 0; j < spritesToRemove; j++)
+        {
+            buttonManager2[_indexPowerPlayer2-j].GetComponent<Image>().sprite = null; 
+        }
+    }
+    
+    public int GETPowerCounter1()
+    {
+        return _powerCounterPlayer1;
+    }
+    public int GETPowerCounter2()
+    {
+        return _powerCounterPlayer2;
+    }
+    
+    public int GETIndexPower1()
+    {
+        return _indexPowerPlayer1;
+    }
+    public int GETIndexPower2()
+    {
+        return _indexPowerPlayer2;
+    }
+    
+    public void SetPowerCounter1(int val)
+    {
+        _powerCounterPlayer1 = val;
+    }
+    public void SetPowerCounter2(int val)
+    {
+        _powerCounterPlayer2 = val;
+    }
+    
+    public void SetIndexPower1(int val)
+    {
+        _indexPowerPlayer1 = val;
+    }
+    public void SetIndexPower2(int val)
+    {
+        _indexPowerPlayer2 = val;
+    }*/
 }

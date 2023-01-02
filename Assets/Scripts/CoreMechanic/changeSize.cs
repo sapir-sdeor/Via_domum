@@ -8,6 +8,10 @@ namespace CoreMechanic
         private bool _little;
         private Vector3 _regularScale;
 
+        public bool GETLittle()
+        {
+            return _little;
+        }
         private void Awake()
         {
             _regularScale = transform.localScale;

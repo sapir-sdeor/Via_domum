@@ -27,7 +27,4 @@ public class FlowersExplode : MonoBehaviour
             _collide = true;
         }
     }
-     /*changeColor = !changeColor;
-           if(changeColor) gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-           else gameObject.GetComponent<SpriteRenderer>().color = Color.white;*/
 }

@@ -5,18 +5,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class Acting : MonoBehaviour
 {
     #region SeializeField
+
+    [SerializeField] private AudioClip collectPowerSound;
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Collider2D _collider;
-    [SerializeField] private Sprite sprite;
-    [SerializeField] private GameObject background;
-    [SerializeField] private GameObject bubbleFly;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
@@ -24,6 +23,8 @@ public class Acting : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private float fallingThreshold = -0.01f; 
+    
     #endregion
 
     #region string constant
@@ -41,24 +42,22 @@ public class Acting : MonoBehaviour
     #region private
     
    // private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
-    private bool _onButton;
     private bool _onDiamond;
     private Rigidbody2D _rigidbody;
+    private AudioSource _audioSource;
     private float _horizontal;
     private bool _isFacingRight;
     private static bool _removeEachOther;
     private PlayerMovement _inputAction;
     private Animator _animator;
-    private static bool destroyObstacle = false;
+    private bool falling;
+    private static bool _destroyObstacle;
     
     private static readonly int Wait1 = Animator.StringToHash(Wait);
     private static readonly int Walk1 = Animator.StringToHash(Walk);
     private static readonly int Jump1 = Animator.StringToHash(JumpMove);
     private static readonly int ONGround = Animator.StringToHash("onGround");
     private static readonly int BelowOther = Animator.StringToHash("belowOther");
-
-    [SerializeField] private float fallingThreshold = -0.01f; 
-    [SerializeField] private bool falling = false;
     private static readonly int Falling = Animator.StringToHash("falling");
 
 
@@ -69,17 +68,24 @@ public class Acting : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public int GETPlayerNumber()
     {
         return playerNumber;
     }
+
+    public void Restart(InputAction.CallbackContext context)
+    {
+        levelManager.Restart();
+    }
+    
     public void Jump(InputAction.CallbackContext context)
     {
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
-        if (context.performed && (IsGrounded() || _removeEachOther))
+        if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
         {
             if (gameObject.name == UIManager.PLAYER1)
             {
@@ -92,7 +98,7 @@ public class Acting : MonoBehaviour
     { 
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
-        if (context.performed && (IsGrounded() || _removeEachOther))
+        if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
         {
             if (gameObject.name == UIManager.PLAYER2)
             {
@@ -168,8 +174,8 @@ public class Acting : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)
-               || gameManager.JumpEachOtherWhoUp() != 0;
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) ||
+               gameManager.JumpEachOtherWhoUp() == playerNumber;
     }
 
 
@@ -244,19 +250,20 @@ public class Acting : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Button))
             ClickButton();
+        
         else if (other.gameObject.name == "stone")
             CollectStone(other);
-        else if (other.gameObject.name == ActString)
-        {
-            Destroy(other.gameObject);
-            Act(other.gameObject);
-        }
+        
         else if (other.gameObject.CompareTag("light"))
         {
             Destroy(other.gameObject);
-            Act(other.gameObject);
+            Act(other.gameObject, null);
         }
-        else if (other.gameObject.CompareTag("obstcale")&& destroyObstacle)
+        else if (other.gameObject.CompareTag("particle system"))
+        {
+            print("collide");    
+        }
+        else if (other.gameObject.CompareTag("obstcale")&& _destroyObstacle)
         {
             Destroy(other.gameObject);
         }
@@ -280,36 +287,37 @@ public class Acting : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag(Button))
-            _onButton = false;
-        else if (other.gameObject.CompareTag(Diamond))
+        if (other.gameObject.CompareTag(Diamond))
         {
             _animator.SetBool(Wait1, false);
             _onDiamond = false;
         }
     }
-    
-    
-    public void Act(GameObject other)
+
+    public void Act(GameObject other, AudioClip audioClip)
     {
+        if (audioClip)
+        {
+            _audioSource.clip = audioClip;
+            _audioSource.Play();
+        }
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            _collider, flyPosition, sprite, background, light2D);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, flyPosition, light2D);
         coreMechanic.ApplyMechanic();
     }
 
     private void CollectStone(Collision2D other)
     {
+        _audioSource.clip = collectPowerSound;
+        _audioSource.Play();
         uiManager.CollectPowerPlayer(gameObject ,other);
-        // Destroy(other.gameObject);
     }
 
     private void ClickButton()
     {
-        _onButton = true;
-        if (otherPlayer.getOnButton() || LevelManager.GETLevel() == 2)
+        if (LevelManager.GETLevel() == 1)
             gameManager.OpenGate();
     }
     
@@ -322,17 +330,17 @@ public class Acting : MonoBehaviour
             {
                 _removeEachOther = false;
                 removeOnEachOther();
+                otherPlayer.removeOnEachOther();
+            }
+            if (GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
+            {
+                GetComponent<changeSize>().ApplyMechanic();
             }
             levelManager.LoadNextLevel();
         }
         _animator.SetBool(Wait1, true);
     }
 
-    private bool getOnButton()
-    {
-        return _onButton;
-    }
-    
     private bool getOnDiamond()
     {
         return _onDiamond;
@@ -340,6 +348,6 @@ public class Acting : MonoBehaviour
 
     public static void SetDestroyObstcale()
     {
-        destroyObstacle = true;
+        _destroyObstacle = true;
     }
 }

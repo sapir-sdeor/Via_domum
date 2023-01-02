@@ -71,6 +71,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""1410718a-91d3-4d75-804c-1ea594ddcd62"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -194,6 +203,17 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""Jump2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04c35520-5cc8-4cb5-b201-5bd4aa2c458b"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -699,6 +719,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action_Jump2 = m_Player_Action.FindAction("Jump2", throwIfNotFound: true);
         m_Player_Action_Actions = m_Player_Action.FindAction("Actions", throwIfNotFound: true);
         m_Player_Action_Movement2 = m_Player_Action.FindAction("Movement2", throwIfNotFound: true);
+        m_Player_Action_Restart = m_Player_Action.FindAction("Restart", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -776,6 +797,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Action_Jump2;
     private readonly InputAction m_Player_Action_Actions;
     private readonly InputAction m_Player_Action_Movement2;
+    private readonly InputAction m_Player_Action_Restart;
     public struct Player_ActionActions
     {
         private @PlayerMovement m_Wrapper;
@@ -785,6 +807,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @Jump2 => m_Wrapper.m_Player_Action_Jump2;
         public InputAction @Actions => m_Wrapper.m_Player_Action_Actions;
         public InputAction @Movement2 => m_Wrapper.m_Player_Action_Movement2;
+        public InputAction @Restart => m_Wrapper.m_Player_Action_Restart;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -809,6 +832,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Movement2.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement2;
                 @Movement2.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement2;
                 @Movement2.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement2;
+                @Restart.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnRestart;
+                @Restart.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnRestart;
+                @Restart.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnRestart;
             }
             m_Wrapper.m_Player_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -828,6 +854,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Movement2.started += instance.OnMovement2;
                 @Movement2.performed += instance.OnMovement2;
                 @Movement2.canceled += instance.OnMovement2;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
             }
         }
     }
@@ -952,6 +981,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnJump2(InputAction.CallbackContext context);
         void OnActions(InputAction.CallbackContext context);
         void OnMovement2(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

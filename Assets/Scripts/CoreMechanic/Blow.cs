@@ -12,10 +12,12 @@ namespace CoreMechanic
         {
             bubbleFly = GameObject.FindGameObjectWithTag("bubbleFly");
             if (!bubbleFly || !GetComponent<Collider2D>().IsTouching(bubbleFly.GetComponent<Collider2D>())) return;
-            //TODO: animation of bubble fly
-            bubbleFly.gameObject.SetActive(false);
-            FindObjectOfType<GameManager>().FallDiamond(null);
-            print("blow");
+            foreach (var animator in bubbleFly.GetComponentsInChildren<Animator>())
+            {
+                animator.SetBool("startFly", true);    
+            }
+            bubbleFly.AddComponent<flyAnimal1>();
+            //FindObjectOfType<GameManager>().FallDiamond(null);
         }
 
     }

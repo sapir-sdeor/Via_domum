@@ -7,11 +7,16 @@ public class LevelManager : MonoBehaviour
     private static int _level = 1;
     private GameManager _gameManager;
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
-    private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
-    private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);
     private float _messagePos = 0.7f;
-   
-    [SerializeField] private GameObject canvasToNotDestroy;
+    private UIManager lastCanvas;
+    private int lastIndex1, lastIndex2;
+    private int lastPower1, lastPower2;
+
+    [SerializeField] private UIManager canvasToNotDestroy;
+    
+    
+    /*private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
+    private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);*/
     /*[SerializeField] private GameObject openUImessage1,openUImessage2;
     [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
     [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;*/
@@ -20,8 +25,13 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         _gameManager = FindObjectOfType<GameManager>();
+        canvasToNotDestroy = FindObjectOfType<UIManager>();
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     
     public void LoadNextLevel()
     {
@@ -30,6 +40,7 @@ public class LevelManager : MonoBehaviour
         DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
         DontDestroyOnLoad(canvasToNotDestroy);
         DontDestroyOnLoad(_gameManager);
+        lastCanvas = canvasToNotDestroy;
         _gameManager.GETPlayer1().gameObject.SetActive(false);
         _gameManager.GETPlayer2().gameObject.SetActive(false);
         SceneManager.LoadScene("characterSelecter" + _level);
@@ -47,7 +58,7 @@ public class LevelManager : MonoBehaviour
         _gameManager.GETPlayer2().gameObject.transform.position = pos;
     }
     
-    
+
     public static int GETLevel()
     {
         return _level;
