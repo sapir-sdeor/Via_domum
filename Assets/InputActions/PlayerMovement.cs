@@ -677,7 +677,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""56ea675f-6cbe-4bcb-ae73-a9b61d9e6ad7"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -16,8 +16,7 @@ namespace CoreMechanic
             {
                 animator.SetBool("startFly", true);    
             }
-            bubbleFly.AddComponent<flyAnimal1>();
-            //FindObjectOfType<GameManager>().FallDiamond(null);
+            bubbleFly.AddComponent<flyAnimal>();
         }
 
     }
