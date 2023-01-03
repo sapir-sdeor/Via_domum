@@ -28,11 +28,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        // _openFirstUI1 = true;
-        // _openFirstUI2 = true;
-        // _useFirstPower1 = true;
-        // _useFirstPower2 = true;
-        // _powerCounterPlayer1 = 4; _powerCounterPlayer2 = -1;
+       
+        // _powerCounterPlayer1 = -1; _powerCounterPlayer2 = -1;
         // _indexPowerPlayer1 = 0; _indexPowerPlayer2 = 0;
         // buttonManager1 = transform.GetChild(0).gameObject.GetComponentsInChildren<Button>();
         // buttonManager2 = transform.GetChild(1).gameObject.GetComponentsInChildren<Button>();
