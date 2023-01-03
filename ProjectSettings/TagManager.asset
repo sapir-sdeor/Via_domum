@@ -19,6 +19,15 @@ TagManager:
   - particle system
   - flower
   - little
+  - Shrink
+  - little ui
+  - fly ui
+  - blowUp ui
+  - boom
+  - obstcale
+  - bubbleFly
+  - spider
+  - rope
   layers:
   - Default
   - TransparentFX

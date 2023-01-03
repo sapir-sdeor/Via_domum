@@ -1,23 +1,21 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using CoreMechanic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class Acting : MonoBehaviour
 {
     #region SeializeField
+
+    [SerializeField] private AudioClip collectPowerSound;
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Collider2D _collider;
-    [SerializeField] private Sprite sprite;
-    [SerializeField] private GameObject background;
-    [SerializeField] private GameObject bubbleFly;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
@@ -25,6 +23,8 @@ public class Acting : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private float fallingThreshold = -0.01f; 
+    
     #endregion
 
     #region string constant
@@ -41,18 +41,27 @@ public class Acting : MonoBehaviour
 
     #region private
     
-    private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
-    private bool _onButton;
+   // private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
     private bool _onDiamond;
     private Rigidbody2D _rigidbody;
+    private AudioSource _audioSource;
     private float _horizontal;
+    private float _vertical;
     private bool _isFacingRight;
+    private static bool _removeEachOther;
     private PlayerMovement _inputAction;
     private Animator _animator;
+    private bool falling;
+    private static bool _destroyObstacle;
+    
     private static readonly int Wait1 = Animator.StringToHash(Wait);
     private static readonly int Walk1 = Animator.StringToHash(Walk);
     private static readonly int Jump1 = Animator.StringToHash(JumpMove);
-
+    private static readonly int ONGround = Animator.StringToHash("onGround");
+    private static readonly int BelowOther = Animator.StringToHash("belowOther");
+    private static readonly int Falling = Animator.StringToHash("falling");
+    private bool _onRope;
+    private bool _isClimbing;
 
     #endregion
     
@@ -60,8 +69,8 @@ public class Acting : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        if (ButtonManger.Younger == playerNumber) gameObject.transform.localScale = ScaleYoung;
         _rigidbody = GetComponent<Rigidbody2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public int GETPlayerNumber()
@@ -69,30 +78,61 @@ public class Acting : MonoBehaviour
         return playerNumber;
     }
 
-    public bool IsFacingRight()
+    public void Restart(InputAction.CallbackContext context)
     {
-        return _isFacingRight;
+        levelManager.Restart();
     }
     
     public void Jump(InputAction.CallbackContext context)
     {
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
-        if (context.performed && IsGrounded())
+        if (_onRope && _rigidbody)
         {
-            if (gameObject.name == UIManager.PLAYER1)
-            {
-                if (!uiManager || !uiManager.getUIOpen1()) SetJumpAnimation();
-            }
-            if (gameObject.name == UIManager.PLAYER2)
-            {
-                if (!uiManager || !uiManager.getUIOpen2()) SetJumpAnimation();
-            }
+            _rigidbody.gravityScale = 0f;
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
+            return;
+        }
+        if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
+        {
+            SetJumpAnimation();
         }
     }
 
+    public void Jump2(InputAction.CallbackContext context)
+    { 
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
+        if (_onRope && _rigidbody)
+        {
+            _rigidbody.gravityScale = 0f;
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
+            return;
+        }
+        if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
+        {
+            SetJumpAnimation();
+        }
+    }
+    
+    public void Move(InputAction.CallbackContext context)
+    {
+        if (gameObject.name != UIManager.PLAYER1) return; 
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return; 
+        SetMoveAnimation(context);
+    }
+
+    public void Move2(InputAction.CallbackContext context)
+    {
+        if (gameObject.name != UIManager.PLAYER2) return;
+        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
+            return;
+        SetMoveAnimation(context);
+    }
     private void SetJumpAnimation()
     {
+        removeOnEachOther();
         _animator.SetTrigger(Jump1);
         _animator.SetBool(Wait1, false);
         StartCoroutine(WaitSecondForJump());
@@ -100,37 +140,28 @@ public class Acting : MonoBehaviour
 
     private void SetMoveAnimation(InputAction.CallbackContext context)
     {
+        removeOnEachOther();
         _animator.SetBool(Wait1, false);
         _animator.SetBool(Walk1, true);
         _horizontal = context.ReadValue<Vector2>().x;
     }
-
+    
     IEnumerator WaitSecondForJump()
     {
         yield return new WaitForSeconds(0.1f);
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+        if (_rigidbody)
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+        }
     }
     
-    
-    public void Move(InputAction.CallbackContext context)
+    IEnumerator WaitSecond()
     {
-        if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
-            return;
-        if (gameObject.name == UIManager.PLAYER1)
-        {
-            if (!uiManager || !uiManager.getUIOpen1()) SetMoveAnimation(context);
-            else  uiManager.NavigateMenu1(context);
-        }
-
-        if (gameObject.name == UIManager.PLAYER2)
-        {
-            if (!uiManager || !uiManager.getUIOpen2()) SetMoveAnimation(context);
-            else uiManager.NavigateMenu2(context);
-
-        }
+        yield return new WaitForSeconds(2f);
+        _removeEachOther = false;
     }
 
-    public void Flip()
+    private void Flip()
     {
         _isFacingRight = !_isFacingRight;
         var tran = transform;
@@ -148,49 +179,109 @@ public class Acting : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)
-               || gameManager.JumpEachOther();
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) ||
+               gameManager.JumpEachOtherWhoUp() == playerNumber;
     }
 
+
+    private void FixedUpdate()
+    {
+        if (_rigidbody)  _rigidbody.velocity = new Vector2(_horizontal * speed, _rigidbody.velocity.y);
+        switch (_isFacingRight)
+        {
+            case false when _horizontal > 0f:
+            case true when _horizontal < 0f:
+                Flip();
+                break;
+        }
+        if (_horizontal == 0) _animator.SetBool(Walk1, false);
+        if (!_onRope && _rigidbody) _rigidbody.gravityScale = 1f;
+    }
 
     void Update()
     {
-        _rigidbody.velocity = new Vector2(_horizontal * speed, _rigidbody.velocity.y);
-        if (!_isFacingRight && _horizontal > 0f) Flip();
-        else if (_isFacingRight && _horizontal < 0f) Flip();
-        if (_horizontal == 0)
-            _animator.SetBool(Walk1, false);
-        if (gameManager.JumpEachOther())
+        print(_onRope);
+        if (!_onRope && !otherPlayer._onRope && 
+            (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
+             gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)
         {
-            //TODO: play animation
+            setOnEachOther();
+            _removeEachOther = true;
         }
+        _animator.SetBool(ONGround, IsGrounded());
+        CheckFalling();
+    }
+
+    private void CheckFalling()
+    {
+        if (_rigidbody && _rigidbody.velocity.y < fallingThreshold)
+        {
+            falling = true;
+            _animator.SetBool(Falling, falling);
+        }
+        else
+        {
+            falling = false;
+            _animator.SetBool(Falling, falling);
+        }
+
+    }
+
+    private void setOnEachOther()
+    {
+        _animator.SetBool(BelowOther, true);
+        otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
+        otherPlayer.transform.parent = transform;
+        if (otherPlayer.GetComponent<Rigidbody2D>())
+        {
+            Destroy(otherPlayer.GetComponent<Rigidbody2D>());
+        }
+        otherPlayer.GetComponent<Animator>().enabled = false;
+
     }
     
+    private void removeOnEachOther()
+    {
+        if (!_rigidbody)
+        {
+            _rigidbody = this.AddComponent<Rigidbody2D>();
+            _rigidbody.freezeRotation = true;
+            StartCoroutine(WaitSecond());
+        }
+        otherPlayer._animator.SetBool(BelowOther, false);
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Animator>().enabled = true;
+        transform.parent = null;
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag(Button))
             ClickButton();
+        
         else if (other.gameObject.name == "stone")
             CollectStone(other);
-        else if (other.gameObject.name == ActString)
-        {
-            Destroy(other.gameObject);
-            Act(other.gameObject);
-        }
+        
         else if (other.gameObject.CompareTag("light"))
         {
             Destroy(other.gameObject);
-            Act(other.gameObject);
+            Act(other.gameObject, null);
         }
-            
+        else if (other.gameObject.CompareTag("particle system"))
+        {
+            print("collide");    
+        }
+        else if (other.gameObject.CompareTag("obstcale")&& _destroyObstacle)
+        {
+            Destroy(other.gameObject);
+        }
+
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("wall")){
-          //  FindObjectOfType<Camera>().GetComponent<Animator>().SetTrigger("move");
-            _rigidbody.velocity = Vector2.zero; 
+            if (_rigidbody) _rigidbody.velocity = Vector2.zero; 
         }
     }
 
@@ -200,37 +291,45 @@ public class Acting : MonoBehaviour
             ClickButton();
         else if (other.gameObject.CompareTag(Diamond))
             OnDiamond();
+        else if (other.gameObject.CompareTag("roop"))
+            _onRope = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag(Button))
-            _onButton = false;
-        else if (other.gameObject.CompareTag(Diamond))
+        if (other.gameObject.CompareTag(Diamond))
+        {
+            _animator.SetBool(Wait1, false);
             _onDiamond = false;
+        }
+        else if (other.gameObject.CompareTag("roop"))
+            _onRope = false;
     }
 
-
-    public void Act(GameObject other)
+    public void Act(GameObject other, AudioClip audioClip)
     {
+        if (audioClip)
+        {
+            _audioSource.clip = audioClip;
+            _audioSource.Play();
+        }
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            _collider, flyPosition, sprite, background, light2D, bubbleFly);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, flyPosition, light2D);
         coreMechanic.ApplyMechanic();
     }
 
     private void CollectStone(Collision2D other)
     {
+        _audioSource.clip = collectPowerSound;
+        _audioSource.Play();
         uiManager.CollectPowerPlayer(gameObject ,other);
-        Destroy(other.gameObject);
     }
 
     private void ClickButton()
     {
-        _onButton = true;
-        if (otherPlayer.getOnButton() || LevelManager.GETLevel() == 2)
+        if (LevelManager.GETLevel() == 1)
             gameManager.OpenGate();
     }
     
@@ -238,17 +337,29 @@ public class Acting : MonoBehaviour
     {
         _onDiamond = true;
         if (otherPlayer.getOnDiamond())
+        {
+            if (_removeEachOther)
+            {
+                _removeEachOther = false;
+                removeOnEachOther();
+                otherPlayer.removeOnEachOther();
+            }
+            if (GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
+            {
+                GetComponent<changeSize>().ApplyMechanic();
+            }
             levelManager.LoadNextLevel();
+        }
         _animator.SetBool(Wait1, true);
     }
 
-    private bool getOnButton()
-    {
-        return _onButton;
-    }
-    
     private bool getOnDiamond()
     {
         return _onDiamond;
+    }
+
+    public static void SetDestroyObstcale()
+    {
+        _destroyObstacle = true;
     }
 }

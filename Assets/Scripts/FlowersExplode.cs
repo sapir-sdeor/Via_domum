@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
+
 using UnityEngine;
 
 public class FlowersExplode : MonoBehaviour
@@ -30,7 +27,4 @@ public class FlowersExplode : MonoBehaviour
             _collide = true;
         }
     }
-     /*changeColor = !changeColor;
-           if(changeColor) gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-           else gameObject.GetComponent<SpriteRenderer>().color = Color.white;*/
 }

@@ -1,31 +1,38 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class LevelManager : MonoBehaviour
 {
     private static int _level = 1;
     private GameManager _gameManager;
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
-    private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
-    private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);
-
-    
     private float _messagePos = 0.7f;
-    [SerializeField] private GameObject canvasToNotDestroy;
-    [SerializeField] private GameObject openUImessage1,openUImessage2;
+    private UIManager lastCanvas;
+    private int lastIndex1, lastIndex2;
+    private int lastPower1, lastPower2;
+
+    [SerializeField] private UIManager canvasToNotDestroy;
+    
+    
+    /*private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
+    private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);*/
+    /*[SerializeField] private GameObject openUImessage1,openUImessage2;
     [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
-    [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;
+    [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;*/
     
 
     private void Awake()
     {
         _gameManager = FindObjectOfType<GameManager>();
+        canvasToNotDestroy = FindObjectOfType<UIManager>();
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    
     public void LoadNextLevel()
     {
         _level++;
@@ -33,26 +40,30 @@ public class LevelManager : MonoBehaviour
         DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
         DontDestroyOnLoad(canvasToNotDestroy);
         DontDestroyOnLoad(_gameManager);
+        lastCanvas = canvasToNotDestroy;
+        _gameManager.GETPlayer1().gameObject.SetActive(false);
+        _gameManager.GETPlayer2().gameObject.SetActive(false);
         SceneManager.LoadScene("characterSelecter" + _level);
     }
 
     public void SetPosPlayer1(Vector3 pos)
     {
+        _gameManager.GETPlayer1().gameObject.SetActive(true);
         _gameManager.GETPlayer1().gameObject.transform.position = pos;
     }
     
     public void SetPosPlayer2(Vector3 pos)
     {
+        _gameManager.GETPlayer2().gameObject.SetActive(true);
         _gameManager.GETPlayer2().gameObject.transform.position = pos;
     }
     
+
     public static int GETLevel()
     {
         return _level;
     }
     
-    
-
     public void CloseUIMessage(String playerName)
     {
         if (playerName == UIManager.PLAYER1)
@@ -67,8 +78,7 @@ public class LevelManager : MonoBehaviour
         }
     }
     
-    
-
+    /*
     public void OpenUIMessage(GameObject player)
     {
         Vector3 pos = player.transform.position;
@@ -98,8 +108,9 @@ public class LevelManager : MonoBehaviour
         if (!usePowerMessage2) return;
         Instantiate(usePowerMessage2.gameObject, _pos2Message, Quaternion.identity);    
     }
+    */
 
-    public void tryAnotherTimeMessage(String PlayerName)
+    /*public void tryAnotherTimeMessage(String PlayerName)
     {
         if (PlayerName == UIManager.PLAYER1)
         {
@@ -117,5 +128,5 @@ public class LevelManager : MonoBehaviour
             Instantiate(usePowerAnotherTimeMessage2.gameObject, pos + Vector3.right,
                 Quaternion.identity);
         }
-    }
+    }*/
 }
