@@ -11,6 +11,15 @@ public class LevelManager : MonoBehaviour
     private UIManager lastCanvas;
     private int lastIndex1, lastIndex2;
     private int lastPower1, lastPower2;
+    public static int Younger;
+    public static int PlayerNumberInDownTunnel = 1;
+    private LevelManager _levelManager;
+    
+    private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
+    private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
+
+    private readonly Vector3 _pos1Level3 = new(4.11999989f,-3.81999993f,0.0770537108f);
+    private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
 
     [SerializeField] private UIManager canvasToNotDestroy;
     
@@ -43,19 +52,43 @@ public class LevelManager : MonoBehaviour
         lastCanvas = canvasToNotDestroy;
         _gameManager.GETPlayer1().gameObject.SetActive(false);
         _gameManager.GETPlayer2().gameObject.SetActive(false);
-        SceneManager.LoadScene("characterSelecter" + _level);
+        SelectPlayer1();
+
+    }
+    
+    public void SelectPlayer1()
+    {
+        switch (LevelManager.GETLevel())
+        {
+            case 1:
+                Younger = 1;
+                SceneManager.LoadScene("Level1");
+                break;
+            case 2:
+                SceneManager.LoadScene("Level2");
+                SetPosPlayer1(_pos1Level2);
+                SetPosPlayer2(_pos2Level2);
+                break;
+            // case 3:
+            //     SetPosPlayer1(_pos1Level3);
+            //     SetPosPlayer2(_pos2Level3);
+            //     PlayerNumberInDownTunnel = 1;
+            //     SceneManager.LoadScene("Level3");
+            //     break;
+        }
+
     }
 
     public void SetPosPlayer1(Vector3 pos)
     {
-        _gameManager.GETPlayer1().gameObject.SetActive(true);
         _gameManager.GETPlayer1().gameObject.transform.position = pos;
+        _gameManager.GETPlayer1().gameObject.SetActive(true);
     }
     
     public void SetPosPlayer2(Vector3 pos)
     {
-        _gameManager.GETPlayer2().gameObject.SetActive(true);
         _gameManager.GETPlayer2().gameObject.transform.position = pos;
+        _gameManager.GETPlayer2().gameObject.SetActive(true);
     }
     
 

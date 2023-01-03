@@ -99,6 +99,7 @@ public class UIManager : MonoBehaviour
         if (player.name== PLAYER1)
         {
             buttonManager1[++_powerCounterPlayer1] = new GameObject();
+            DontDestroyOnLoad(buttonManager1[_powerCounterPlayer1]);
             buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
             buttonManager1[_powerCounterPlayer1].gameObject.AddComponent<AudioSource>();
             buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().clip = 
@@ -110,7 +111,7 @@ public class UIManager : MonoBehaviour
                 if (buttonManager1[_powerCounterPlayer1].CompareTag(spriteName))
                 {
                     _button1.GetComponent<Image>().sprite = _sprites[j];
-                    // buttonManager1[_powerCounterPlayer1].GetComponent<Image>().color = Color.white;
+                    _button1.GetComponent<Image>().color = Color.white;
                     break;
                 }
             }
@@ -121,6 +122,7 @@ public class UIManager : MonoBehaviour
         {
          
             buttonManager2[++_powerCounterPlayer2] = new GameObject();
+            DontDestroyOnLoad(buttonManager2[_powerCounterPlayer2]);
             buttonManager2[_powerCounterPlayer2].gameObject.tag = power.gameObject.tag;
             buttonManager2[_powerCounterPlayer2].gameObject.AddComponent<AudioSource>();
             buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
@@ -132,6 +134,7 @@ public class UIManager : MonoBehaviour
                 if (buttonManager2[_powerCounterPlayer2].CompareTag(spriteName))
                 {
                     _button2.GetComponent<Image>().sprite = _sprites[j];
+                    _button2.GetComponent<Image>().color = Color.white;
                     break;
                 }
             }
@@ -143,6 +146,7 @@ public class UIManager : MonoBehaviour
     {
         if (context.performed)
         {
+            if (_powerCounterPlayer1 < 0) return;
             if (_indexHor1 < _powerCounterPlayer1) _indexHor1+= 1;
             else _indexHor1 = 0;
             print(_indexHor1+" index hor 1");
@@ -162,6 +166,7 @@ public class UIManager : MonoBehaviour
 
     public void NavigateMenu2(InputAction.CallbackContext context)
     {
+        if (_powerCounterPlayer2 < 0) return;
         if (context.performed)
         {
             if (_indexHor2 < _powerCounterPlayer2) _indexHor2+= 1;
