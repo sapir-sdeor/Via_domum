@@ -6,10 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private bool _openFirstUI1 = true;
-    private bool _openFirstUI2 = true;
-    private bool _useFirstPower1 = true;
-    private bool _useFirstPower2 = true;
+  
     private int _powerCounterPlayer1 = -1;
     private int _powerCounterPlayer2 = -1;
     public static string PLAYER1 = "Player1";
@@ -19,9 +16,10 @@ public class UIManager : MonoBehaviour
     private float _indexHor1,_indexHor2;
     private LevelManager _levelManager;
     private bool _flyAlready;
-    [SerializeField] private Button[] buttonManager1, buttonManager2;
+    private GameObject[] buttonManager1 = new GameObject[5], buttonManager2=new GameObject[5];
+    [SerializeField] private Button _button1;
+    [SerializeField] private Button _button2;
     private GameManager gameManager;
-    private bool setFalse1 = true,setFalse2 = true;
     private GameObject[] power1,power2,power3;
 
     private PlayerMovement.UIActions UImanager;
@@ -30,18 +28,15 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        // _openFirstUI1 = true;
-        // _openFirstUI2 = true;
-        // _useFirstPower1 = true;
-        // _useFirstPower2 = true;
-        // _powerCounterPlayer1 = 4; _powerCounterPlayer2 = -1;
+       
+        // _powerCounterPlayer1 = -1; _powerCounterPlayer2 = -1;
         // _indexPowerPlayer1 = 0; _indexPowerPlayer2 = 0;
         // buttonManager1 = transform.GetChild(0).gameObject.GetComponentsInChildren<Button>();
         // buttonManager2 = transform.GetChild(1).gameObject.GetComponentsInChildren<Button>();
-        // _levelManager = FindObjectOfType<LevelManager>();
-        // gameManager = FindObjectOfType<GameManager>();
-        SetActiveUIobject(buttonManager1, false);
-        SetActiveUIobject(buttonManager2, false);
+        _levelManager = FindObjectOfType<LevelManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        // SetActiveUIobject(buttonManager1, false);
+        // SetActiveUIobject(buttonManager2, false);
     }
     
 
@@ -55,15 +50,16 @@ public class UIManager : MonoBehaviour
                 return;
             }
             // if the power is fly we need to fly to other player
-            if (buttonManager1[_indexPowerPlayer1].gameObject.CompareTag("fly"))
+            if (buttonManager1[_indexPowerPlayer1].CompareTag("fly"))
             {
-                gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1].gameObject,
+                gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1],
                 buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
                 //_flyAlready = true;
             }
             else
             {
-                gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1].gameObject,
+                print("should act");
+                gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1],
                     buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
             }
         }
@@ -92,13 +88,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public static void SetActiveUIobject(Button[] buttonManager,bool active)
-    {
-        foreach (Button _button in buttonManager)
-        {
-            _button.gameObject.SetActive(active);
-        }
-    }
+  
 
     
 
@@ -108,12 +98,7 @@ public class UIManager : MonoBehaviour
     {
         if (player.name== PLAYER1)
         {
-            if (_openFirstUI1)
-            {
-               // _levelManager.OpenUIMessage(player);
-                _openFirstUI1 = false;
-            }
-            _powerCounterPlayer1++;
+            buttonManager1[++_powerCounterPlayer1] = new GameObject();
             buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
             buttonManager1[_powerCounterPlayer1].gameObject.AddComponent<AudioSource>();
             buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().clip = 
@@ -124,22 +109,18 @@ public class UIManager : MonoBehaviour
                 String spriteName = _sprites[j].name;
                 if (buttonManager1[_powerCounterPlayer1].CompareTag(spriteName))
                 {
-                    buttonManager1[_powerCounterPlayer1].GetComponent<Image>().sprite = _sprites[j];
-                    buttonManager1[_powerCounterPlayer1].GetComponent<Image>().color = Color.white;
+                    _button1.GetComponent<Image>().sprite = _sprites[j];
+                    // buttonManager1[_powerCounterPlayer1].GetComponent<Image>().color = Color.white;
                     break;
                 }
             }
-            buttonManager1[_powerCounterPlayer1].interactable = true;
+            _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
             ShowNewPower(power.transform);
         }
         else if (player.name == PLAYER2)
         {
-            if (_openFirstUI2)
-            {
-               // _levelManager.OpenUIMessage(player);
-                _openFirstUI2 = false;
-            }
-            _powerCounterPlayer2++;
+         
+            buttonManager2[++_powerCounterPlayer2] = new GameObject();
             buttonManager2[_powerCounterPlayer2].gameObject.tag = power.gameObject.tag;
             buttonManager2[_powerCounterPlayer2].gameObject.AddComponent<AudioSource>();
             buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
@@ -150,21 +131,19 @@ public class UIManager : MonoBehaviour
                 String spriteName = _sprites[j].name;
                 if (buttonManager2[_powerCounterPlayer2].CompareTag(spriteName))
                 {
-                    buttonManager2[_powerCounterPlayer2].GetComponent<Image>().sprite = _sprites[j];
-                    buttonManager2[_powerCounterPlayer2].GetComponent<Image>().color = Color.white;
+                    _button2.GetComponent<Image>().sprite = _sprites[j];
                     break;
                 }
             }
-            buttonManager2[_powerCounterPlayer2].interactable = true;
             ShowNewPower(power.transform);
         }
     }
 
     public void NavigateMenu1(InputAction.CallbackContext context)
     {
-        if (context.ReadValue<float>()>0)
+        if (context.performed)
         {
-            if (_indexHor1 < _powerCounterPlayer1) _indexHor1+= 0.5f;
+            if (_indexHor1 < _powerCounterPlayer1) _indexHor1+= 1;
             else _indexHor1 = 0;
             print(_indexHor1+" index hor 1");
             for (int i = 0; i < _sprites.Length; i++)
@@ -172,7 +151,7 @@ public class UIManager : MonoBehaviour
                 String spriteName = _sprites[i].name;
                 if (buttonManager1[(int)_indexHor1].CompareTag(spriteName))
                 {
-                    buttonManager1[(int)_indexHor1].GetComponent<Image>().sprite = _sprites[i]; 
+                    _button1.GetComponent<Image>().sprite = _sprites[i]; 
                     break;
                 }
             }
@@ -182,37 +161,22 @@ public class UIManager : MonoBehaviour
 
     public void NavigateMenu2(InputAction.CallbackContext context)
     {
-        // print(context.ReadValue<int>() +" player2");
-        // if (context.ReadValue<Vector2>().x > 0 && _indexHor2 < _powerCounterPlayer2) _indexHor2++;
-        // else if (context.ReadValue<Vector2>().x < 0 && _indexHor2 >= 1) _indexHor2--;
-        // for (int i = 0; i <= _powerCounterPlayer2; i++)
-        // {
-        //     if (i != _indexHor2)
-        //     {
-        //         for (int j = 0; j <_sprites.Length; j++)
-        //         {
-        //             String spriteName = _sprites[j].name;
-        //             if (buttonManager2[_indexHor2].CompareTag(spriteName))
-        //             {
-        //                 buttonManager2[_indexHor2].GetComponent<Image>().sprite = _sprites[j]; 
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     else
-        //     {
-        //         for (int j = 0; j <_spriteGlow.Length; j++)
-        //         {
-        //             String spriteName = _spriteGlow[j].name;
-        //             if (buttonManager2[_indexHor2].CompareTag(spriteName))
-        //             {
-        //                 buttonManager2[_indexHor2].GetComponent<Image>().sprite = _spriteGlow[j]; 
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // }
-        // _indexPowerPlayer2 = _indexHor2;
+        if (context.performed)
+        {
+            if (_indexHor2 < _powerCounterPlayer2) _indexHor2+= 1;
+            else _indexHor2 = 0;
+            print(_indexHor2+" index hor 2");
+            for (int i = 0; i < _sprites.Length; i++)
+            {
+                String spriteName = _sprites[i].name;
+                if (buttonManager2[(int)_indexHor2].CompareTag(spriteName))
+                {
+                    _button2.GetComponent<Image>().sprite = _sprites[i]; 
+                    break;
+                }
+            }
+        }
+        _indexPowerPlayer2 =(int) _indexHor2;
     }
 
     private void ShowNewPower(Transform power)
@@ -238,6 +202,14 @@ public class UIManager : MonoBehaviour
             Destroy(gameObjects.gameObject);
         }
     }
+    
+    // public static void SetActiveUIobject(Button[] buttonManager,bool active)
+    // {
+    //     foreach (Button _button1 in buttonManager)
+    //     {
+    //         _button1.gameObject.SetActive(active);
+    //     }
+    // }
 
     /*public void InitializedToLastCanvas1(int spritesToRemove)
     {
