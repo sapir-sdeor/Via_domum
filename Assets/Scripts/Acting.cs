@@ -46,6 +46,7 @@ public class Acting : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private AudioSource _audioSource;
     private float _horizontal;
+    private float _vertical;
     private bool _isFacingRight;
     private static bool _removeEachOther;
     private PlayerMovement _inputAction;
@@ -59,7 +60,8 @@ public class Acting : MonoBehaviour
     private static readonly int ONGround = Animator.StringToHash("onGround");
     private static readonly int BelowOther = Animator.StringToHash("belowOther");
     private static readonly int Falling = Animator.StringToHash("falling");
-
+    private bool _onRope;
+    private bool _isClimbing;
 
     #endregion
     
@@ -85,6 +87,12 @@ public class Acting : MonoBehaviour
     {
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
+        if (_onRope && _rigidbody)
+        {
+            _rigidbody.gravityScale = 0f;
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
+            return;
+        }
         if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
         {
             SetJumpAnimation();
@@ -95,8 +103,14 @@ public class Acting : MonoBehaviour
     { 
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
+        if (_onRope && _rigidbody)
+        {
+            _rigidbody.gravityScale = 0f;
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
+            return;
+        }
         if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
-        { 
+        {
             SetJumpAnimation();
         }
     }
@@ -181,11 +195,14 @@ public class Acting : MonoBehaviour
                 break;
         }
         if (_horizontal == 0) _animator.SetBool(Walk1, false);
+        if (!_onRope && _rigidbody) _rigidbody.gravityScale = 1f;
     }
 
     void Update()
     {
-        if ((gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 ||
+        print(_onRope);
+        if (!_onRope && !otherPlayer._onRope && 
+            (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
              gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)
         {
             setOnEachOther();
@@ -274,6 +291,8 @@ public class Acting : MonoBehaviour
             ClickButton();
         else if (other.gameObject.CompareTag(Diamond))
             OnDiamond();
+        else if (other.gameObject.CompareTag("roop"))
+            _onRope = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -283,6 +302,8 @@ public class Acting : MonoBehaviour
             _animator.SetBool(Wait1, false);
             _onDiamond = false;
         }
+        else if (other.gameObject.CompareTag("roop"))
+            _onRope = false;
     }
 
     public void Act(GameObject other, AudioClip audioClip)
