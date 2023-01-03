@@ -149,6 +149,7 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < _sprites.Length; i++)
             {
                 String spriteName = _sprites[i].name;
+                if (_powerCounterPlayer1 <= 0) return;
                 if (buttonManager1[(int)_indexHor1].CompareTag(spriteName))
                 {
                     _button1.GetComponent<Image>().sprite = _sprites[i]; 
