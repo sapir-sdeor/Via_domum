@@ -589,7 +589,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0b327407-fb6e-4e74-acab-f248eb0fbc95"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
