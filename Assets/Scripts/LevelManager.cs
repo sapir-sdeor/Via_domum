@@ -99,8 +99,8 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator SetPlayerPos()
     {
-        yield return new WaitForSeconds(2);
-        switch (LevelManager.GETLevel())
+        yield return new WaitForSeconds(1);
+        switch (_level)
         {
                
             case 1:

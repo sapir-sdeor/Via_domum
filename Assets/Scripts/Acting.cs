@@ -21,6 +21,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private Acting otherPlayer;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private LevelManager levelManager;
+    [SerializeField] private GameObject mushroom;
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private float fallingThreshold = -0.01f; 
@@ -330,7 +331,11 @@ public class Acting : MonoBehaviour
     private void ClickButton()
     {
         if (LevelManager.GETLevel() == 1)
+        {
+            print("mushroom");
             gameManager.OpenGate();
+            mushroom.GetComponent<Animator>().SetTrigger("Collision");
+        }
     }
     
     private void OnDiamond()
