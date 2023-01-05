@@ -62,7 +62,8 @@ public class LevelManager : MonoBehaviour
     private void SelectPlayer1()
     {
         SceneManager.LoadScene("Level"+_level);
-        StartCoroutine(SetPlayerPos());
+        // StartCoroutine(SetPlayerPos());
+        SetNewLevel();
     }
 
     public void SetPosPlayer1(Vector3 pos)
@@ -100,7 +101,14 @@ public class LevelManager : MonoBehaviour
     private IEnumerator SetPlayerPos()
     {
         yield return new WaitForSeconds(1);
-        switch (_level)
+        SetNewLevel();
+      
+       
+    }
+
+    private void SetNewLevel()
+    {
+        switch (GETLevel())
         {
                
             case 1:
@@ -108,6 +116,7 @@ public class LevelManager : MonoBehaviour
                 SceneManager.LoadScene("Level1");
                 break;
             case 2:
+                print("should set players pos");
                 SetPosPlayer1(_pos1Level2);
                 SetPosPlayer2(_pos2Level2);
                 break;
@@ -118,7 +127,7 @@ public class LevelManager : MonoBehaviour
                 SceneManager.LoadScene("Level3");
                 break;
         }
-       
+        
     }
     
     /*
