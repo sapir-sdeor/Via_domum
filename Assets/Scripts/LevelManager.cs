@@ -13,24 +13,9 @@ public class LevelManager : MonoBehaviour
     private UIManager lastCanvas;
     private int lastIndex1, lastIndex2;
     private int lastPower1, lastPower2;
-    public static int Younger;
-    public static int PlayerNumberInDownTunnel = 1;
+    private static bool setLevelPos2 = false;
     private LevelManager _levelManager;
-    
-    private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
-    private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
-
-    private readonly Vector3 _pos1Level3 = new(4.11999989f,-3.81999993f,0.0770537108f);
-    private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
-
     [SerializeField] private UIManager canvasToNotDestroy;
-    
-    
-    /*private readonly Vector3 _pos1Message = new(7.03000021f, -4.3499999f, 0);
-    private readonly Vector3 _pos2Message = new(-6.86f, -4.3499999f, 0);*/
-    /*[SerializeField] private GameObject openUImessage1,openUImessage2;
-    [SerializeField] private GameObject usePowerMessage1, usePowerMessage2;
-    [SerializeField] private GameObject usePowerAnotherTimeMessage1,usePowerAnotherTimeMessage2;*/
     
 
     private void Awake()
@@ -42,6 +27,7 @@ public class LevelManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
     
     public void LoadNextLevel()
@@ -52,36 +38,17 @@ public class LevelManager : MonoBehaviour
         DontDestroyOnLoad(canvasToNotDestroy);
         DontDestroyOnLoad(_gameManager);
         lastCanvas = canvasToNotDestroy;
-        _gameManager.GETPlayer1().gameObject.SetActive(false);
-        _gameManager.GETPlayer2().gameObject.SetActive(false);
-        SelectPlayer1();
-
-
-    }
-    
-    private void SelectPlayer1()
-    {
-        float timer = 0;
-        while (true)
-        {
-            timer += Time.deltaTime;
-            if(timer > 2f) break; 
-        }
+        canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
         SceneManager.LoadScene("Level"+_level);
-        // StartCoroutine(SetPlayerPos());
-        SetNewLevel();
-        // StartCoroutine(WaitFewSecondsBeforeStart());
     }
 
     public void SetPosPlayer1(Vector3 pos)
     {
-        _gameManager.GETPlayer1().gameObject.SetActive(true);
         _gameManager.GETPlayer1().gameObject.transform.position = pos;
     }
     
     public void SetPosPlayer2(Vector3 pos)
     {
-        _gameManager.GETPlayer2().gameObject.SetActive(true);
         _gameManager.GETPlayer2().gameObject.transform.position = pos;
     }
     
@@ -104,94 +71,4 @@ public class LevelManager : MonoBehaviour
             _openUIInstantiate2.SetActive(false); 
         }
     }
-
-    private IEnumerator SetPlayerPos()
-    {
-        yield return new WaitForSeconds(1);
-        SetNewLevel();
-    }
-
-    private IEnumerator WaitFewSecondsBeforeStart()
-    {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("Level"+_level);
-        // StartCoroutine(SetPlayerPos());
-        SetNewLevel();
-    }
-
-    private void SetNewLevel()
-    {
-        switch (GETLevel())
-        {
-               
-            case 1:
-                Younger = 1;
-                SceneManager.LoadScene("Level1");
-                break;
-            case 2:
-                print("should set players pos");
-                SetPosPlayer1(_pos1Level2);
-                SetPosPlayer2(_pos2Level2);
-                break;
-            case 3:
-                SetPosPlayer1(_pos1Level3);
-                SetPosPlayer2(_pos2Level3);
-                PlayerNumberInDownTunnel = 1;
-                SceneManager.LoadScene("Level3");
-                break;
-        }
-        
-    }
-    
-    /*
-    public void OpenUIMessage(GameObject player)
-    {
-        Vector3 pos = player.transform.position;
-        var trans = player.transform;
-        if (player.name == UIManager.PLAYER1)
-        {
-            if (!openUImessage1) return;
-            _openUIInstantiate1 = Instantiate(openUImessage1.gameObject,
-                new Vector3(pos.x+ _messagePos,pos.y,0),Quaternion.identity,trans);
-        }
-        else if (player.name == UIManager.PLAYER2)
-        {
-            if (!openUImessage2) return;
-            _openUIInstantiate2 = Instantiate(openUImessage2.gameObject,
-                new Vector3(pos.x + _messagePos, pos.y, 0), Quaternion.identity,trans);
-        }
-    }
-
-    public void UsePower1()
-    {
-        if (!usePowerMessage1) return;
-        Instantiate(usePowerMessage1.gameObject, _pos1Message, Quaternion.identity);    
-    }
-    
-    public void UsePower2()
-    {
-        if (!usePowerMessage2) return;
-        Instantiate(usePowerMessage2.gameObject, _pos2Message, Quaternion.identity);    
-    }
-    */
-
-    /*public void tryAnotherTimeMessage(String PlayerName)
-    {
-        if (PlayerName == UIManager.PLAYER1)
-        {
-            var player = _gameManager.GETPlayer1();
-            Vector3 pos = player.transform.position;
-            var trans = player.transform;
-            Instantiate(usePowerAnotherTimeMessage1.gameObject, pos + Vector3.right
-                , Quaternion.identity);
-        }
-        else if (PlayerName == UIManager.PLAYER2)
-        {
-            var player = _gameManager.GETPlayer2();
-            Vector3 pos = player.transform.position;
-            var trans = player.transform;
-            Instantiate(usePowerAnotherTimeMessage2.gameObject, pos + Vector3.right,
-                Quaternion.identity);
-        }
-    }*/
 }

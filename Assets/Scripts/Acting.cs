@@ -66,6 +66,12 @@ public class Acting : MonoBehaviour
 
     #endregion
     
+    private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
+    private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
+
+    private readonly Vector3 _pos1Level3 = new(4.11999989f,-3.81999993f,0.0770537108f);
+    private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
+    
    
     private void Start()
     {
@@ -349,14 +355,50 @@ public class Acting : MonoBehaviour
                 removeOnEachOther();
                 otherPlayer.removeOnEachOther();
             }
+            _animator.SetBool(Wait1, true);
             if (GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
             {
                 GetComponent<changeSize>().ApplyMechanic();
             }
+
+            float timer = 0;
+            //todo: find way to add time after they are togther
+            // while (true)
+            // {
+            //     timer += Time.deltaTime;
+            //     if(timer > 2000f) break;
+            // }
             levelManager.LoadNextLevel();
         }
-        _animator.SetBool(Wait1, true);
+        else
+        {
+            _animator.SetBool(Wait1, true); 
+        }
     }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded; 
+    }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.name)
+        {
+            case "Level1":
+                break;
+            case "Level2":
+                levelManager.SetPosPlayer1(_pos1Level2);
+                levelManager.SetPosPlayer2(_pos2Level2);
+                break;
+            case "Level3":
+                levelManager.SetPosPlayer1(_pos1Level3);
+                levelManager.SetPosPlayer2(_pos2Level3);
+                // PlayerNumberInDownTunnel = 1;
+                break;
+        }
+    }
+
 
     private bool getOnDiamond()
     {

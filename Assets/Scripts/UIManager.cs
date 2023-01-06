@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
   
     private int _powerCounterPlayer1 = -1;
+    private int _startCounterPlayer1 = -1;
     private int _powerCounterPlayer2 = -1;
+    private int _startCounterPlayer2=-1;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
     
@@ -16,7 +19,8 @@ public class UIManager : MonoBehaviour
     private float _indexHor1,_indexHor2;
     private LevelManager _levelManager;
     private bool _flyAlready;
-    private GameObject[] buttonManager1 = new GameObject[5], buttonManager2=new GameObject[5];
+    private  GameObject[] buttonManager1 = new GameObject[5], buttonManager2=new GameObject[5];
+    private  GameObject[] buttonManagerAll1 = new GameObject[5], buttonManagerAll2=new GameObject[5];
     [SerializeField] private Button _button1;
     [SerializeField] private Button _button2;
     private GameManager gameManager;
@@ -24,21 +28,12 @@ public class UIManager : MonoBehaviour
 
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
-    [SerializeField] private Sprite[] _spriteGlow,_sprites;
+    [SerializeField] private Sprite[] _sprites;
 
     private void Start()
     {
-       
-        // _powerCounterPlayer1 = -1; _powerCounterPlayer2 = -1;
-        // _indexPowerPlayer1 = 0; _indexPowerPlayer2 = 0;
-        // buttonManager1 = transform.GetChild(0).gameObject.GetComponentsInChildren<Button>();
-        // buttonManager2 = transform.GetChild(1).gameObject.GetComponentsInChildren<Button>();
         _levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
-        DontDestroyOnLoad(_button1);
-        DontDestroyOnLoad(_button2);
-        // SetActiveUIobject(buttonManager1, false);
-        // SetActiveUIobject(buttonManager2, false);
     }
     
 
@@ -51,16 +46,13 @@ public class UIManager : MonoBehaviour
             {
                 return;
             }
-            // if the power is fly we need to fly to other player
             if (buttonManager1[_indexPowerPlayer1].CompareTag("fly"))
             {
                 gameManager.GETPlayer2().Act(buttonManager1[_indexPowerPlayer1],
                 buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
-                //_flyAlready = true;
             }
             else
             {
-                print("should act");
                 gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1],
                     buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
             }
@@ -89,59 +81,62 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
-  
-
     
-
-
-    //when one of the players collect power - update the counter and make the power available
     public void CollectPowerPlayer(GameObject player,Collision2D power)
     {
         if (player.name== PLAYER1)
         {
-            buttonManager1[++_powerCounterPlayer1] = new GameObject();
-            DontDestroyOnLoad(buttonManager1[_powerCounterPlayer1]);
-            buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
-            buttonManager1[_powerCounterPlayer1].gameObject.AddComponent<AudioSource>();
-            buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().clip = 
-                power.gameObject.GetComponent<AudioSource>().clip;
-            buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
-            for (int j = 0; j <_sprites.Length; j++)
-            {
-                String spriteName = _sprites[j].name;
-                if (buttonManager1[_powerCounterPlayer1].CompareTag(spriteName))
-                {
-                    _button1.GetComponent<Image>().sprite = _sprites[j];
-                    _button1.GetComponent<Image>().color = Color.white;
-                    break;
-                }
-            }
-            _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
-            ShowNewPower(power.transform);
+           CollectPowerPlayer1(power);
         }
         else if (player.name == PLAYER2)
         {
-         
-            buttonManager2[++_powerCounterPlayer2] = new GameObject();
-            DontDestroyOnLoad(buttonManager2[_powerCounterPlayer2]);
-            buttonManager2[_powerCounterPlayer2].gameObject.tag = power.gameObject.tag;
-            buttonManager2[_powerCounterPlayer2].gameObject.AddComponent<AudioSource>();
-            buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
-                power.gameObject.GetComponent<AudioSource>().clip;
-            buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
-            for (int j = 0; j <_sprites.Length; j++)
-            {
-                String spriteName = _sprites[j].name;
-                if (buttonManager2[_powerCounterPlayer2].CompareTag(spriteName))
-                {
-                    _button2.GetComponent<Image>().sprite = _sprites[j];
-                    _button2.GetComponent<Image>().color = Color.white;
-                    break;
-                }
-            }
-            ShowNewPower(power.transform);
+            CollectPowerPlayer2(power);
         }
+    }
+
+    private void CollectPowerPlayer1(Collision2D power)
+    {
+        buttonManager1[++_powerCounterPlayer1] = new GameObject();
+        DontDestroyOnLoad(buttonManager1[_powerCounterPlayer1]);
+        buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
+        buttonManager1[_powerCounterPlayer1].gameObject.AddComponent<AudioSource>();
+        buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().clip = 
+            power.gameObject.GetComponent<AudioSource>().clip;
+        buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
+        for (int j = 0; j <_sprites.Length; j++)
+        {
+            String spriteName = _sprites[j].name;
+            if (buttonManager1[_powerCounterPlayer1].CompareTag(spriteName))
+            {
+                _button1.GetComponent<Image>().sprite = _sprites[j];
+                _button1.GetComponent<Image>().color = Color.white;
+                break;
+            }
+        }
+        _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
+        ShowNewPower(power.transform);
+    }
+
+    private void CollectPowerPlayer2(Collision2D power)
+    {
+        buttonManager2[++_powerCounterPlayer2] = new GameObject();
+        DontDestroyOnLoad(buttonManager2[_powerCounterPlayer2]);
+        buttonManager2[_powerCounterPlayer2].gameObject.tag = power.gameObject.tag;
+        buttonManager2[_powerCounterPlayer2].gameObject.AddComponent<AudioSource>();
+        buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
+            power.gameObject.GetComponent<AudioSource>().clip;
+        buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
+        for (int j = 0; j <_sprites.Length; j++)
+        {
+            String spriteName = _sprites[j].name;
+            if (buttonManager2[_powerCounterPlayer2].CompareTag(spriteName))
+            {
+                _button2.GetComponent<Image>().sprite = _sprites[j];
+                _button2.GetComponent<Image>().color = Color.white;
+                break;
+            }
+        }
+        ShowNewPower(power.transform);
     }
 
     public void NavigateMenu1(InputAction.CallbackContext context)
@@ -210,64 +205,38 @@ public class UIManager : MonoBehaviour
             Destroy(gameObjects.gameObject);
         }
     }
-    
-    // public static void SetActiveUIobject(Button[] buttonManager,bool active)
-    // {
-    //     foreach (Button _button1 in buttonManager)
-    //     {
-    //         _button1.gameObject.SetActive(active);
-    //     }
-    // }
 
-    /*public void InitializedToLastCanvas1(int spritesToRemove)
+    private void OnEnable()
     {
-        for (int j = 0; j < spritesToRemove; j++)
+        SceneManager.sceneLoaded += OnSceneLoaded; 
+    }
+
+    void OnSceneLoaded(Scene scene,LoadSceneMode mode)
+    {
+        for (int i = 0; i < buttonManager1.Length; i++)
         {
-            buttonManager1[_indexPowerPlayer1-j].GetComponent<Image>().sprite = null; 
+            buttonManager1[i] = buttonManagerAll1[i];
+            buttonManager2[i] = buttonManagerAll2[i];
         }
+        _powerCounterPlayer1 = _startCounterPlayer1;
+        _powerCounterPlayer2 = _startCounterPlayer2;
+        _indexHor1 = 0;
+        _indexHor2 = 0;
+        _indexPowerPlayer1 = 0;
+        _indexPowerPlayer2 = 0;
     }
-    
-    public void InitializedToLastCanvas2(int spritesToRemove)
+
+    public void SaveBeforeLoad()
     {
-        for (int j = 0; j < spritesToRemove; j++)
+        _startCounterPlayer1 = _powerCounterPlayer1;
+        _startCounterPlayer2 = _powerCounterPlayer2;
+        print(_startCounterPlayer1 +" start counter player");
+        for (int i = 0; i < buttonManager1.Length; i++)
         {
-            buttonManager2[_indexPowerPlayer2-j].GetComponent<Image>().sprite = null; 
+            buttonManagerAll1[i] = buttonManager1[i];
+            buttonManagerAll2[i] = buttonManager2[i];
         }
+        
     }
     
-    public int GETPowerCounter1()
-    {
-        return _powerCounterPlayer1;
-    }
-    public int GETPowerCounter2()
-    {
-        return _powerCounterPlayer2;
-    }
-    
-    public int GETIndexPower1()
-    {
-        return _indexPowerPlayer1;
-    }
-    public int GETIndexPower2()
-    {
-        return _indexPowerPlayer2;
-    }
-    
-    public void SetPowerCounter1(int val)
-    {
-        _powerCounterPlayer1 = val;
-    }
-    public void SetPowerCounter2(int val)
-    {
-        _powerCounterPlayer2 = val;
-    }
-    
-    public void SetIndexPower1(int val)
-    {
-        _indexPowerPlayer1 = val;
-    }
-    public void SetIndexPower2(int val)
-    {
-        _indexPowerPlayer2 = val;
-    }*/
 }
