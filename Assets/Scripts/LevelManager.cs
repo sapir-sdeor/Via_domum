@@ -61,9 +61,16 @@ public class LevelManager : MonoBehaviour
     
     private void SelectPlayer1()
     {
+        float timer = 0;
+        while (true)
+        {
+            timer += Time.deltaTime;
+            if(timer > 2f) break; 
+        }
         SceneManager.LoadScene("Level"+_level);
         // StartCoroutine(SetPlayerPos());
         SetNewLevel();
+        // StartCoroutine(WaitFewSecondsBeforeStart());
     }
 
     public void SetPosPlayer1(Vector3 pos)
@@ -102,8 +109,14 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         SetNewLevel();
-      
-       
+    }
+
+    private IEnumerator WaitFewSecondsBeforeStart()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Level"+_level);
+        // StartCoroutine(SetPlayerPos());
+        SetNewLevel();
     }
 
     private void SetNewLevel()

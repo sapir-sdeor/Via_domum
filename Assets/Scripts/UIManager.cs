@@ -35,6 +35,8 @@ public class UIManager : MonoBehaviour
         // buttonManager2 = transform.GetChild(1).gameObject.GetComponentsInChildren<Button>();
         _levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
+        DontDestroyOnLoad(_button1);
+        DontDestroyOnLoad(_button2);
         // SetActiveUIobject(buttonManager1, false);
         // SetActiveUIobject(buttonManager2, false);
     }
