@@ -30,6 +30,8 @@ public class UIManager : MonoBehaviour
     private static readonly int Collect = Animator.StringToHash("collect");
     [SerializeField] private Sprite[] _sprites;
 
+    private readonly float showNewPowerTime = 2f;
+
     private void Start()
     {
         _levelManager = FindObjectOfType<LevelManager>();
@@ -103,18 +105,9 @@ public class UIManager : MonoBehaviour
         buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().clip = 
             power.gameObject.GetComponent<AudioSource>().clip;
         buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
-        for (int j = 0; j <_sprites.Length; j++)
-        {
-            String spriteName = _sprites[j].name;
-            if (buttonManager1[_powerCounterPlayer1].CompareTag(spriteName))
-            {
-                _button1.GetComponent<Image>().sprite = _sprites[j];
-                _button1.GetComponent<Image>().color = Color.white;
-                break;
-            }
-        }
         _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
         ShowNewPower(power.transform);
+        StartCoroutine(ChangeButtonSprite1());
     }
 
     private void CollectPowerPlayer2(Collision2D power)
@@ -126,17 +119,8 @@ public class UIManager : MonoBehaviour
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
             power.gameObject.GetComponent<AudioSource>().clip;
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
-        for (int j = 0; j <_sprites.Length; j++)
-        {
-            String spriteName = _sprites[j].name;
-            if (buttonManager2[_powerCounterPlayer2].CompareTag(spriteName))
-            {
-                _button2.GetComponent<Image>().sprite = _sprites[j];
-                _button2.GetComponent<Image>().color = Color.white;
-                break;
-            }
-        }
         ShowNewPower(power.transform);
+        StartCoroutine(ChangeButtonSprite2());
     }
 
     public void NavigateMenu1(InputAction.CallbackContext context)
@@ -192,10 +176,41 @@ public class UIManager : MonoBehaviour
         power.gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
         StartCoroutine(SetOffMessage(power));
     }
-    
-    static IEnumerator SetOffMessage(Transform gameObjects)
+
+    private IEnumerator ChangeButtonSprite1()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(showNewPowerTime);
+        for (int j = 0; j <_sprites.Length; j++)
+        {
+            String spriteName = _sprites[j].name;
+            if (buttonManager1[_powerCounterPlayer1].CompareTag(spriteName))
+            {
+                _button1.GetComponent<Image>().sprite = _sprites[j];
+                _button1.GetComponent<Image>().color = Color.white;
+                break;
+            }
+        }
+    }
+
+    private IEnumerator ChangeButtonSprite2()
+    {
+        yield return new WaitForSeconds(showNewPowerTime);
+        for (int j = 0; j <_sprites.Length; j++)
+        {
+            String spriteName = _sprites[j].name;
+            if (buttonManager2[_powerCounterPlayer2].CompareTag(spriteName))
+            {
+                _button2.GetComponent<Image>().sprite = _sprites[j];
+                _button2.GetComponent<Image>().color = Color.white;
+                break;
+            }
+        }
+        
+    }
+    
+     IEnumerator SetOffMessage(Transform gameObjects)
+    {
+        yield return new WaitForSeconds(showNewPowerTime);
         if (gameObjects)
         {
             foreach (Transform newPower in gameObjects)
