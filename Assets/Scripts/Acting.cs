@@ -65,13 +65,21 @@ public class Acting : MonoBehaviour
     private bool _isClimbing;
 
     #endregion
-    
+
+    #region readonly
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
 
     private readonly Vector3 _pos1Level3 = new(4.11999989f,-3.81999993f,0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
-    
+
+    private readonly int GROUND_LAYER = 6;
+    private readonly int PLAYER1_LAYER = 9;
+    private readonly int PLAYER2_LAYER = 10;
+    private readonly int IGNORE_LAYER = 2;
+    private readonly int WATER_LAYER = 4;
+    #endregion
+   
    
     private void Start()
     {
@@ -92,6 +100,8 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
+        print("should jump "+context.performed+" "+IsGrounded()+" "+
+              _removeEachOther + !_rigidbody );
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         if (_onRope && _rigidbody)
@@ -145,6 +155,26 @@ public class Acting : MonoBehaviour
         StartCoroutine(WaitSecondForJump());
     }
 
+    public void JumpDown(InputAction.CallbackContext context)
+    {
+        print("Jump Down");
+        if (context.performed )
+        {
+            // SetJumpAnimation();
+            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER1_LAYER , true);
+        }  
+    }
+    
+    public void JumpDown2(InputAction.CallbackContext context)
+    {
+        print("Jump Down");
+        if (context.performed )
+        {
+            // SetJumpAnimation();
+            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER2_LAYER , true);
+        }  
+    }
+
     private void SetMoveAnimation(InputAction.CallbackContext context)
     {
         removeOnEachOther();
@@ -187,7 +217,8 @@ public class Acting : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) ||
-               gameManager.JumpEachOtherWhoUp() == playerNumber;
+               gameManager.JumpEachOtherWhoUp() == playerNumber || Physics2D.OverlapCircle(groundCheck.position,
+                   0.2f,IGNORE_LAYER );
     }
 
 
@@ -203,9 +234,10 @@ public class Acting : MonoBehaviour
         }
         if (_horizontal == 0) _animator.SetBool(Walk1, false);
         if (!_onRope && _rigidbody) _rigidbody.gravityScale = 1f;
+
     }
 
-    void Update()
+    private void Update()
     {
         print(_onRope);
         if (!_onRope && !otherPlayer._onRope && 
@@ -233,6 +265,8 @@ public class Acting : MonoBehaviour
         }
 
     }
+
+  
 
     private void setOnEachOther()
     {
@@ -282,7 +316,15 @@ public class Acting : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
-
+        print(other.gameObject.layer);
+        if (other.gameObject.layer == WATER_LAYER && playerNumber == 1)
+        {
+            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER1_LAYER , false);
+        }
+        if (other.gameObject.layer == WATER_LAYER && playerNumber == 1)
+        {
+            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER2_LAYER , false);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -362,12 +404,7 @@ public class Acting : MonoBehaviour
             }
 
             float timer = 0;
-            //todo: find way to add time after they are togther
-            // while (true)
-            // {
-            //     timer += Time.deltaTime;
-            //     if(timer > 2000f) break;
-            // }
+            //todo: find way to add time after they are together
             levelManager.LoadNextLevel();
         }
         else

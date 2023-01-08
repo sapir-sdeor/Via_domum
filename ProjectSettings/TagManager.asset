@@ -28,6 +28,7 @@ TagManager:
   - bubbleFly
   - spider
   - rope
+  - roop
   layers:
   - Default
   - TransparentFX
@@ -38,8 +39,8 @@ TagManager:
   - Ground
   - Bubble
   - zoomLayer
-  - 
-  - 
+  - Player1
+  - Player2
   - 
   - 
   - 
