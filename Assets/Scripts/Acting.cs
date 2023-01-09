@@ -239,7 +239,6 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        print(_onRope);
         if (!_onRope && !otherPlayer._onRope && 
             (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
              gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)

@@ -354,10 +354,10 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Click2"",
-                    ""type"": ""Button"",
-                    ""id"": ""4f4d1654-cdfc-417b-aa2e-5de59dda62c1"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Navigate2"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""dc01132f-3c81-4926-a391-bd3840cc8fd5"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -586,17 +586,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ae613f55-d0b3-423b-bf96-cd3f6c1b6559"",
-                    ""path"": ""<Keyboard>/period"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""389795ef-aa63-420a-8005-2f36811b27e6"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
@@ -651,37 +640,37 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""56ea675f-6cbe-4bcb-ae73-a9b61d9e6ad7"",
+                    ""name"": ""Keyboard"",
+                    ""id"": ""2df00d14-84ae-4265-b250-8d102165a3ab"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""9490de49-de02-4d5d-9766-b8a19ceeeb45"",
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Click2"",
+                    ""action"": ""Navigate2"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""9fa46480-ccc3-4e95-952c-c7ebe34e107b"",
-                    ""path"": """",
+                    ""name"": ""right"",
+                    ""id"": ""d7754679-23b3-415a-ad3f-049f3e997c15"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Click2"",
+                    ""action"": ""Navigate2"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c736e6f3-b397-457f-b4b3-24a30a8a2267"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Click2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -709,7 +698,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        m_UI_Click2 = m_UI.FindAction("Click2", throwIfNotFound: true);
+        m_UI_Navigate2 = m_UI.FindAction("Navigate2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -860,7 +849,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
-    private readonly InputAction m_UI_Click2;
+    private readonly InputAction m_UI_Navigate2;
     public struct UIActions
     {
         private @PlayerMovement m_Wrapper;
@@ -875,7 +864,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
-        public InputAction @Click2 => m_Wrapper.m_UI_Click2;
+        public InputAction @Navigate2 => m_Wrapper.m_UI_Navigate2;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -915,9 +904,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
-                @Click2.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClick2;
-                @Click2.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClick2;
-                @Click2.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClick2;
+                @Navigate2.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate2;
+                @Navigate2.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate2;
+                @Navigate2.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate2;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -952,9 +941,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
-                @Click2.started += instance.OnClick2;
-                @Click2.performed += instance.OnClick2;
-                @Click2.canceled += instance.OnClick2;
+                @Navigate2.started += instance.OnNavigate2;
+                @Navigate2.performed += instance.OnNavigate2;
+                @Navigate2.canceled += instance.OnNavigate2;
             }
         }
     }
@@ -981,6 +970,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-        void OnClick2(InputAction.CallbackContext context);
+        void OnNavigate2(InputAction.CallbackContext context);
     }
 }

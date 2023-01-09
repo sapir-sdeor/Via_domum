@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -83,6 +84,11 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+     public void NewNavigate(InputAction.CallbackContext context)
+    {
+       print(context.ReadValue<Vector2>().x);
+    }
     
     public void CollectPowerPlayer(GameObject player,Collision2D power)
     {
@@ -127,19 +133,17 @@ public class UIManager : MonoBehaviour
     {
         if (context.performed)
         {
+            var val = context.ReadValue<Vector2>().x;
             if (_powerCounterPlayer1 < 0) return;
-            if (_indexHor1 < _powerCounterPlayer1) _indexHor1+= 1;
-            else _indexHor1 = 0;
-            print(_indexHor1+" index hor 1");
-            for (int i = 0; i < _sprites.Length; i++)
+            if (_indexHor1 >= _powerCounterPlayer1 && val > 0) _indexHor1=0;
+            else if (_indexHor1 <= 0 && val < 0) ;
+            else { _indexHor1 += val;}
+            foreach (var t in _sprites)
             {
-                String spriteName = _sprites[i].name;
-                if (_powerCounterPlayer1 <= 0) return;
-                if (buttonManager1[(int)_indexHor1].CompareTag(spriteName))
-                {
-                    _button1.GetComponent<Image>().sprite = _sprites[i]; 
-                    break;
-                }
+                var spriteName = t.name;
+                if (!buttonManager1[(int) _indexHor1].CompareTag(spriteName)) continue;
+                _button1.GetComponent<Image>().sprite = t; 
+                break;
             }
         }
         _indexPowerPlayer1 =(int) _indexHor1;
@@ -147,21 +151,23 @@ public class UIManager : MonoBehaviour
 
     public void NavigateMenu2(InputAction.CallbackContext context)
     {
+        print("navigateMenu2");
         if (_powerCounterPlayer2 < 0) return;
         if (context.performed)
         {
-            if (_indexHor2 < _powerCounterPlayer2) _indexHor2+= 1;
-            else _indexHor2 = 0;
-            print(_indexHor2+" index hor 2");
-            for (int i = 0; i < _sprites.Length; i++)
+            var val = context.ReadValue<Vector2>().x;
+            print(val + " val");
+            if (_indexHor2 >= _powerCounterPlayer2 && val > 0) _indexHor2=0;
+            else if(_indexHor2 <= 0 && val < 0) _indexHor2 = 0;
+            else { _indexHor2 += val;}
+            foreach (var t in _sprites)
             {
-                String spriteName = _sprites[i].name;
-                if (buttonManager2[(int)_indexHor2].CompareTag(spriteName))
-                {
-                    _button2.GetComponent<Image>().sprite = _sprites[i]; 
-                    break;
-                }
+                var spriteName = t.name;
+                if (!buttonManager2[(int) _indexHor2].CompareTag(spriteName)) continue;
+                _button2.GetComponent<Image>().sprite = t; 
+                break;
             }
+            print(_indexHor2);
         }
         _indexPowerPlayer2 =(int) _indexHor2;
     }
