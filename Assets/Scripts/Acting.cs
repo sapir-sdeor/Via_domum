@@ -241,6 +241,10 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
+        if (transform.position.y < -3.2f)
+        {
+            transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
+        }
         if (!_onRope && !otherPlayer._onRope && 
             (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
              gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)
