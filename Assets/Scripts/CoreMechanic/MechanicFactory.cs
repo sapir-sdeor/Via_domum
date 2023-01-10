@@ -33,6 +33,10 @@ namespace CoreMechanic
                     if (gameObject.GetComponent<changeSize>()) return gameObject.GetComponent<changeSize>();
                     gameObject.AddComponent<changeSize>();
                     return gameObject.GetComponent<changeSize>();
+                case "touch":
+                    if (gameObject.GetComponent<Touch>()) return gameObject.GetComponent<Touch>();
+                    gameObject.AddComponent<Touch>();
+                    return gameObject.GetComponent<Touch>();
                     
             }
             return null;

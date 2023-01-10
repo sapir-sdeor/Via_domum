@@ -29,6 +29,7 @@ TagManager:
   - spider
   - rope
   - roop
+  - touch
   layers:
   - Default
   - TransparentFX
