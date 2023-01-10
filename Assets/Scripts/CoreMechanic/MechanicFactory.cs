@@ -37,7 +37,7 @@ namespace CoreMechanic
                     if (gameObject.GetComponent<Touch>()) return gameObject.GetComponent<Touch>();
                     gameObject.AddComponent<Touch>();
                     return gameObject.GetComponent<Touch>();
-                    
+
             }
             return null;
         }

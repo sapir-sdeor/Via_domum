@@ -5,24 +5,26 @@ namespace CoreMechanic
 {
     public class ConnectBubbles : MonoBehaviour, ICoreMechanic
     {
-        [SerializeField] private Collider2D colliderToRemove;
-        [SerializeField] private Sprite sprite;
+        //[SerializeField] private Collider2D colliderToRemove;
+     //   [SerializeField] private Sprite sprite;
         [SerializeField] private GameObject background;
         
-        public void SetCollider(Collider2D colliderToRemove)
+        public void SetInputs(GameObject background)
         {
-            this.colliderToRemove = colliderToRemove;
+            this.background = background;
         }     
         public void SetSprite(Sprite sprite, GameObject gameObject)
         {
-            this.sprite = sprite;
+     //       this.sprite = sprite;
             background = gameObject;
         }  
         public void ApplyMechanic()
         {
-            if (!colliderToRemove || !sprite || !background) return;
-            colliderToRemove.isTrigger = true;
-            background.GetComponent<SpriteRenderer>().sprite = sprite;
+            if (!background) return;
+          //  colliderToRemove.isTrigger = true;
+            background.GetComponent<Collider2D>().isTrigger = true;
+            background.GetComponent<Animator>().SetTrigger("connect");
+           // background.GetComponent<SpriteRenderer>().sprite = sprite;
         }
 
     }

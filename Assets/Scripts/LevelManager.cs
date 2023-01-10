@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     {
         _gameManager = FindObjectOfType<GameManager>();
         canvasToNotDestroy = FindObjectOfType<UIManager>();
+        print(_gameManager);
     }
 
     public void Restart()
@@ -33,10 +34,11 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
+        print(_gameManager);
+        DontDestroyOnLoad(_gameManager);
         DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
         DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
         DontDestroyOnLoad(canvasToNotDestroy);
-        DontDestroyOnLoad(_gameManager);
         lastCanvas = canvasToNotDestroy;
         canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
         SceneManager.LoadScene("Level"+_level);

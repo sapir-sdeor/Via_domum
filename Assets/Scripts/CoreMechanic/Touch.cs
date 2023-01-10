@@ -9,6 +9,14 @@ namespace CoreMechanic
         public void ApplyMechanic()
         {
             GetComponent<Animator>().SetTrigger(Touch1);
+            touchAct[] touchGameObjects = FindObjectsOfType<touchAct>();
+            foreach (var obj in touchGameObjects)
+            {
+                if (GetComponent<Collider2D>().IsTouching(obj.GetComponent<Collider2D>()))
+                {
+                    obj.TouchFactory();
+                }
+            }
         }
     }
 }

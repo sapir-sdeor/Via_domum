@@ -24,7 +24,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private GameObject mushroom;
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private float fallingThreshold = -0.01f; 
+    [SerializeField] private float fallingThreshold = -0.01f;
     
     #endregion
 
@@ -78,6 +78,8 @@ public class Acting : MonoBehaviour
     private readonly int PLAYER2_LAYER = 10;
     private readonly int IGNORE_LAYER = 2;
     private readonly int WATER_LAYER = 4;
+    private static bool _enterLoadLevel;
+
     #endregion
    
    
@@ -338,7 +340,7 @@ public class Acting : MonoBehaviour
         if (other.gameObject.CompareTag(Button))
             ClickButton();
         else if (other.gameObject.CompareTag(Diamond))
-            OnDiamond();
+            OnDiamond(other.gameObject);
         else if (other.gameObject.CompareTag("roop"))
             _onRope = true;
     }
@@ -348,6 +350,7 @@ public class Acting : MonoBehaviour
         if (other.gameObject.CompareTag(Diamond))
         {
             _animator.SetBool(Wait1, false);
+            other.GetComponent<Animator>().SetBool("first", false);
             _onDiamond = false;
         }
         else if (other.gameObject.CompareTag("roop"))
@@ -364,7 +367,8 @@ public class Acting : MonoBehaviour
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, flyPosition, light2D);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
+            flyPosition, light2D);
         coreMechanic.ApplyMechanic();
     }
 
@@ -385,9 +389,10 @@ public class Acting : MonoBehaviour
         }
     }
     
-    private void OnDiamond()
+    private void OnDiamond(GameObject other)
     {
         _onDiamond = true;
+        other.GetComponent<Animator>().SetBool("first", true);
         if (otherPlayer.getOnDiamond())
         {
             if (_removeEachOther)
@@ -401,15 +406,20 @@ public class Acting : MonoBehaviour
             {
                 GetComponent<changeSize>().ApplyMechanic();
             }
-
-            float timer = 0;
-            //todo: find way to add time after they are together
-            levelManager.LoadNextLevel();
+            other.GetComponent<Animator>().SetTrigger("second");
+            if (!_enterLoadLevel) StartCoroutine(LoadLevelAfterSecond());
         }
         else
         {
             _animator.SetBool(Wait1, true); 
         }
+    }
+
+    IEnumerator LoadLevelAfterSecond()
+    {
+        _enterLoadLevel = true;
+        yield return new WaitForSeconds(1f);
+        levelManager.LoadNextLevel();
     }
 
     private void OnEnable()
