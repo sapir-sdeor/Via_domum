@@ -380,7 +380,7 @@ public class Acting : MonoBehaviour
     {
         _audioSource.clip = collectPowerSound;
         _audioSource.Play();
-        uiManager.CollectPowerPlayer(gameObject ,other);
+        uiManager.CollectPowerPlayer(gameObject ,other.gameObject);
     }
 
     private void ClickButton()

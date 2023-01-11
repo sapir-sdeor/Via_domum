@@ -9,10 +9,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
   
-    private int _powerCounterPlayer1 = -1;
-    private int _startCounterPlayer1 = -1;
-    private int _powerCounterPlayer2 = -1;
-    private int _startCounterPlayer2=-1;
+    private int _powerCounterPlayer1 = 0;
+    private int _startCounterPlayer1 = 0;
+    private int _powerCounterPlayer2 = 0;
+    private int _startCounterPlayer2=0;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
     
@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     private  GameObject[] buttonManagerAll1 = new GameObject[5], buttonManagerAll2=new GameObject[5];
     [SerializeField] private Button _button1;
     [SerializeField] private Button _button2;
+    [SerializeField] private GameObject touch;
     private GameManager gameManager;
     private GameObject[] power1,power2,power3;
 
@@ -37,8 +38,14 @@ public class UIManager : MonoBehaviour
     {
         _levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
+   
     }
-    
+
+    private void Awake()
+    {
+        CollectPowerPlayer1(touch,false,0);
+        CollectPowerPlayer2(touch,false,0); 
+    }
 
 
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
@@ -84,25 +91,21 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
-     public void NewNavigate(InputAction.CallbackContext context)
-    {
-       print(context.ReadValue<Vector2>().x);
-    }
     
-    public void CollectPowerPlayer(GameObject player,Collision2D power)
+    
+    public void CollectPowerPlayer(GameObject player,GameObject power)
     {
         if (player.name== PLAYER1)
         {
-           CollectPowerPlayer1(power);
+           CollectPowerPlayer1(power,true,showNewPowerTime);
         }
         else if (player.name == PLAYER2)
         {
-            CollectPowerPlayer2(power);
+            CollectPowerPlayer2(power,true,showNewPowerTime);
         }
     }
 
-    private void CollectPowerPlayer1(Collision2D power)
+    private void CollectPowerPlayer1(GameObject power,bool showNewPower,float time)
     {
         buttonManager1[++_powerCounterPlayer1] = new GameObject();
         DontDestroyOnLoad(buttonManager1[_powerCounterPlayer1]);
@@ -112,11 +115,11 @@ public class UIManager : MonoBehaviour
             power.gameObject.GetComponent<AudioSource>().clip;
         buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
         _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
-        ShowNewPower(power.transform);
-        StartCoroutine(ChangeButtonSprite1());
+        if(showNewPower) ShowNewPower(power.transform);
+        StartCoroutine(ChangeButtonSprite1(time));
     }
 
-    private void CollectPowerPlayer2(Collision2D power)
+    private void CollectPowerPlayer2(GameObject power,bool showNewPower,float time)
     {
         buttonManager2[++_powerCounterPlayer2] = new GameObject();
         DontDestroyOnLoad(buttonManager2[_powerCounterPlayer2]);
@@ -125,8 +128,8 @@ public class UIManager : MonoBehaviour
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
             power.gameObject.GetComponent<AudioSource>().clip;
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
-        ShowNewPower(power.transform);
-        StartCoroutine(ChangeButtonSprite2());
+        if(showNewPower) ShowNewPower(power.transform);
+        StartCoroutine(ChangeButtonSprite2(time));
     }
 
     public void NavigateMenu1(InputAction.CallbackContext context)
@@ -151,7 +154,6 @@ public class UIManager : MonoBehaviour
 
     public void NavigateMenu2(InputAction.CallbackContext context)
     {
-        print("navigateMenu2");
         if (_powerCounterPlayer2 < 0) return;
         if (context.performed)
         {
@@ -183,9 +185,10 @@ public class UIManager : MonoBehaviour
         StartCoroutine(SetOffMessage(power));
     }
 
-    private IEnumerator ChangeButtonSprite1()
+    private IEnumerator ChangeButtonSprite1(float time)
     {
-        yield return new WaitForSeconds(showNewPowerTime);
+        print(_powerCounterPlayer1 + "power counter player");
+        yield return new WaitForSeconds(time);
         for (int j = 0; j <_sprites.Length; j++)
         {
             String spriteName = _sprites[j].name;
@@ -198,9 +201,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeButtonSprite2()
+    private IEnumerator ChangeButtonSprite2(float time)
     {
-        yield return new WaitForSeconds(showNewPowerTime);
+        yield return new WaitForSeconds(time);
         for (int j = 0; j <_sprites.Length; j++)
         {
             String spriteName = _sprites[j].name;
