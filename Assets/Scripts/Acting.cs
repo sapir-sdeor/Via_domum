@@ -79,6 +79,8 @@ public class Acting : MonoBehaviour
     private readonly int IGNORE_LAYER = 2;
     private readonly int WATER_LAYER = 4;
     private static bool _enterLoadLevel;
+    private bool _enterHole;
+    private bool _exitHole;
 
     #endregion
    
@@ -243,7 +245,8 @@ public class Acting : MonoBehaviour
     {
         if (transform.position.y < -3.2f)
             EnterHole();
-        
+        if (!_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
+            ExitHole();
         if (!_onRope && !otherPlayer._onRope && 
             (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
              gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)
@@ -251,15 +254,24 @@ public class Acting : MonoBehaviour
             setOnEachOther();
             _removeEachOther = true;
         }
+        if (IsGrounded()) _enterHole = false;
         _animator.SetBool(ONGround, IsGrounded());
         CheckFalling();
     }
 
     private void EnterHole()
     {
+        _enterHole = true;
         transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
         GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
         mushroom.GetComponent<Animator>().SetTrigger("grow");
+    }
+    
+    private void ExitHole()
+    {
+        transform.position = new Vector3(-1.05999994f,-2.83999991f,-5.3326149f);
+        GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
+        mushroom.GetComponent<Animator>().SetTrigger("return");
     }
 
     private void CheckFalling()
