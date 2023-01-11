@@ -16,8 +16,8 @@ public class touchAct : MonoBehaviour
             case "connect":
                 ConnectBubbles();
                 break;
-            case "rope":
-                OpenRope();
+            case "mushroom":
+                GrowMushroom();
                 break;
         }
     }
@@ -29,8 +29,10 @@ public class touchAct : MonoBehaviour
         background.GetComponent<Animator>().SetTrigger(Connect);
     }
 
-    private void OpenRope()
+    private void GrowMushroom()
     {
-        //TODO: apply rope
+        GetComponent<Animator>().SetTrigger("goInside");
+        GameObject mushroomHole = GameObject.FindGameObjectWithTag("mushroomHole");
+        mushroomHole.GetComponent<Animator>().SetTrigger("grow");
     }
 }

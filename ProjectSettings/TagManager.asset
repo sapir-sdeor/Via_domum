@@ -30,6 +30,8 @@ TagManager:
   - rope
   - roop
   - touch
+  - mushroom
+  - mushroomHole
   layers:
   - Default
   - TransparentFX
