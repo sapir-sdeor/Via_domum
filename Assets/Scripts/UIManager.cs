@@ -139,7 +139,7 @@ public class UIManager : MonoBehaviour
             var val = context.ReadValue<Vector2>().x;
             if (_powerCounterPlayer1 < 0) return;
             if (_indexHor1 >= _powerCounterPlayer1 && val > 0) _indexHor1=0;
-            else if (_indexHor1 <= 0 && val < 0) ;
+            else if (_indexHor1 == 0 && val < 0) _indexHor1 = _powerCounterPlayer1 ;
             else { _indexHor1 += val;}
             foreach (var t in _sprites)
             {
@@ -160,7 +160,7 @@ public class UIManager : MonoBehaviour
             var val = context.ReadValue<Vector2>().x;
             print(val + " val");
             if (_indexHor2 >= _powerCounterPlayer2 && val > 0) _indexHor2=0;
-            else if(_indexHor2 <= 0 && val < 0) _indexHor2 = 0;
+            else if(_indexHor2 == 0 && val < 0) _indexHor2 = _powerCounterPlayer2;
             else { _indexHor2 += val;}
             foreach (var t in _sprites)
             {
