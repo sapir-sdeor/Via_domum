@@ -11694,12 +11694,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button1: {fileID: 440815208}
   _button2: {fileID: 1999924217}
+  touch: {fileID: 1244803840}
   _sprites:
   - {fileID: 21300000, guid: 4ccb8d9d31ad74b2a87edaa029c91f09, type: 3}
   - {fileID: 21300000, guid: f93a001f5ce394eba9a73c35c6ad8fa9, type: 3}
   - {fileID: 21300000, guid: 6a4fd189ff6e34bd6974f084562c4ecd, type: 3}
   - {fileID: 21300000, guid: c955bd8ceb1e04b809a7626804cdc476, type: 3}
   - {fileID: 21300000, guid: 77c077ea528b749f09ef966805a33d05, type: 3}
+  - {fileID: 21300000, guid: 86cedeaa7a5094f0582b00f7eb205207, type: 3}
 --- !u!114 &2137829329
 MonoBehaviour:
   m_ObjectHideFlags: 0

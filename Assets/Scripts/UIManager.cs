@@ -38,14 +38,10 @@ public class UIManager : MonoBehaviour
     {
         _levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
-   
-    }
-
-    private void Awake()
-    {
         CollectPowerPlayer1(touch,false,0);
-        CollectPowerPlayer2(touch,false,0); 
+        CollectPowerPlayer2(touch,false,0);
     }
+    
 
 
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
@@ -117,7 +113,7 @@ public class UIManager : MonoBehaviour
         buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
         _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
         if(showNewPower) ShowNewPower(power.transform);
-        print(buttonManager1[_powerCounterPlayer1].tag +" 1");
+      
         StartCoroutine(ChangeButtonSprite1(time));
     }
 
@@ -191,12 +187,13 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ChangeButtonSprite1(float time)
     {
-        print(_powerCounterPlayer1 + "power counter player 1");
+        string newPowerTag = buttonManager1[_powerCounterPlayer1].tag;
         yield return new WaitForSeconds(time);
         for (int j = 0; j <_sprites.Length; j++)
         {
+            print(j+" "+_sprites[j].name);
             String spriteName = _sprites[j].name;
-            if (buttonManager1[_powerCounterPlayer1].CompareTag(spriteName))
+            if (0 == String.CompareOrdinal(newPowerTag,spriteName))
             {
                 _button1.GetComponent<Image>().sprite = _sprites[j];
                 _button1.GetComponent<Image>().color = Color.white;
@@ -207,12 +204,12 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ChangeButtonSprite2(float time)
     {
-        print(_powerCounterPlayer2 + "power counter player 2");
+        string newPowerTag = buttonManager2[_powerCounterPlayer2].tag;
         yield return new WaitForSeconds(time);
         for (int j = 0; j <_sprites.Length; j++)
         {
             String spriteName = _sprites[j].name;
-            if (buttonManager2[_powerCounterPlayer2].CompareTag(spriteName))
+            if (0== String.CompareOrdinal(newPowerTag,spriteName))
             {
                 _button2.GetComponent<Image>().sprite = _sprites[j];
                 _button2.GetComponent<Image>().color = Color.white;
