@@ -9,10 +9,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
   
-    private int _powerCounterPlayer1 = 0;
-    private int _startCounterPlayer1 = 0;
-    private int _powerCounterPlayer2 = 0;
-    private int _startCounterPlayer2=0;
+    private int _powerCounterPlayer1 = -1;
+    private int _startCounterPlayer1 = -1;
+    private int _powerCounterPlayer2 = -1;
+    private int _startCounterPlayer2=-1;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
     
@@ -107,6 +107,7 @@ public class UIManager : MonoBehaviour
 
     private void CollectPowerPlayer1(GameObject power,bool showNewPower,float time)
     {
+        
         buttonManager1[++_powerCounterPlayer1] = new GameObject();
         DontDestroyOnLoad(buttonManager1[_powerCounterPlayer1]);
         buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
@@ -116,6 +117,7 @@ public class UIManager : MonoBehaviour
         buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
         _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
         if(showNewPower) ShowNewPower(power.transform);
+        print(buttonManager1[_powerCounterPlayer1].tag +" 1");
         StartCoroutine(ChangeButtonSprite1(time));
     }
 
@@ -129,11 +131,13 @@ public class UIManager : MonoBehaviour
             power.gameObject.GetComponent<AudioSource>().clip;
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
         if(showNewPower) ShowNewPower(power.transform);
+        print(buttonManager1[_powerCounterPlayer1].tag +" 2");
         StartCoroutine(ChangeButtonSprite2(time));
     }
 
     public void NavigateMenu1(InputAction.CallbackContext context)
     {
+        
         if (context.performed)
         {
             var val = context.ReadValue<Vector2>().x;
@@ -187,7 +191,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ChangeButtonSprite1(float time)
     {
-        print(_powerCounterPlayer1 + "power counter player");
+        print(_powerCounterPlayer1 + "power counter player 1");
         yield return new WaitForSeconds(time);
         for (int j = 0; j <_sprites.Length; j++)
         {
@@ -203,6 +207,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ChangeButtonSprite2(float time)
     {
+        print(_powerCounterPlayer2 + "power counter player 2");
         yield return new WaitForSeconds(time);
         for (int j = 0; j <_sprites.Length; j++)
         {
