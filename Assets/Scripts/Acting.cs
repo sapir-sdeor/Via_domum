@@ -242,9 +242,8 @@ public class Acting : MonoBehaviour
     private void Update()
     {
         if (transform.position.y < -3.2f)
-        {
-            transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
-        }
+            EnterHole();
+        
         if (!_onRope && !otherPlayer._onRope && 
             (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
              gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)
@@ -254,6 +253,13 @@ public class Acting : MonoBehaviour
         }
         _animator.SetBool(ONGround, IsGrounded());
         CheckFalling();
+    }
+
+    private void EnterHole()
+    {
+        transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
+        GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
+        mushroom.GetComponent<Animator>().SetTrigger("grow");
     }
 
     private void CheckFalling()
@@ -321,7 +327,6 @@ public class Acting : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
-        print(other.gameObject.layer);
         if (other.gameObject.layer == WATER_LAYER && playerNumber == 1)
         {
             Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER1_LAYER , false);
