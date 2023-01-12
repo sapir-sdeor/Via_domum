@@ -8,7 +8,7 @@ public class touchAct : MonoBehaviour
 {
     [SerializeField] private GameObject background;
     private static readonly int Connect = Animator.StringToHash("connect");
-
+    public bool alreadyGrow;
     public void TouchFactory()
     {
         switch (tag)
@@ -31,9 +31,11 @@ public class touchAct : MonoBehaviour
 
     private void GrowMushroom()
     {
+        if (alreadyGrow) return;
         GetComponent<Animator>().SetTrigger("goInside");
         GameObject mushroomHole = GameObject.FindGameObjectWithTag("mushroomHole");
         mushroomHole.GetComponent<Animator>().SetTrigger("grow");
         mushroomHole.GetComponent<mushroomHole>().Grow = true;
+        alreadyGrow = true;
     }
 }

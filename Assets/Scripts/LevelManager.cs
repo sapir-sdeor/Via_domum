@@ -15,6 +15,8 @@ public class LevelManager : MonoBehaviour
     private int lastPower1, lastPower2;
     private static bool setLevelPos2 = false;
     private LevelManager _levelManager;
+    private Vector3 pos2 = new(-0.330000013f, -1.80999994f, 0.0417999998f);
+    private Vector3 pos1 = new(1.44000006f, -1.69000006f, 0.0417999998f);
     [SerializeField] private UIManager canvasToNotDestroy;
     
 
@@ -34,13 +36,15 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
-        print(_gameManager);
-        DontDestroyOnLoad(_gameManager);
-        DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
-        DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
-        DontDestroyOnLoad(canvasToNotDestroy);
-        lastCanvas = canvasToNotDestroy;
-        canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
+        if (_level != 1)
+        {
+            DontDestroyOnLoad(canvasToNotDestroy);
+            lastCanvas = canvasToNotDestroy;
+            canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
+            DontDestroyOnLoad(_gameManager);
+            DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
+            DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
+        }
         SceneManager.LoadScene("Level"+_level);
     }
 

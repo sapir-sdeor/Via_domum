@@ -87,9 +87,11 @@ public class Acting : MonoBehaviour
    
     private void Start()
     {
+        _enterLoadLevel = false;
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _audioSource = GetComponent<AudioSource>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     public int GETPlayerNumber()
@@ -264,6 +266,7 @@ public class Acting : MonoBehaviour
         _enterHole = true;
         transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
         GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
+        mushroom.GetComponent<Collider2D>().enabled = true;
         mushroom.GetComponent<Animator>().SetTrigger("grow");
     }
     
@@ -271,7 +274,7 @@ public class Acting : MonoBehaviour
     {
         transform.position = new Vector3(-1.05999994f,-2.83999991f,-5.3326149f);
         GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
-        mushroom.GetComponent<Animator>().SetTrigger("return");
+       // mushroom.GetComponent<Animator>().SetTrigger("return");
     }
 
     private void CheckFalling()
@@ -453,6 +456,7 @@ public class Acting : MonoBehaviour
         switch (scene.name)
         {
             case "Level1":
+                uiManager = FindObjectOfType<UIManager>();
                 break;
             case "Level2":
                 levelManager.SetPosPlayer1(_pos1Level2);

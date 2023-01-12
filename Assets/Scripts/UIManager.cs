@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
+                print("apply1");
                 gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1],
                     buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
             }
@@ -81,6 +82,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
+                print("apply2");
                 buttonManager2[_indexPowerPlayer2].GetComponent<AudioSource>().Play();
                 gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject,
                     buttonManager2[_indexPowerPlayer2].GetComponent<AudioSource>().clip);
@@ -103,7 +105,6 @@ public class UIManager : MonoBehaviour
 
     private void CollectPowerPlayer1(GameObject power,bool showNewPower,float time)
     {
-        
         buttonManager1[++_powerCounterPlayer1] = new GameObject();
         DontDestroyOnLoad(buttonManager1[_powerCounterPlayer1]);
         buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
@@ -111,10 +112,10 @@ public class UIManager : MonoBehaviour
         buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().clip = 
             power.gameObject.GetComponent<AudioSource>().clip;
         buttonManager1[_powerCounterPlayer1].GetComponent<AudioSource>().playOnAwake = false;
-        _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
         if(showNewPower) ShowNewPower(power.transform);
-      
+        _indexHor1 = _indexPowerPlayer1 = _powerCounterPlayer1;
         StartCoroutine(ChangeButtonSprite1(time));
+        
     }
 
     private void CollectPowerPlayer2(GameObject power,bool showNewPower,float time)
@@ -126,6 +127,7 @@ public class UIManager : MonoBehaviour
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().clip = 
             power.gameObject.GetComponent<AudioSource>().clip;
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
+        _indexHor2 = _indexPowerPlayer2 = _powerCounterPlayer2;
         if(showNewPower) ShowNewPower(power.transform);
         print(buttonManager1[_powerCounterPlayer1].tag +" 2");
         StartCoroutine(ChangeButtonSprite2(time));

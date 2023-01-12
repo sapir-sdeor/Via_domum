@@ -35,16 +35,22 @@ public class mushroomHole : MonoBehaviour
         if (GetComponentInChildren<Collider2D>().IsTouching
             (_gameManager.GETPlayer1().GetComponent<Collider2D>()))
         {
-            print("here");
             GetComponent<Animator>().SetBool("goInside", true);
+            GameObject.FindWithTag("mushroom").GetComponent<Animator>().SetBool("return", true);
+            GameObject.FindWithTag("mushroom").GetComponent<touchAct>().alreadyGrow = false;
         }
         else if (GetComponentInChildren<Collider2D>().IsTouching
             (_gameManager.GETPlayer2().GetComponent<Collider2D>()))
         {
-            print("here1");
             GetComponent<Animator>().SetBool("goInside", true);
+            GameObject.FindWithTag("mushroom").GetComponent<Animator>().SetBool("return",true);
+            GameObject.FindWithTag("mushroom").GetComponent<touchAct>().alreadyGrow = false;
         }
-        else  GetComponent<Animator>().SetBool("goInside", false);
+        else
+        {
+            GetComponent<Animator>().SetBool("goInside", false);
+            GameObject.FindWithTag("mushroom").GetComponent<Animator>().SetBool("return",false);
+        }
     }
     
 }
