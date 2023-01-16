@@ -470,7 +470,6 @@ public class Acting : MonoBehaviour
         }
     }
 
-
     private bool getOnDiamond()
     {
         return _onDiamond;

@@ -241,6 +241,7 @@ public class UIManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene,LoadSceneMode mode)
     {
+        print("on scene load");
         for (int i = 0; i < buttonManager1.Length; i++)
         {
             buttonManager1[i] = buttonManagerAll1[i];
