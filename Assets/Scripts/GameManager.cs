@@ -1,6 +1,8 @@
 
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,18 +26,7 @@ public class GameManager : MonoBehaviour
             _player1 = players[1].gameObject;
             _player2 = players[0].gameObject;
         }
-        if (LevelManager.GETLevel() == 1 && ButtonManger.Younger == 1)
-        {
-            _player1.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
-            _player2.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
-        }
-        else if (LevelManager.GETLevel() == 1 && ButtonManger.Younger == 2)
-        {
-            _player1.GetComponent<Animator>().runtimeAnimatorController = animatorBigPlayer;
-            _player2.GetComponent<Animator>().runtimeAnimatorController = animatorYoungPlayer;
-        }
     }
-    
 
     public void OpenGate()
     {
@@ -81,6 +72,24 @@ public class GameManager : MonoBehaviour
     {
         return _player2.GetComponent<Acting>();
     }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded; 
+    }
     
-    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Acting[] players = FindObjectsOfType<Acting>();
+        diamond = GameObject.FindGameObjectWithTag("diamond");
+        if (players.Length < 2) return; 
+        if (players[0].GETPlayerNumber() == 1) {
+            _player1 = players[0].gameObject;
+            _player2 = players[1].gameObject; 
+        }
+        else {
+            _player1 = players[1].gameObject;
+            _player2 = players[0].gameObject;
+        }
+    }
 }

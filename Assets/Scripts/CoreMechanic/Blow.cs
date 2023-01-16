@@ -16,7 +16,7 @@ namespace CoreMechanic
             {
                 animator.SetBool("startFly", true);    
             }
-            bubbleFly.AddComponent<flyAnimal>();
+            bubbleFly.AddComponent<flyAnimal1>();
         }
 
     }

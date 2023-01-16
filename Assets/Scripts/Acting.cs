@@ -245,9 +245,9 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < -3.2f)
+        if (transform.position.y < -3.2f && LevelManager.GETLevel() == 1)
             EnterHole();
-        if (!_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
+        if (LevelManager.GETLevel() == 1 && !_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
             ExitHole();
         if (!_onRope && !otherPlayer._onRope && 
             (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
@@ -273,8 +273,6 @@ public class Acting : MonoBehaviour
     private void ExitHole()
     {
         transform.position = new Vector3(-1.05999994f,-2.83999991f,-5.3326149f);
-        GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
-       // mushroom.GetComponent<Animator>().SetTrigger("return");
     }
 
     private void CheckFalling()
@@ -453,10 +451,12 @@ public class Acting : MonoBehaviour
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        uiManager = FindObjectOfType<UIManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        levelManager = FindObjectOfType<LevelManager>();
         switch (scene.name)
         {
             case "Level1":
-                uiManager = FindObjectOfType<UIManager>();
                 break;
             case "Level2":
                 levelManager.SetPosPlayer1(_pos1Level2);
@@ -465,7 +465,6 @@ public class Acting : MonoBehaviour
             case "Level3":
                 levelManager.SetPosPlayer1(_pos1Level3);
                 levelManager.SetPosPlayer2(_pos2Level3);
-                // PlayerNumberInDownTunnel = 1;
                 break;
         }
     }

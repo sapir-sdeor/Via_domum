@@ -32,6 +32,7 @@ TagManager:
   - touch
   - mushroom
   - mushroomHole
+  - fade
   layers:
   - Default
   - TransparentFX
