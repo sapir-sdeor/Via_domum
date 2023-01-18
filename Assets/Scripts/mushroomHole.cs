@@ -9,9 +9,7 @@ public class mushroomHole : MonoBehaviour
 {
     private bool _grow;
     private GameManager _gameManager;
-    private Vector3 _target = new(-3.1500001f, 6.51000023f, 0f);
     private bool _move;
-    [SerializeField] private Sprite stayInHoleSprite;
     private float _time;
 
     public bool Grow
@@ -27,11 +25,9 @@ public class mushroomHole : MonoBehaviour
 
     void Update()
     {
-        if (_grow)
-        {
-            GetComponentInChildren<Collider2D>().enabled = true;
-        }
-        else return;
+        if (_grow) GetComponentInChildren<Collider2D>().enabled = true;
+        else GetComponentInChildren<Collider2D>().enabled = false;
+        
         if (GetComponentInChildren<Collider2D>().IsTouching
             (_gameManager.GETPlayer1().GetComponent<Collider2D>()))
         {
@@ -50,6 +46,7 @@ public class mushroomHole : MonoBehaviour
         {
             GetComponent<Animator>().SetBool("goInside", false);
             GameObject.FindWithTag("mushroom").GetComponent<Animator>().SetBool("return",false);
+            _grow = true;
         }
     }
     

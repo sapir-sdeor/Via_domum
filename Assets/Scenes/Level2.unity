@@ -8020,7 +8020,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8045,7 +8045,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1086973841
 MonoBehaviour:
@@ -8851,7 +8851,7 @@ GameObject:
   - component: {fileID: 1230313978}
   - component: {fileID: 1230313980}
   - component: {fileID: 1230313981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11379,7 +11379,7 @@ Transform:
   - {fileID: 170247945}
   - {fileID: 1267303202}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1633329392
 GameObject:
@@ -11415,7 +11415,7 @@ Transform:
   - {fileID: 1201509950}
   - {fileID: 1299983064}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1640346076
 GameObject:
