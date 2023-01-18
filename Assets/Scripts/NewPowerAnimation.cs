@@ -13,21 +13,26 @@ public class NewPowerAnimation : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        StartCoroutine(waitBeforeDestroy());
-        if (other.gameObject.name == UIManager.PLAYER1)
-        {
-            newPowerAnimator.SetBool(Player1, true);
-        }
-        else if (other.gameObject.name == UIManager.PLAYER2)
-        {
-            newPowerAnimator.SetBool(Player2, true);
-        }
+        StartCoroutine(waitBeforeDestroy(other));
+      
+       
     }
 
-    IEnumerator waitBeforeDestroy()
+    IEnumerator waitBeforeDestroy(Collision2D other)
     {
         yield return new WaitForSeconds(TimeToWait);
         aura.SetActive(false);
         text.SetActive(false);
+        if (other.gameObject.name == UIManager.PLAYER1)
+        {
+            print("animation1");
+            newPowerAnimator.SetBool(Player1, true);
+        }
+        else if (other.gameObject.name == UIManager.PLAYER2)
+        {
+            print("animation2");
+            newPowerAnimator.SetBool(Player2, true);
+        }
+        
     }
 }
