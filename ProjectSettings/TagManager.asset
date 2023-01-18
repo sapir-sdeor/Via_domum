@@ -32,18 +32,19 @@ TagManager:
   - touch
   - mushroom
   - mushroomHole
+  - fade
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player1
   - Water
   - UI
   - Ground
   - Bubble
-  - zoomLayer
-  - Player1
   - Player2
+  - 
+  - 
   - 
   - 
   - 

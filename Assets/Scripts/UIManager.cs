@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -31,6 +30,7 @@ public class UIManager : MonoBehaviour
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
     [SerializeField] private Sprite[] _sprites;
+    private bool start;
 
     private readonly float showNewPowerTime = 2f;
 
@@ -40,6 +40,8 @@ public class UIManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         CollectPowerPlayer1(touch,false,0);
         CollectPowerPlayer2(touch,false,0);
+        // DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(this);
     }
     
 
@@ -105,6 +107,7 @@ public class UIManager : MonoBehaviour
 
     private void CollectPowerPlayer1(GameObject power,bool showNewPower,float time)
     {
+        print(power.tag);
         buttonManager1[++_powerCounterPlayer1] = new GameObject();
         DontDestroyOnLoad(buttonManager1[_powerCounterPlayer1]);
         buttonManager1[_powerCounterPlayer1].gameObject.tag = power.gameObject.tag;
@@ -245,13 +248,15 @@ public class UIManager : MonoBehaviour
         {
             buttonManager1[i] = buttonManagerAll1[i];
             buttonManager2[i] = buttonManagerAll2[i];
+            if (buttonManagerAll1[i])print("onSceneloaded"+buttonManagerAll1[i].tag);
         }
         _powerCounterPlayer1 = _startCounterPlayer1;
         _powerCounterPlayer2 = _startCounterPlayer2;
-        _indexHor1 = 0;
-        _indexHor2 = 0;
-        _indexPowerPlayer1 = 0;
-        _indexPowerPlayer2 = 0;
+       
+        _indexHor1 = _indexPowerPlayer1 =  0;
+        _indexHor2 = _indexPowerPlayer2 = 0;
+        if(_button1) _button1.GetComponent<Image>().sprite = _sprites[0];
+        if(_button2) _button2.GetComponent<Image>().sprite = _sprites[0];
     }
 
     public void SaveBeforeLoad()
