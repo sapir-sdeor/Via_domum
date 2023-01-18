@@ -15,17 +15,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Acting[] players = FindObjectsOfType<Acting>();
         diamond = GameObject.FindGameObjectWithTag("diamond");
-        if (players.Length < 2) return; 
-        if (players[0].GETPlayerNumber() == 1) {
-            _player1 = players[0].gameObject;
-            _player2 = players[1].gameObject; 
-        }
-        else {
-            _player1 = players[1].gameObject;
-            _player2 = players[0].gameObject;
-        }
+        SavePlayers();
     }
 
     public void OpenGate()
@@ -69,10 +60,19 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
     
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void SetPosPlayer1(Vector3 pos)
+    {
+        _player1.gameObject.transform.position = pos;
+    }
+    
+    public void SetPosPlayer2(Vector3 pos)
+    {
+        _player2.gameObject.transform.position = pos;
+    }
+
+    private void SavePlayers()
     {
         Acting[] players = FindObjectsOfType<Acting>();
-        diamond = GameObject.FindGameObjectWithTag("diamond");
         if (players.Length < 2) return; 
         if (players[0].GETPlayerNumber() == 1) {
             _player1 = players[0].gameObject;
@@ -82,5 +82,11 @@ public class GameManager : MonoBehaviour
             _player1 = players[1].gameObject;
             _player2 = players[0].gameObject;
         }
+        print(_player1);
+    }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        diamond = GameObject.FindGameObjectWithTag("diamond");
     }
 }

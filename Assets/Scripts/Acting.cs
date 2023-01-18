@@ -428,15 +428,15 @@ public class Acting : MonoBehaviour
             case "Level1":
                 break;
             case "Level2":
-                levelManager.SetPosPlayer1(_pos1Level2);
-                levelManager.SetPosPlayer2(_pos2Level2);
+                gameManager.SetPosPlayer1(_pos1Level2);
+                gameManager.SetPosPlayer2(_pos2Level2);
                 if (playerNumber == 2)
                     gameObject.AddComponent<Fly>();
                 
                 break;
             case "Level3":
-                levelManager.SetPosPlayer1(_pos1Level3);
-                levelManager.SetPosPlayer2(_pos2Level3);
+                gameManager.SetPosPlayer1(_pos1Level3);
+                gameManager.SetPosPlayer2(_pos2Level3);
                 break;
         }
     }

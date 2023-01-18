@@ -35,23 +35,14 @@ public class LevelManager : MonoBehaviour
         {
             DontDestroyOnLoad(canvasToNotDestroy);
             canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
-            DontDestroyOnLoad(_gameManager);
+            DontDestroyOnLoad(_gameManager.gameObject);
             DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
             DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
         }
         GameObject.FindGameObjectWithTag("fade").GetComponent<Animator>().SetTrigger("fadeOut");
     }
 
-    public void SetPosPlayer1(Vector3 pos)
-    {
-        _gameManager.GETPlayer1().gameObject.transform.position = pos;
-    }
-    
-    public void SetPosPlayer2(Vector3 pos)
-    {
-        _gameManager.GETPlayer2().gameObject.transform.position = pos;
-    }
-    
+  
 
     public static int GETLevel()
     {

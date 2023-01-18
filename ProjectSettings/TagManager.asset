@@ -33,6 +33,7 @@ TagManager:
   - mushroom
   - mushroomHole
   - fade
+  - echo
   layers:
   - Default
   - TransparentFX

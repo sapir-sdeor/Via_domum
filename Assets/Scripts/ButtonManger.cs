@@ -25,7 +25,7 @@ public class ButtonManger : MonoBehaviour
 
     public void SelectPlayer1()
     {
-        switch (LevelManager.GETLevel())
+        /*switch (LevelManager.GETLevel())
         {
             case 1:
                 Younger = 1;
@@ -42,7 +42,7 @@ public class ButtonManger : MonoBehaviour
                 PlayerNumberInDownTunnel = 1;
                 SceneManager.LoadScene("Level3");
                 break;
-        }
+        }*/
 
     }
     
@@ -50,7 +50,7 @@ public class ButtonManger : MonoBehaviour
     {
         switch (LevelManager.GETLevel())
         {
-            case 1:
+            /*case 1:
                 Younger = 2;
                 SceneManager.LoadScene("Level1");
                 break;
@@ -64,7 +64,7 @@ public class ButtonManger : MonoBehaviour
                 _levelManager.SetPosPlayer2(_pos1Level3);
                 PlayerNumberInDownTunnel = 2;
                 SceneManager.LoadScene("Level3");
-                break;
+                break;*/
         }
 
     }
