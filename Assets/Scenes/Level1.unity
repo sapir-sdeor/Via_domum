@@ -1104,6 +1104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newPowerAnimator: {fileID: 517556802}
+  aura: {fileID: 1690615045}
+  text: {fileID: 1764953452}
+  TimeToWait: 1
 --- !u!1 &300611439
 GameObject:
   m_ObjectHideFlags: 0
@@ -5331,6 +5334,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newPowerAnimator: {fileID: 1949581014}
+  aura: {fileID: 170106591}
+  text: {fileID: 256891597}
+  TimeToWait: 0.7
 --- !u!1 &1292843546
 GameObject:
   m_ObjectHideFlags: 0
