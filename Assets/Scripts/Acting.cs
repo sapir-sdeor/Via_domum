@@ -302,7 +302,6 @@ public class Acting : MonoBehaviour
             Destroy(otherPlayer.GetComponent<Rigidbody2D>());
         }
         otherPlayer.GetComponent<Animator>().enabled = false;
-
     }
     
     private void removeOnEachOther()

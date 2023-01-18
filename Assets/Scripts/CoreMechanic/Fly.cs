@@ -16,11 +16,11 @@ namespace CoreMechanic
         private bool _explodeFlower;
         private static readonly int Explode = Animator.StringToHash("explode");
         private static readonly int Fly1 = Animator.StringToHash("fly");
+        private bool _applyPower;
 
         private void Awake()
         {
             _particle = GameObject.FindGameObjectsWithTag("particle system");
-            print(_particle);
             _flower = GameObject.FindGameObjectsWithTag("flower");
         }
 
@@ -28,17 +28,18 @@ namespace CoreMechanic
         {
             _flyPos = flyPosition;
         }
+        
         private void Update()
         {
-            if (_explodeFlower) _time += Time.deltaTime;
+            _time += Time.deltaTime;
             if (_time > 4)
             {
-                _explodeFlower = false;
                 _time = 0;
-                if (_indexFlower < _particle.Length)
+                if (_indexFlower < _particle.Length && _applyPower)
                 {
-                    _particle[_indexFlower].GetComponent<ParticleSystem>().Stop();
-                    _indexFlower++;
+                    for (int i = 0; i <= _indexFlower; i++)
+                        _particle[i].GetComponent<ParticleSystem>().Stop();
+                    _applyPower = false;
                 }
             }
             if (Vector3.Distance(transform.position, _flyPos) < 0.3f)
@@ -55,22 +56,20 @@ namespace CoreMechanic
                 GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 transform.position = Vector3.MoveTowards(transform.position, _flyPos, step);
             }
-           
         }
 
         public void ApplyMechanic()
         {
-            //activate particle system
-            if (_indexFlower < _particle.Length) _particle[_indexFlower].GetComponent<ParticleSystem>().Play();
+            if (_indexFlower < _particle.Length) 
+                _particle[_indexFlower].GetComponent<ParticleSystem>().Play();
             if (_indexFlower < _flower.Length)
             {
                 _flower[_indexFlower].GetComponent<Animator>().SetBool(Explode, true);
-                _explodeFlower = true;
                 if (_flower[_indexFlower].name == "Main Flower")
-                {
                     StartFlying();
-                }
             }
+            _applyPower = true;
+            _indexFlower++;
         }
 
         IEnumerator StartAnimation()
