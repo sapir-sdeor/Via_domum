@@ -1131,7 +1131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300611439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9324048, y: -0.9261962, z: 0.035290066}
+  m_LocalPosition: {x: -0.9324048, y: 1.89, z: 0.035290066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2071,7 +2071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &517556800
 Transform:
   m_ObjectHideFlags: 0
@@ -6780,7 +6780,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502302921}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad35740c4ff6fa3479b123ffd566dfe6, type: 3}
   m_Name: 
@@ -7983,13 +7983,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1690615046}
   - component: {fileID: 1690615047}
+  - component: {fileID: 1690615048}
   m_Layer: 0
   m_Name: Aura
   m_TagString: little
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1690615046
 Transform:
   m_ObjectHideFlags: 0
@@ -8057,6 +8058,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1690615048
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690615045}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c3c818a58e8fd0e43922b4a3eaac4598, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1724118343
 GameObject:
   m_ObjectHideFlags: 0
@@ -9358,11 +9379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.07
+      value: 1.63
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 4.71
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9736,7 +9757,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1710, y: 0}
+  m_AnchoredPosition: {x: -1710, y: 37.96}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1789057315
@@ -11085,7 +11106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2020493620
 Transform:
   m_ObjectHideFlags: 0
@@ -11094,7 +11115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020493619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.77, y: -55.91, z: -0.7973437}
+  m_LocalPosition: {x: -16.4, y: -46.1, z: -0.7973437}
   m_LocalScale: {x: 14.285715, y: 14.285715, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
