@@ -6,19 +6,10 @@ namespace CoreMechanic
 {
     public class MechanicFactory : MonoBehaviour
     {
-        public ICoreMechanic CreateMechanic(String name, Vector3 flyPos, Light2D[] light2D)
+        public ICoreMechanic CreateMechanic(String name, Light2D[] light2D)
         {
             switch (name)
             {
-                case "fly":
-                    if (gameObject.GetComponent<Fly>()) return gameObject.GetComponent<Fly>();
-                    gameObject.AddComponent<Fly>();
-                    gameObject.GetComponent<Fly>().SetFlyPosition(flyPos);
-                    return gameObject.GetComponent<Fly>();
-                case "rope":
-                    if (gameObject.GetComponent<Rope>()) return gameObject.GetComponent<Rope>();
-                    gameObject.AddComponent<Rope>();
-                    return gameObject.GetComponent<Rope>();
                 case "light":
                     if (gameObject.GetComponent<Light>()) return gameObject.GetComponent<Light>();
                     gameObject.AddComponent<Light>();
@@ -37,6 +28,10 @@ namespace CoreMechanic
                     if (gameObject.GetComponent<Touch>()) return gameObject.GetComponent<Touch>();
                     gameObject.AddComponent<Touch>();
                     return gameObject.GetComponent<Touch>();
+                case "echo":
+                    if (gameObject.GetComponent<Echo>()) return gameObject.GetComponent<Echo>();
+                    gameObject.AddComponent<Echo>();
+                    return gameObject.GetComponent<Echo>();
 
             }
             return null;

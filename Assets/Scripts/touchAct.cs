@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CoreMechanic;
@@ -7,8 +8,17 @@ using UnityEngine;
 public class touchAct : MonoBehaviour
 {
     [SerializeField] private GameObject background;
-    private static readonly int Connect = Animator.StringToHash("connect");
+    private GameObject[] _flower;
+    private int _indexFlower;
     public bool alreadyGrow;
+    private static readonly int Connect = Animator.StringToHash("connect");
+    private static readonly int Explode = Animator.StringToHash("explode");
+
+    private void Start()
+    {
+        _flower = GameObject.FindGameObjectsWithTag("flower");
+    }
+
     public void TouchFactory()
     {
         switch (tag)
@@ -19,7 +29,24 @@ public class touchAct : MonoBehaviour
             case "mushroom":
                 GrowMushroom();
                 break;
+            case "root":
+                ApplyRoot();
+                break;
         }
+    }
+
+    private void ApplyRoot()
+    {
+        if (_indexFlower < _flower.Length)
+        {
+            _flower[_indexFlower].GetComponent<Animator>().SetBool(Explode, true);
+            if (_flower[_indexFlower].name == "Main Flower")
+            {
+                foreach (var animator in _flower[_indexFlower].GetComponentsInChildren<Animator>())
+                    animator.SetTrigger("wind");
+            }
+        }
+        _indexFlower++;
     }
 
     private void ConnectBubbles()

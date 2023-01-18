@@ -35,8 +35,6 @@ public class Acting : MonoBehaviour
     private const String Walk = "walk";
     private const String Button = "button";
     private const String Diamond = "diamond";
-    private const String ActString = "act";
-    
 
     #endregion
 
@@ -331,6 +329,14 @@ public class Acting : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("flower"))
+        {
+            GetComponent<Fly>().StartFlying(flyPosition);
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(Button))
@@ -359,8 +365,7 @@ public class Acting : MonoBehaviour
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag,
-            flyPosition, light2D);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D);
         coreMechanic.ApplyMechanic();
     }
 
@@ -425,6 +430,9 @@ public class Acting : MonoBehaviour
             case "Level2":
                 levelManager.SetPosPlayer1(_pos1Level2);
                 levelManager.SetPosPlayer2(_pos2Level2);
+                if (playerNumber == 2)
+                    gameObject.AddComponent<Fly>();
+                
                 break;
             case "Level3":
                 levelManager.SetPosPlayer1(_pos1Level3);
