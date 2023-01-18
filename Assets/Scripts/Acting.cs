@@ -49,7 +49,6 @@ public class Acting : MonoBehaviour
     private float _horizontal;
     private float _vertical;
     private bool _isFacingRight;
-    private static bool _removeEachOther;
     private PlayerMovement _inputAction;
     private Animator _animator;
     private bool falling;
@@ -61,7 +60,6 @@ public class Acting : MonoBehaviour
     private static readonly int ONGround = Animator.StringToHash("onGround");
     private static readonly int BelowOther = Animator.StringToHash("belowOther");
     private static readonly int Falling = Animator.StringToHash("falling");
-    private bool _onRope;
     private bool _isClimbing;
 
     #endregion
@@ -106,33 +104,21 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        print("should jump "+context.performed+" "+IsGrounded()+" "+
-              _removeEachOther + !_rigidbody );
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
-        if (_onRope && _rigidbody)
-        {
-            _rigidbody.gravityScale = 0f;
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
-            return;
-        }
-        if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
+        if (context.performed && IsGrounded())
         {
             SetJumpAnimation();
         }
     }
 
     public void Jump2(InputAction.CallbackContext context)
-    { 
+    {
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
-        if (_onRope && _rigidbody)
-        {
-            _rigidbody.gravityScale = 0f;
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
-            return;
-        }
-        if (context.performed && (IsGrounded() || (_removeEachOther && !_rigidbody)))
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
+        if (context.performed && IsGrounded())
         {
             SetJumpAnimation();
         }
@@ -155,7 +141,6 @@ public class Acting : MonoBehaviour
     }
     private void SetJumpAnimation()
     {
-        removeOnEachOther();
         _animator.SetTrigger(Jump1);
         _animator.SetBool(Wait1, false);
         StartCoroutine(WaitSecondForJump());
@@ -183,7 +168,6 @@ public class Acting : MonoBehaviour
 
     private void SetMoveAnimation(InputAction.CallbackContext context)
     {
-        removeOnEachOther();
         _animator.SetBool(Wait1, false);
         _animator.SetBool(Walk1, true);
         _horizontal = context.ReadValue<Vector2>().x;
@@ -198,11 +182,7 @@ public class Acting : MonoBehaviour
         }
     }
     
-    IEnumerator WaitSecond()
-    {
-        yield return new WaitForSeconds(2f);
-        _removeEachOther = false;
-    }
+    
 
     private void Flip()
     {
@@ -222,9 +202,8 @@ public class Acting : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) ||
-               gameManager.JumpEachOtherWhoUp() == playerNumber || Physics2D.OverlapCircle(groundCheck.position,
-                   0.2f,IGNORE_LAYER );
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) 
+               || Physics2D.OverlapCircle(groundCheck.position, 0.2f,IGNORE_LAYER );
     }
 
 
@@ -239,8 +218,6 @@ public class Acting : MonoBehaviour
                 break;
         }
         if (_horizontal == 0) _animator.SetBool(Walk1, false);
-        if (!_onRope && _rigidbody) _rigidbody.gravityScale = 1f;
-
     }
 
     private void Update()
@@ -249,13 +226,6 @@ public class Acting : MonoBehaviour
             EnterHole();
         if (LevelManager.GETLevel() == 1 && !_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
             ExitHole();
-        if (!_onRope && !otherPlayer._onRope && 
-            (gameManager.JumpEachOtherWhoUp() == 1 && playerNumber == 2 || 
-             gameManager.JumpEachOtherWhoUp() == 2 && playerNumber == 1) && !_removeEachOther)
-        {
-            setOnEachOther();
-            _removeEachOther = true;
-        }
         if (IsGrounded()) _enterHole = false;
         _animator.SetBool(ONGround, IsGrounded());
         CheckFalling();
@@ -272,7 +242,13 @@ public class Acting : MonoBehaviour
     
     private void ExitHole()
     {
-        transform.position = new Vector3(-1.05999994f,-2.83999991f,-5.3326149f);
+        if (GetComponent<changeSize>().GETLittle())
+            transform.position = new Vector3(-1.05999994f,-2.83999991f,-5.3326149f);
+        else
+        {
+            GameObject mushroomHole = GameObject.FindGameObjectWithTag("mushroomHole");
+            mushroomHole.GetComponent<mushroomHole>().Grow = false;
+        }
     }
 
     private void CheckFalling()
@@ -310,7 +286,6 @@ public class Acting : MonoBehaviour
         {
             _rigidbody = this.AddComponent<Rigidbody2D>();
             _rigidbody.freezeRotation = true;
-            StartCoroutine(WaitSecond());
         }
         otherPlayer._animator.SetBool(BelowOther, false);
         GetComponent<SpriteRenderer>().enabled = true;
@@ -362,8 +337,6 @@ public class Acting : MonoBehaviour
             ClickButton();
         else if (other.gameObject.CompareTag(Diamond))
             OnDiamond(other.gameObject);
-        else if (other.gameObject.CompareTag("roop"))
-            _onRope = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -374,8 +347,6 @@ public class Acting : MonoBehaviour
             other.GetComponent<Animator>().SetBool("first", false);
             _onDiamond = false;
         }
-        else if (other.gameObject.CompareTag("roop"))
-            _onRope = false;
     }
 
     public void Act(GameObject other, AudioClip audioClip)
@@ -416,12 +387,6 @@ public class Acting : MonoBehaviour
         other.GetComponent<Animator>().SetBool("first", true);
         if (otherPlayer.getOnDiamond())
         {
-            if (_removeEachOther)
-            {
-                _removeEachOther = false;
-                removeOnEachOther();
-                otherPlayer.removeOnEachOther();
-            }
             _animator.SetBool(Wait1, true);
             if (GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
             {
