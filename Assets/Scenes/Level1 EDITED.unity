@@ -1595,9 +1595,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.59905577, y: -0.43291044}
-  - {x: -0.08706212, y: -0.43519902}
-  - {x: 0.20346588, y: -0.3908071}
+  - {x: -0.3474542, y: -0.52097106}
+  - {x: 0.1343472, y: -0.5031316}
+  - {x: 0.5380959, y: -0.45873946}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -2049,9 +2049,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.6128727, y: -0.2383852}
-  - {x: -0.37416756, y: -0.26640204}
-  - {x: -0.14903384, y: -0.23533595}
+  - {x: -0.46414053, y: -0.29434383}
+  - {x: -0.1797849, y: -0.33266887}
+  - {x: 0.098362386, y: -0.30602056}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -2559,23 +2559,24 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.3320949, y: -1.3715246}
-  - {x: -0.69071126, y: -1.2840574}
-  - {x: -0.8712399, y: -1.1139505}
+  - {x: -0.68496037, y: -1.3715246}
+  - {x: -1.0121136, y: -1.3702627}
+  - {x: -1.069396, y: -1.3012702}
+  - {x: -0.9142723, y: -1.1139505}
   - {x: -0.41676354, y: -0.85863745}
   - {x: 0.06932771, y: -0.70333815}
   - {x: 0.74776983, y: -0.438662}
   - {x: 1.2866938, y: -0.27265555}
   - {x: 1.8004457, y: -0.17516415}
-  - {x: 2.364785, y: -0.04152511}
-  - {x: 3.0093825, y: 0.034316212}
+  - {x: 2.35561, y: -0.059875116}
+  - {x: 2.9880161, y: -0.008416593}
   - {x: 3.3456826, y: 0.04476276}
-  - {x: 3.6662836, y: -0.03284587}
-  - {x: 3.8155475, y: -0.08978508}
-  - {x: 3.9254735, y: -0.19326362}
-  - {x: 4.0286584, y: -0.3569279}
-  - {x: 4.0069027, y: -0.5642596}
-  - {x: 3.90877, y: -0.7512621}
+  - {x: 3.6314294, y: 0.0368623}
+  - {x: 3.8155475, y: 0.007127002}
+  - {x: 4.0500746, y: -0.054817706}
+  - {x: 4.3465023, y: -0.2870257}
+  - {x: 4.3136187, y: -0.6688218}
+  - {x: 4.0412154, y: -0.9255326}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -4108,8 +4109,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951501340}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3759, y: -0.0924, z: 0.119}
-  m_LocalScale: {x: 0.79510146, y: 0.92953426, z: 0.91336846}
+  m_LocalPosition: {x: -1.4632, y: -0.1623, z: 0.119}
+  m_LocalScale: {x: 0.9169525, y: 0.91661376, z: 0.91336846}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 541350997}
@@ -4926,9 +4927,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1.4985458, y: -0.22863102}
-  - {x: -0.43344343, y: -0.19438827}
-  - {x: 1.0816659, y: -0.64187694}
+  - {x: -1.3886236, y: -0.18865943}
+  - {x: -0.30353546, y: -0.28432453}
+  - {x: 0.6719557, y: -0.5419476}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -4959,7 +4960,7 @@ Transform:
   m_GameObject: {fileID: 1173861621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.4284, y: -0.0964, z: 0.119}
-  m_LocalScale: {x: 0.79028314, y: 0.9239013, z: 0.90783346}
+  m_LocalScale: {x: 0.92528003, y: 0.9239013, z: 0.90783346}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 541350997}
@@ -5618,12 +5619,12 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.26, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.6523212, y: -0.22461313}
-  - {x: -0.35831285, y: -0.27933496}
-  - {x: -0.060771763, y: -0.24676684}
+  - {x: -0.6841763, y: -0.29230508}
+  - {x: -0.35433102, y: -0.2952625}
+  - {x: 0.02682966, y: -0.3025131}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -7102,12 +7103,12 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.93156844, y: -0.12417865}
-  - {x: -0.93831533, y: -0.12861693}
-  - {x: -0.86527556, y: -0.25972438}
-  - {x: -0.24002111, y: -0.33665937}
-  - {x: -0.03004384, y: -0.31029236}
-  - {x: 0.31476206, y: -0.19813609}
+  - {x: -0.93443096, y: -0.24440503}
+  - {x: -0.90396494, y: -0.27746868}
+  - {x: -0.74791175, y: -0.32842517}
+  - {x: -0.24002111, y: -0.37959737}
+  - {x: 0.11880779, y: -0.35323036}
+  - {x: 0.56952757, y: -0.25824928}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -7180,9 +7181,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.7100956, y: -0.34415853}
-  - {x: -0.22377658, y: -0.34326673}
-  - {x: 0.08806521, y: -0.26400876}
+  - {x: -0.60892034, y: -0.42004}
+  - {x: -0.1659621, y: -0.41914797}
+  - {x: 0.25789493, y: -0.37602425}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -9845,10 +9846,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1.2140069, y: -0.2910807}
-  - {x: -1.0136392, y: -0.3303615}
-  - {x: -0.7583231, y: -0.3338921}
-  - {x: -0.3307472, y: -0.23975515}
+  - {x: -1.0593191, y: -0.3732587}
+  - {x: -0.78402424, y: -0.39562047}
+  - {x: -0.3667693, y: -0.3798151}
+  - {x: 0.005215585, y: -0.26875913}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -10729,8 +10730,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970009597}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3759, y: -0.0924, z: 0.119}
-  m_LocalScale: {x: 0.7901199, y: 0.92371047, z: 0.9076459}
+  m_LocalPosition: {x: -1.4458, y: -0.0924, z: 0.119}
+  m_LocalScale: {x: 0.921081, y: 0.92371047, z: 0.9076459}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 541350997}
@@ -11111,8 +11112,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.6904874, y: -0.25618875}
-  - {x: -0.38773137, y: -0.23841321}
+  - {x: -0.402524, y: -0.35439587}
+  - {x: -0.2332232, y: -0.3379929}
+  - {x: -0.073655605, y: -0.3209715}
+  - {x: -0.010310948, y: -0.28987968}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -11533,10 +11536,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.5, y: 0}
-  - {x: -0.13027489, y: -0.1313312}
-  - {x: 0.1681081, y: -0.12611175}
-  - {x: 0.33344525, y: -0.07399452}
+  - {x: -0.7624321, y: 0.07357907}
+  - {x: -0.4294964, y: -0.060204744}
+  - {x: -0.12866068, y: -0.10403788}
+  - {x: 0.19855016, y: -0.06418395}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
