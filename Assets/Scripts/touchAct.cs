@@ -34,6 +34,8 @@ public class touchAct : MonoBehaviour
         if (alreadyGrow) return;
         GetComponent<Animator>().SetTrigger("goInside");
         GameObject mushroomHole = GameObject.FindGameObjectWithTag("mushroomHole");
+        if (!mushroomHole.GetComponent<mushroomHole>().enabled)
+            mushroomHole.GetComponent<mushroomHole>().enabled = true;
         mushroomHole.GetComponent<Animator>().SetTrigger("grow");
         mushroomHole.GetComponent<mushroomHole>().Grow = true;
         alreadyGrow = true;
