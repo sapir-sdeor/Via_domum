@@ -16,6 +16,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask echoLayer;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
@@ -25,7 +26,6 @@ public class Acting : MonoBehaviour
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private float fallingThreshold = -0.01f;
-    
     #endregion
 
     #region string constant
@@ -95,13 +95,11 @@ public class Acting : MonoBehaviour
         return playerNumber;
     }
 
-    public void Restart(InputAction.CallbackContext context)
-    {
-        levelManager.Restart();
-    }
+    
     
     public void Jump(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -113,6 +111,7 @@ public class Acting : MonoBehaviour
 
     public void Jump2(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -263,33 +262,7 @@ public class Acting : MonoBehaviour
         }
 
     }
-
-  
-
-    private void setOnEachOther()
-    {
-        _animator.SetBool(BelowOther, true);
-        otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
-        otherPlayer.transform.parent = transform;
-        if (otherPlayer.GetComponent<Rigidbody2D>())
-        {
-            Destroy(otherPlayer.GetComponent<Rigidbody2D>());
-        }
-        otherPlayer.GetComponent<Animator>().enabled = false;
-    }
     
-    private void removeOnEachOther()
-    {
-        if (!_rigidbody)
-        {
-            _rigidbody = this.AddComponent<Rigidbody2D>();
-            _rigidbody.freezeRotation = true;
-        }
-        otherPlayer._animator.SetBool(BelowOther, false);
-        GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<Animator>().enabled = true;
-        transform.parent = null;
-    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -365,7 +338,7 @@ public class Acting : MonoBehaviour
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D, echoLayer);
         coreMechanic.ApplyMechanic();
     }
 
@@ -380,7 +353,6 @@ public class Acting : MonoBehaviour
     {
         if (LevelManager.GETLevel() == 1)
         {
-            print("mushroom");
             gameManager.OpenGate();
             mushroom.GetComponent<Animator>().SetTrigger("Collision");
         }
@@ -437,6 +409,8 @@ public class Acting : MonoBehaviour
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
+                if (playerNumber == 2)
+                    Destroy(gameObject.GetComponent<Fly>());
                 break;
         }
     }
