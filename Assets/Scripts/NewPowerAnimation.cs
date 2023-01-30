@@ -25,31 +25,49 @@ public class NewPowerAnimation : MonoBehaviour
         auraAnimator.SetTrigger(FadeIn);
         if (other.gameObject.name == UIManager.PLAYER1)
         {
+            auraAnimator.SetBool(FadeOut, true);
+            newPowerAnimator.SetBool(Player1, true);
             StartCoroutine(waitBeforeDestroy1());
         }
         else if (other.gameObject.name == UIManager.PLAYER2)
         {
+            auraAnimator.SetBool(FadeOut,true);
+            newPowerAnimator.SetBool(Player2, true);
             StartCoroutine(waitBeforeDestroy2());
-            auraAnimator.SetBool(FadeIn,false);
+            // auraAnimator.SetBool(FadeIn,false);
         }
     }
-    
+
+    private void Update()
+    {
+        
+    }
+
 
     IEnumerator waitBeforeDestroy1()
     {
-        yield return new WaitForSeconds(TimeToWait);
-        aura.SetActive(false);
-        text.SetActive(false);
+        // yield return new WaitForSeconds(TimeToWait);
+        // float TimeToWait = 3f;
+        var elapsedTime = 0f;
+        // while (elapsedTime < TimeToWait)
+        // {
+        //     elapsedTime += Time.deltaTime;
+        //     yield return null;
+        // }
+        // aura.SetActive(false);
+        // text.SetActive(false);
         auraAnimator.SetBool(FadeOut, true);
         newPowerAnimator.SetBool(Player1, true);
+        return null;
     }
     
     IEnumerator waitBeforeDestroy2()
     {
-        yield return new WaitForSeconds(TimeToWait);
-        aura.SetActive(false);
-        text.SetActive(false);
+        // yield return new WaitForSeconds(TimeToWait);
+        // aura.SetActive(false);
+        // text.SetActive(false);
         auraAnimator.SetBool(FadeOut,true);
         newPowerAnimator.SetBool(Player2, true);
+        return null;
     }
 }
