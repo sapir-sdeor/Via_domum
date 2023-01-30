@@ -6,7 +6,7 @@ namespace CoreMechanic
 {
     public class MechanicFactory : MonoBehaviour
     {
-        public ICoreMechanic CreateMechanic(String name, Light2D[] light2D)
+        public ICoreMechanic CreateMechanic(String name, Light2D[] light2D, LayerMask echoLayer)
         {
             switch (name)
             {
@@ -31,6 +31,7 @@ namespace CoreMechanic
                 case "echo":
                     if (gameObject.GetComponent<Echo>()) return gameObject.GetComponent<Echo>();
                     gameObject.AddComponent<Echo>();
+                    gameObject.GetComponent<Echo>().SetLayer(echoLayer);
                     return gameObject.GetComponent<Echo>();
 
             }

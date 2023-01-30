@@ -44,5 +44,17 @@ public class Fly : MonoBehaviour
     {
         return _fly;
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("flower"))
+        {
+            transform.parent = null;
+        }
+    }
 }

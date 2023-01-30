@@ -16,6 +16,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask echoLayer;
     [SerializeField] private LayerMask ignoreLayer;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
@@ -43,6 +44,7 @@ public class Acting : MonoBehaviour
     
    // private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
     private bool _onDiamond;
+    private bool _onLeaf;
     private Rigidbody2D _rigidbody;
     private AudioSource _audioSource;
     private float _horizontal;
@@ -107,6 +109,7 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -118,6 +121,7 @@ public class Acting : MonoBehaviour
 
     public void Jump2(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -268,10 +272,20 @@ public class Acting : MonoBehaviour
 
     }
 
-    
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (!_onLeaf)
+            Physics2D.IgnoreCollision(other.collider, gameObject.GetComponent<Collider2D>(), false);
+
+        if (_onLeaf && !other.gameObject.CompareTag("flower"))
+        {
+            Physics2D.IgnoreCollision(other.collider,gameObject.GetComponent<Collider2D>());
+            return;            
+        }
+
+        
         if (other.gameObject.CompareTag(Button))
             ClickButton();
         
@@ -290,14 +304,7 @@ public class Acting : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
-        if (other.gameObject.layer == WATER_LAYER && playerNumber == 1)
-        {
-            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER1_LAYER , false);
-        }
-        if (other.gameObject.layer == WATER_LAYER && playerNumber == 2)
-        {
-            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER2_LAYER , false);
-        }
+        
         if (ignoreCollision1 && (other.gameObject.layer & groundLayer) == 0&&
             (string.Compare(other.gameObject.name,"ground")!= 0)&& other.gameObject.CompareTag("ignore"))
         {
@@ -310,10 +317,19 @@ public class Acting : MonoBehaviour
             ignoreCollision2 = false;
             StartCoroutine(FallDownAndCancel(other,2));
         }
+        if (other.gameObject.CompareTag("flower") && playerNumber == 2)
+        {
+            transform.parent = other.transform;
+            _onLeaf = true;
+        }
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("flower"))
+        {
+            _onLeaf = true;
+        }
         if (other.gameObject.CompareTag("wall")){
             if (_rigidbody) _rigidbody.velocity = Vector2.zero; 
         }
@@ -326,7 +342,6 @@ public class Acting : MonoBehaviour
             Physics2D.IgnoreCollision(other.collider,gameObject.GetComponent<Collider2D>());
             coll1 = other.collider;
         }
-
         if (playerAction == 2)
         {
             coll2 = other.collider;
@@ -338,22 +353,19 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
+        if (_onLeaf && other.gameObject.CompareTag("flower"))
+            _onLeaf = false;
+        
         if( playerNumber==1 && other.collider != coll1)
            Physics2D.IgnoreCollision(coll1,gameObject.GetComponent<Collider2D>(),false);
         if( playerNumber==2 && other.collider != coll2)
            Physics2D.IgnoreCollision(coll2,gameObject.GetComponent<Collider2D>(),false);
-    }
-    
-    
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
         if (other.gameObject.CompareTag("flower"))
         {
-            GetComponent<Fly>().StartFlying(flyPosition);
+            transform.parent = null;
         }
     }
-
+    
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(Button))
@@ -382,7 +394,7 @@ public class Acting : MonoBehaviour
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D, echoLayer);
         coreMechanic.ApplyMechanic();
     }
 
