@@ -125,6 +125,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SubmitButtons"",
+                    ""type"": ""Button"",
+                    ""id"": ""37da4b2b-7b96-41a2-ac82-ab219f43ef9f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -589,6 +598,17 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""NavigatePause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34391277-e7a4-4bb7-85fd-a2b9d59a1d71"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SubmitButtons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -981,6 +1001,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action_JumpDown1 = m_Player_Action.FindAction("JumpDown1", throwIfNotFound: true);
         m_Player_Action_Pause = m_Player_Action.FindAction("Pause", throwIfNotFound: true);
         m_Player_Action_NavigatePause = m_Player_Action.FindAction("NavigatePause", throwIfNotFound: true);
+        m_Player_Action_SubmitButtons = m_Player_Action.FindAction("SubmitButtons", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1063,6 +1084,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Action_JumpDown1;
     private readonly InputAction m_Player_Action_Pause;
     private readonly InputAction m_Player_Action_NavigatePause;
+    private readonly InputAction m_Player_Action_SubmitButtons;
     public struct Player_ActionActions
     {
         private @PlayerMovement m_Wrapper;
@@ -1078,6 +1100,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @JumpDown1 => m_Wrapper.m_Player_Action_JumpDown1;
         public InputAction @Pause => m_Wrapper.m_Player_Action_Pause;
         public InputAction @NavigatePause => m_Wrapper.m_Player_Action_NavigatePause;
+        public InputAction @SubmitButtons => m_Wrapper.m_Player_Action_SubmitButtons;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1120,6 +1143,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @NavigatePause.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
                 @NavigatePause.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
                 @NavigatePause.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
+                @SubmitButtons.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmitButtons;
+                @SubmitButtons.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmitButtons;
+                @SubmitButtons.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmitButtons;
             }
             m_Wrapper.m_Player_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -1157,6 +1183,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @NavigatePause.started += instance.OnNavigatePause;
                 @NavigatePause.performed += instance.OnNavigatePause;
                 @NavigatePause.canceled += instance.OnNavigatePause;
+                @SubmitButtons.started += instance.OnSubmitButtons;
+                @SubmitButtons.performed += instance.OnSubmitButtons;
+                @SubmitButtons.canceled += instance.OnSubmitButtons;
             }
         }
     }
@@ -1279,6 +1308,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnJumpDown1(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnNavigatePause(InputAction.CallbackContext context);
+        void OnSubmitButtons(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

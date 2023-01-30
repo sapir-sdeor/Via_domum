@@ -52,13 +52,13 @@ public class UIManager : MonoBehaviour
     {
         if (isPause)
         {
-            Time.timeScale = 1;
             pausePanel.SetActive(false);
+            Time.timeScale = 1;
         }
         else
         {
-            Time.timeScale = 0;
             pausePanel.SetActive(true);
+            Time.timeScale = 0;
         }
         isPause = !isPause;
     }
@@ -66,8 +66,8 @@ public class UIManager : MonoBehaviour
     public void Return()
     {
         print("return");
-        Time.timeScale = 1;
         pausePanel.SetActive(false);
+        Time.timeScale = 1;
         isPause = !isPause;
     }
 
@@ -84,6 +84,8 @@ public class UIManager : MonoBehaviour
     
     public void Restart()
     {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

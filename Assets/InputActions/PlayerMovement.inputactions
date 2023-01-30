@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SubmitButtons",
+                    "type": "Button",
+                    "id": "37da4b2b-7b96-41a2-ac82-ab219f43ef9f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -567,6 +576,17 @@
                     "action": "NavigatePause",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "34391277-e7a4-4bb7-85fd-a2b9d59a1d71",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SubmitButtons",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
