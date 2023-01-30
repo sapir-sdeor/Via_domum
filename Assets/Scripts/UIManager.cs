@@ -96,6 +96,7 @@ public class UIManager : MonoBehaviour
     
     
     
+    
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
     {
         if (context.performed)
