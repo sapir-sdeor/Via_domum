@@ -123,7 +123,7 @@ public class Acting : MonoBehaviour
 
     public void Jump2(InputAction.CallbackContext context)
     {
-        if (uiManager.isPause || dontMove) return;
+        if (uiManager.isPause || !GetComponent<Collider2D>().enabled) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -144,7 +144,7 @@ public class Acting : MonoBehaviour
     public void Move2(InputAction.CallbackContext context)
     {
         if (gameObject.name != UIManager.PLAYER2) return;
-        if (dontMove) return;
+        if (!GetComponent<Collider2D>().enabled) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         SetMoveAnimation(context);
@@ -284,12 +284,12 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("flower") && playerNumber == 2)
+        /*if (other.gameObject.CompareTag("flower") && playerNumber == 2)
         {
-            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            _rigidbody.gravityScale = 0;
             GetComponent<Collider2D>().enabled = false;
             transform.parent = other.transform;
-        }
+        }*/
         /*else if (!_onLeaf)
             Physics2D.IgnoreCollision(other.collider, gameObject.GetComponent<Collider2D>(), false);*/
 
@@ -325,13 +325,7 @@ public class Acting : MonoBehaviour
         }
     }
 
-    public void OutOfLeaf()
-    {
-        dontMove = false;
-        _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        GetComponent<Collider2D>().enabled = true;
-        transform.parent = null;
-    }
+    
     
 
     private void OnCollisionStay2D(Collision2D other)
@@ -364,7 +358,7 @@ public class Acting : MonoBehaviour
             _onLeaf = false;
             transform.parent = null;
         }
-        if( playerNumber==1 && other.collider != coll1)
+        if(playerNumber==1 && other.collider != coll1)
            Physics2D.IgnoreCollision(coll1,gameObject.GetComponent<Collider2D>(),false);
         if( playerNumber==2 && other.collider != coll2)
            Physics2D.IgnoreCollision(coll2,gameObject.GetComponent<Collider2D>(),false);

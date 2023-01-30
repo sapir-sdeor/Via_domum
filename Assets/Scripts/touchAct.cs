@@ -39,11 +39,10 @@ public class touchAct : MonoBehaviour
     {
         if (_indexFlower < _flower.Length)
         {
-            _flower[_indexFlower].GetComponent<Animator>().SetBool(Explode, true);
-            if (_flower[_indexFlower].name == "Main Flower")
+           // _flower[_indexFlower].GetComponent<Animator>().SetBool(Explode, true);
+            if (_flower[_indexFlower].name == "mainLeaf")
             {
-                foreach (var animator in _flower[_indexFlower].GetComponentsInChildren<Animator>())
-                    animator.SetTrigger("wind");
+                _flower[_indexFlower].GetComponent<Animator>().SetTrigger("moveLeaf");
             }
         }
         _indexFlower++;
