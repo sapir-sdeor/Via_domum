@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Leaf : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    /*private void OnTriggerEnter2D(Collider2D other)
     {
         print(other.gameObject.name);
         if (other.gameObject.CompareTag("Finish") )
@@ -23,5 +23,5 @@ public class Leaf : MonoBehaviour
             print("collision");
             GetComponentInChildren<Acting>().OutOfLeaf();
         }
-    }
+    }*/
 }
