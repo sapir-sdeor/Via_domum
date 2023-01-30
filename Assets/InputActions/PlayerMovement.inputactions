@@ -87,15 +87,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "a54d1191-7d4f-4d97-ac30-be64a0eb09fc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "NavigatePause",
                     "type": "Button",
                     "id": "8e5b6e9e-181f-4539-8203-6ecea806ab3a",
@@ -477,17 +468,6 @@
                     "action": "Navigate1",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "a9131a99-c58c-4904-bf63-a8f6f2364699",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "Keyboard",

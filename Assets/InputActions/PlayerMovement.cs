@@ -109,15 +109,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""a54d1191-7d4f-4d97-ac30-be64a0eb09fc"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""NavigatePause"",
                     ""type"": ""Button"",
                     ""id"": ""8e5b6e9e-181f-4539-8203-6ecea806ab3a"",
@@ -499,17 +490,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""Navigate1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a9131a99-c58c-4904-bf63-a8f6f2364699"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""Keyboard"",
@@ -1164,7 +1144,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action_Restart = m_Player_Action.FindAction("Restart", throwIfNotFound: true);
         m_Player_Action_JumpDown = m_Player_Action.FindAction("JumpDown", throwIfNotFound: true);
         m_Player_Action_Navigate1 = m_Player_Action.FindAction("Navigate1", throwIfNotFound: true);
-        m_Player_Action_Pause = m_Player_Action.FindAction("Pause", throwIfNotFound: true);
         m_Player_Action_NavigatePause = m_Player_Action.FindAction("NavigatePause", throwIfNotFound: true);
         m_Player_Action_Submit = m_Player_Action.FindAction("Submit", throwIfNotFound: true);
         // UI
@@ -1247,7 +1226,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Action_Restart;
     private readonly InputAction m_Player_Action_JumpDown;
     private readonly InputAction m_Player_Action_Navigate1;
-    private readonly InputAction m_Player_Action_Pause;
     private readonly InputAction m_Player_Action_NavigatePause;
     private readonly InputAction m_Player_Action_Submit;
     public struct Player_ActionActions
@@ -1263,7 +1241,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @Restart => m_Wrapper.m_Player_Action_Restart;
         public InputAction @JumpDown => m_Wrapper.m_Player_Action_JumpDown;
         public InputAction @Navigate1 => m_Wrapper.m_Player_Action_Navigate1;
-        public InputAction @Pause => m_Wrapper.m_Player_Action_Pause;
         public InputAction @NavigatePause => m_Wrapper.m_Player_Action_NavigatePause;
         public InputAction @Submit => m_Wrapper.m_Player_Action_Submit;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
@@ -1302,9 +1279,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Navigate1.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
                 @Navigate1.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
                 @Navigate1.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
-                @Pause.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
                 @NavigatePause.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
                 @NavigatePause.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
                 @NavigatePause.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
@@ -1342,9 +1316,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Navigate1.started += instance.OnNavigate1;
                 @Navigate1.performed += instance.OnNavigate1;
                 @Navigate1.canceled += instance.OnNavigate1;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
                 @NavigatePause.started += instance.OnNavigatePause;
                 @NavigatePause.performed += instance.OnNavigatePause;
                 @NavigatePause.canceled += instance.OnNavigatePause;
@@ -1471,7 +1442,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnRestart(InputAction.CallbackContext context);
         void OnJumpDown(InputAction.CallbackContext context);
         void OnNavigate1(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
         void OnNavigatePause(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
     }
