@@ -299,15 +299,14 @@ public class Acting : MonoBehaviour
             Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER2_LAYER , false);
         }
         if (ignoreCollision1 && (other.gameObject.layer & groundLayer) == 0&&
-            (string.Compare(other.gameObject.name,"ground")!= 0))
+            (string.Compare(other.gameObject.name,"ground")!= 0)&& other.gameObject.CompareTag("ignore"))
         {
             ignoreCollision1 = false;
             StartCoroutine(FallDownAndCancel(other,1));
         }
         if (ignoreCollision2 && (other.gameObject.layer & groundLayer) == 0 &&  
-            (string.Compare(other.gameObject.name,"ground")!= 0))
-        {   
-            print("fall player 2 collision");
+            (string.Compare(other.gameObject.name,"ground")!= 0)&& other.gameObject.CompareTag("ignore"))
+        {
             ignoreCollision2 = false;
             StartCoroutine(FallDownAndCancel(other,2));
         }
@@ -322,7 +321,6 @@ public class Acting : MonoBehaviour
 
     IEnumerator FallDownAndCancel(Collision2D other, int playerAction)
     {
-        print("fall down");
         if (playerAction == 1)
         {
             Physics2D.IgnoreCollision(other.collider,gameObject.GetComponent<Collider2D>());
@@ -331,7 +329,6 @@ public class Acting : MonoBehaviour
 
         if (playerAction == 2)
         {
-            print("fall player 2");
             coll2 = other.collider;
             Physics2D.IgnoreCollision(other.collider,gameObject.GetComponent<Collider2D>());
         }
@@ -346,6 +343,7 @@ public class Acting : MonoBehaviour
         if( playerNumber==2 && other.collider != coll2)
            Physics2D.IgnoreCollision(coll2,gameObject.GetComponent<Collider2D>(),false);
     }
+    
     
 
     private void OnTriggerEnter2D(Collider2D other)
