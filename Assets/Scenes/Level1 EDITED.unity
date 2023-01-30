@@ -352,7 +352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48601103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0539, y: -0.303, z: 0}
+  m_LocalPosition: {x: -0.0594, y: -0.297, z: 0}
   m_LocalScale: {x: 0.0035431471, y: 0.0077231177, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1134,11 +1134,9 @@ Transform:
   m_LocalPosition: {x: -0.9324048, y: 1.89, z: 0.035290066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3060147558017877967}
-  - {fileID: 719413791566320033}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &305297437
 GameObject:
@@ -1540,7 +1538,7 @@ GameObject:
   - component: {fileID: 335312770}
   m_Layer: 6
   m_Name: mushroom4 (3)
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1575,7 +1573,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -1697,7 +1695,7 @@ GameObject:
   - component: {fileID: 348049346}
   - component: {fileID: 348049347}
   m_Layer: 6
-  m_Name: floor
+  m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1711,7 +1709,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348049345}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3900001, y: -0.78, z: 0}
+  m_LocalPosition: {x: -1.409, y: -0.635, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2128,7 +2126,7 @@ GameObject:
   - component: {fileID: 445840776}
   m_Layer: 6
   m_Name: mushroom4 (1)
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2163,7 +2161,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -2776,7 +2774,7 @@ Transform:
   - {fileID: 1970009598}
   - {fileID: 659474356}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &570484066
 GameObject:
@@ -2789,9 +2787,9 @@ GameObject:
   - component: {fileID: 570484067}
   - component: {fileID: 570484068}
   - component: {fileID: 570484069}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom2
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2864,7 +2862,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -3297,7 +3295,7 @@ Transform:
   - {fileID: 1036429719}
   - {fileID: 2037418093}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &647789721
 GameObject:
@@ -3344,6 +3342,7 @@ Transform:
   - {fileID: 838905620}
   - {fileID: 2063918590}
   - {fileID: 1836780197}
+  - {fileID: 1693872341}
   m_Father: {fileID: 1589053349}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3444,7 +3443,7 @@ GameObject:
   - component: {fileID: 661041182}
   m_Layer: 6
   m_Name: mushroom2 (1)
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3457,7 +3456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661041180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18, y: 4.8, z: 0}
+  m_LocalPosition: {x: 0.31, y: 4.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3479,7 +3478,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -4005,7 +4004,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -4181,9 +4180,9 @@ GameObject:
   - component: {fileID: 863781766}
   - component: {fileID: 863781768}
   - component: {fileID: 863781767}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom4
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4387,7 +4386,7 @@ GameObject:
   - component: {fileID: 908856125}
   - component: {fileID: 908856127}
   - component: {fileID: 908856126}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: _rope
   m_TagString: roop
   m_Icon: {fileID: 0}
@@ -5025,7 +5024,7 @@ GameObject:
   - component: {fileID: 1107639735}
   - component: {fileID: 1107639734}
   - component: {fileID: 1107639736}
-  m_Layer: 4
+  m_Layer: 9
   m_Name: _rope
   m_TagString: roop
   m_Icon: {fileID: 0}
@@ -5274,8 +5273,8 @@ GameObject:
   - component: {fileID: 1133113414}
   - component: {fileID: 1133113413}
   m_Layer: 6
-  m_Name: floor1
-  m_TagString: Untagged
+  m_Name: ground
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6186,7 +6185,7 @@ GameObject:
   - component: {fileID: 1353724949}
   m_Layer: 6
   m_Name: mushroom5
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6221,7 +6220,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -7384,7 +7383,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &1493941440
 PolygonCollider2D:
@@ -7795,7 +7794,7 @@ Transform:
   - {fileID: 288474619}
   - {fileID: 1508170560}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1508170559
 GameObject:
@@ -7928,9 +7927,9 @@ GameObject:
   - component: {fileID: 1569664987}
   - component: {fileID: 1569664988}
   - component: {fileID: 1569664989}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom1
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8011,7 +8010,7 @@ GameObject:
   - component: {fileID: 1575806885}
   m_Layer: 6
   m_Name: mushroom8
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8046,7 +8045,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -8089,7 +8088,7 @@ GameObject:
   - component: {fileID: 1580018320}
   m_Layer: 6
   m_Name: mushroom9 (1)
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8124,7 +8123,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -8345,7 +8344,7 @@ Transform:
   - {fileID: 1562584626}
   - {fileID: 1449144453}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1590228483
 GameObject:
@@ -9193,6 +9192,86 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1693872340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1693872341}
+  - component: {fileID: 1693872343}
+  - component: {fileID: 1693872342}
+  m_Layer: 6
+  m_Name: mushroom4 (5)
+  m_TagString: ignore
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1693872341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693872340}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44, y: -1.74, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647789722}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!251 &1693872342
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693872340}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 90
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
+--- !u!68 &1693872343
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693872340}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: a2a3e241cd5f5b845837a42b1281d8f9, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.7624321, y: 0.07357907}
+  - {x: -0.4294964, y: -0.060204744}
+  - {x: -0.12866068, y: -0.10403788}
+  - {x: 0.8770408, y: -0.053096056}
+  - {x: 1.1255347, y: -0.025999546}
+  - {x: 1.533542, y: 0.15415215}
+  - {x: 1.7495998, y: 0.42892098}
+  - {x: 1.7790062, y: 0.69525576}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &1724118343
 GameObject:
   m_ObjectHideFlags: 0
@@ -10498,7 +10577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.71
+      value: 4.58
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10888,7 +10967,7 @@ GameObject:
   - component: {fileID: 1789057317}
   m_Layer: 6
   m_Name: mushroom9
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10923,7 +11002,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -11228,7 +11307,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -11271,7 +11350,7 @@ GameObject:
   - component: {fileID: 1847170545}
   m_Layer: 6
   m_Name: mushroom9 (2)
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11306,7 +11385,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -12289,7 +12368,7 @@ GameObject:
   - component: {fileID: 2014498594}
   m_Layer: 6
   m_Name: mushroom7
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12324,7 +12403,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -12713,7 +12792,7 @@ GameObject:
   - component: {fileID: 2063918591}
   m_Layer: 6
   m_Name: mushroom4 (2)
-  m_TagString: Untagged
+  m_TagString: ignore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12748,7 +12827,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 90
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -13346,7 +13425,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 300611440}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 302194430998256393, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_CollisionDetection
@@ -13477,6 +13556,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22992237}
     - target: {fileID: 1419405072460654432, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
+      propertyPath: holeLimit
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419405072460654432, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 2137829328}
@@ -13497,6 +13580,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2037418094}
     - target: {fileID: 1419405072460654432, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
+      propertyPath: echoLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419405072460654432, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: fallingThreshold
       value: -0.2
       objectReference: {fileID: 0}
@@ -13504,9 +13591,13 @@ PrefabInstance:
       propertyPath: collectPowerSound
       value: 
       objectReference: {fileID: 8300000, guid: 95967d56de85c1a4a8a581cb3dfba751, type: 3}
+    - target: {fileID: 1419405072460654432, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
+      propertyPath: ignoreLayer.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654433, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654433, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_LocalScale.x
@@ -13518,19 +13609,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654433, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.01
+      value: -0.9424048
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654433, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.55
+      value: 0.34000003
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654433, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0418
+      value: 0.07709007
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654438, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654439, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Size.x
@@ -13550,7 +13641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072597781648, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072597781654, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Size.x
@@ -13598,7 +13689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8859877568183018150, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8859877568183018150, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_IsActive
@@ -13721,7 +13812,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 300611440}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 579823601447098294, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_Sprite
@@ -14029,7 +14120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3183016452660827216, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_Layer
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3183016452660827216, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_IsActive
@@ -14393,11 +14484,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4994050741595090935, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_Layer
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513499, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513499, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_LocalScale.x
@@ -14409,24 +14500,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513499, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.57
+      value: -1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513499, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.45
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513499, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0418
+      value: 0.07709007
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513500, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_Layer
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513501, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: mushroom
       value: 
       objectReference: {fileID: 22992237}
+    - target: {fileID: 4994050742053513501, guid: 786ca57f8506f544994618a80555e468, type: 3}
+      propertyPath: holeLimit
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513501, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: uiManager
       value: 
@@ -14448,6 +14543,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2037418094}
     - target: {fileID: 4994050742053513501, guid: 786ca57f8506f544994618a80555e468, type: 3}
+      propertyPath: echoLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994050742053513501, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: fallingThreshold
       value: -0.5
       objectReference: {fileID: 0}
@@ -14455,6 +14554,10 @@ PrefabInstance:
       propertyPath: collectPowerSound
       value: 
       objectReference: {fileID: 8300000, guid: 95967d56de85c1a4a8a581cb3dfba751, type: 3}
+    - target: {fileID: 4994050742053513501, guid: 786ca57f8506f544994618a80555e468, type: 3}
+      propertyPath: ignoreLayer.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 786ca57f8506f544994618a80555e468, type: 3}
 --- !u!1 &3060147558017877965 stripped

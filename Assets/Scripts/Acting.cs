@@ -27,6 +27,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private float fallingThreshold = -0.01f;
+    [SerializeField] private float holeLimit=-3.2f;
     
     #endregion
 
@@ -235,7 +236,7 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < -3.2f && LevelManager.GETLevel() == 1)
+        if (transform.position.y < holeLimit && LevelManager.GETLevel() == 1)
             EnterHole();
         if (LevelManager.GETLevel() == 1 && !_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
             ExitHole();
@@ -246,6 +247,7 @@ public class Acting : MonoBehaviour
 
     private void EnterHole()
     {
+        print("enter hole");
         _enterHole = true;
         transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
         GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
