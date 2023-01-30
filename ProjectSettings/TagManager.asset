@@ -16,7 +16,6 @@ TagManager:
   - diamond
   - legs
   - head
-  - particle system
   - flower
   - little
   - Shrink
@@ -34,6 +33,7 @@ TagManager:
   - mushroomHole
   - fade
   - echo
+  - root
   layers:
   - Default
   - TransparentFX

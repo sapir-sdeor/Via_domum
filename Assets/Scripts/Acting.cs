@@ -17,6 +17,9 @@ public class Acting : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask ignoreLayer;
+
+    [SerializeField] private LayerMask echoLayer;
+
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
@@ -26,7 +29,6 @@ public class Acting : MonoBehaviour
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private float fallingThreshold = -0.01f;
-    
     #endregion
 
     #region string constant
@@ -100,13 +102,11 @@ public class Acting : MonoBehaviour
         return playerNumber;
     }
 
-    public void Restart(InputAction.CallbackContext context)
-    {
-        levelManager.Restart();
-    }
+    
     
     public void Jump(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -118,6 +118,7 @@ public class Acting : MonoBehaviour
 
     public void Jump2(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -268,7 +269,6 @@ public class Acting : MonoBehaviour
 
     }
 
-    
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -384,7 +384,7 @@ public class Acting : MonoBehaviour
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D, echoLayer);
         coreMechanic.ApplyMechanic();
     }
 
@@ -399,7 +399,6 @@ public class Acting : MonoBehaviour
     {
         if (LevelManager.GETLevel() == 1)
         {
-            // print("mushroom");
             gameManager.OpenGate();
             mushroom.GetComponent<Animator>().SetTrigger("Collision");
         }
@@ -456,6 +455,8 @@ public class Acting : MonoBehaviour
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
+                if (playerNumber == 2)
+                    Destroy(gameObject.GetComponent<Fly>());
                 break;
         }
     }
