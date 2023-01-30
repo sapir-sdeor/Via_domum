@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class UIManager : MonoBehaviour
     private int _startCounterPlayer2=-1;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
+    public bool isPause;
     
     private int _indexPowerPlayer1=0, _indexPowerPlayer2=0;
     private float _indexHor1,_indexHor2;
@@ -24,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _button1;
     [SerializeField] private Button _button2;
     [SerializeField] private GameObject touch;
+    [SerializeField] private GameObject pausePanel;
     private GameManager gameManager;
     private GameObject[] power1,power2,power3;
 
@@ -43,8 +46,46 @@ public class UIManager : MonoBehaviour
         // DontDestroyOnLoad(gameObject);
         // DontDestroyOnLoad(this);
     }
-    
 
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        if (isPause)
+        {
+            Time.timeScale = 1;
+            pausePanel.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 0;
+            pausePanel.SetActive(true);
+        }
+        isPause = !isPause;
+    }
+
+    public void Return()
+    {
+        print("return");
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
+        isPause = !isPause;
+    }
+
+    public void BackHomeScreen()
+    {
+       // SceneManager.LoadScene("");
+    }
+    
+    public void ControllerScene()
+    {
+        SceneManager.LoadScene("Mika Controller");
+    }
+    
+    
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
     {
