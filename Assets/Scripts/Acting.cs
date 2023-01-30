@@ -282,12 +282,12 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("flower") && playerNumber == 2)
+        /*if (other.gameObject.CompareTag("flower") && playerNumber == 2)
         {
-            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            _rigidbody.gravityScale = 0;
             GetComponent<Collider2D>().enabled = false;
             transform.parent = other.transform;
-        }
+        }*/
         /*else if (!_onLeaf)
             Physics2D.IgnoreCollision(other.collider, gameObject.GetComponent<Collider2D>(), false);*/
 
@@ -334,6 +334,10 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("flower"))
+        {
+            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
         if (other.gameObject.CompareTag("wall")){
             if (_rigidbody) _rigidbody.velocity = Vector2.zero; 
         }
