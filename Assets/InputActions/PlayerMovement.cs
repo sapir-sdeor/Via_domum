@@ -37,6 +37,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""357efc89-c5f8-4cab-9eb0-42b965c90151"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Navigate"",
                     ""type"": ""PassThrough"",
                     ""id"": ""7a34a792-48de-4fdc-8cc4-473d653c2775"",
@@ -816,6 +825,17 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""296ee40a-ec72-420d-9131-8e90cdc9efa3"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1198,6 +1218,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         // Player_Action
         m_Player_Action = asset.FindActionMap("Player_Action", throwIfNotFound: true);
         m_Player_Action_Movement = m_Player_Action.FindAction("Movement", throwIfNotFound: true);
+        m_Player_Action_Submit = m_Player_Action.FindAction("Submit", throwIfNotFound: true);
         m_Player_Action_Navigate = m_Player_Action.FindAction("Navigate", throwIfNotFound: true);
         m_Player_Action_Jump = m_Player_Action.FindAction("Jump", throwIfNotFound: true);
         m_Player_Action_Jump2 = m_Player_Action.FindAction("Jump2", throwIfNotFound: true);
@@ -1282,6 +1303,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player_Action;
     private IPlayer_ActionActions m_Player_ActionActionsCallbackInterface;
     private readonly InputAction m_Player_Action_Movement;
+    private readonly InputAction m_Player_Action_Submit;
     private readonly InputAction m_Player_Action_Navigate;
     private readonly InputAction m_Player_Action_Jump;
     private readonly InputAction m_Player_Action_Jump2;
@@ -1299,6 +1321,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         private @PlayerMovement m_Wrapper;
         public Player_ActionActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Action_Movement;
+        public InputAction @Submit => m_Wrapper.m_Player_Action_Submit;
         public InputAction @Navigate => m_Wrapper.m_Player_Action_Navigate;
         public InputAction @Jump => m_Wrapper.m_Player_Action_Jump;
         public InputAction @Jump2 => m_Wrapper.m_Player_Action_Jump2;
@@ -1323,6 +1346,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement;
+                @Submit.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmit;
+                @Submit.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmit;
+                @Submit.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmit;
                 @Navigate.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate;
                 @Navigate.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate;
                 @Navigate.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate;
@@ -1366,6 +1392,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Submit.started += instance.OnSubmit;
+                @Submit.performed += instance.OnSubmit;
+                @Submit.canceled += instance.OnSubmit;
                 @Navigate.started += instance.OnNavigate;
                 @Navigate.performed += instance.OnNavigate;
                 @Navigate.canceled += instance.OnNavigate;
@@ -1514,6 +1543,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     public interface IPlayer_ActionActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnJump2(InputAction.CallbackContext context);
