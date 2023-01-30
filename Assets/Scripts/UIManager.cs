@@ -68,16 +68,8 @@ public class UIManager : MonoBehaviour
     }
     
     public void Return() {
-        if (isPause)
-        {
-            Time.timeScale = 1;
-            pausePanel.SetActive(false);
-        }
-        else
-        {
-            Time.timeScale = 0;
-            pausePanel.SetActive(true);
-        }
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
         isPause = !isPause;
     }
     
@@ -92,6 +84,12 @@ public class UIManager : MonoBehaviour
     {
         //need to change
         SceneManager.LoadScene("Menu");
+    }
+    
+    public void ControllerScene()
+    {
+        //need to change
+        SceneManager.LoadScene("Controller");
     }
     
     
