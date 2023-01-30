@@ -95,7 +95,7 @@ public class Acting : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
-        coll1= coll2 = gameObject.GetComponent<Collider2D>();
+        coll1 = coll2 = gameObject.GetComponent<Collider2D>();
         // coll1 = gameObject.GetComponent<Collider2D>();
     }
 
@@ -353,14 +353,9 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (_onLeaf && other.gameObject.CompareTag("flower"))
-        {
-            _onLeaf = false;
-            transform.parent = null;
-        }
-        if(playerNumber==1 && other.collider != coll1)
+        if(playerNumber==1 && other.collider != coll1 && coll1 != null)
            Physics2D.IgnoreCollision(coll1,gameObject.GetComponent<Collider2D>(),false);
-        if( playerNumber==2 && other.collider != coll2)
+        if( playerNumber==2 && other.collider != coll2 && coll2 != null)
            Physics2D.IgnoreCollision(coll2,gameObject.GetComponent<Collider2D>(),false);
         
     }

@@ -8,16 +8,13 @@ using UnityEngine;
 public class touchAct : MonoBehaviour
 {
     [SerializeField] private GameObject background;
-    private GameObject[] _flower;
-    private int _indexFlower;
+    [SerializeField] private GameObject[] leafs;
+    private int _indexLeaf;
     public bool alreadyGrow;
     private static readonly int Connect = Animator.StringToHash("connect");
     private static readonly int Explode = Animator.StringToHash("explode");
 
-    private void Start()
-    {
-        _flower = GameObject.FindGameObjectsWithTag("flower");
-    }
+    
 
     public void TouchFactory()
     {
@@ -37,15 +34,14 @@ public class touchAct : MonoBehaviour
 
     private void ApplyRoot()
     {
-        if (_indexFlower < _flower.Length)
+        if (leafs.Length == 0) return;
+        if (_indexLeaf == leafs.Length)
+            _indexLeaf = 0;
+        if (leafs[_indexLeaf].name == "mainLeaf")
         {
-           // _flower[_indexFlower].GetComponent<Animator>().SetBool(Explode, true);
-            if (_flower[_indexFlower].name == "mainLeaf")
-            {
-                _flower[_indexFlower].GetComponent<Animator>().SetTrigger("moveLeaf");
-            }
+            leafs[_indexLeaf].GetComponent<Animator>().SetTrigger("moveLeaf");
         }
-        _indexFlower++;
+        _indexLeaf++;
     }
 
     private void ConnectBubbles()

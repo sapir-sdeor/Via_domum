@@ -21,9 +21,9 @@ namespace CoreMechanic
             if (overlapCircle && overlapCircle.gameObject.layer == 3)
             {
                 overlapCircle.gameObject.GetComponentInParent<Animator>().SetTrigger(ApplyEcho);
-                StartCoroutine(WaitToOpenWebs(overlapCircle));
+                if (overlapCircle.gameObject.name == "flyCollider")
+                    StartCoroutine(WaitToOpenWebs(overlapCircle));
             }
-            
         }
 
         IEnumerator WaitToOpenWebs(Collider2D overlapCircle)
@@ -31,7 +31,6 @@ namespace CoreMechanic
             yield return new WaitForSeconds(4f);
             overlapCircle.gameObject.GetComponentsInParent<Collider2D>()[1].enabled = false;
         }
-        
 
     }
 }

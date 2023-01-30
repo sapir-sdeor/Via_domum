@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
@@ -38,6 +39,7 @@ public class LevelManager : MonoBehaviour
             DontDestroyOnLoad(_gameManager.gameObject);
             DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
             DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
+            DontDestroyOnLoad(FindObjectOfType<EventSystem>());
         }
         GameObject.FindGameObjectWithTag("fade").GetComponent<Animator>().SetTrigger("fadeOut");
     }
