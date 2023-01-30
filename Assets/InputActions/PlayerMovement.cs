@@ -37,15 +37,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Navigate"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""e9b345e8-0172-476b-b398-7552f53eb02d"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Jump"",
                     ""type"": ""Value"",
                     ""id"": ""21182778-765e-4307-b336-2935c5b72130"",
@@ -109,27 +100,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pause"",
+                    ""name"": ""JumpDown1"",
                     ""type"": ""Button"",
-                    ""id"": ""a54d1191-7d4f-4d97-ac30-be64a0eb09fc"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NavigatePause"",
-                    ""type"": ""Button"",
-                    ""id"": ""8e5b6e9e-181f-4539-8203-6ecea806ab3a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Submit"",
-                    ""type"": ""Button"",
-                    ""id"": ""1226048c-0974-4c76-8daa-d1d790626412"",
+                    ""id"": ""bdb94fe6-fa12-4fae-a8d7-5bb52cc3dc3f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -501,277 +474,35 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""a9131a99-c58c-4904-bf63-a8f6f2364699"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""name"": ""One Modifier"",
+                    ""id"": ""c803e0a8-82d7-4b54-ab3f-b2722fb51bee"",
+                    ""path"": ""OneModifier"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Keyboard"",
-                    ""id"": ""06ce7841-dad7-40c0-bad6-296fa3425b07"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NavigatePause"",
+                    ""action"": ""JumpDown1"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""83a8635b-f88d-4cc8-a6bc-224cb89a8db0"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""name"": ""modifier"",
+                    ""id"": ""f701c9b3-5d0d-4589-97ee-97d10d76e782"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""NavigatePause"",
+                    ""action"": ""JumpDown1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""down"",
-                    ""id"": ""a3c8a19e-d7c6-40d0-aa70-c65a6dabb426"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NavigatePause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""4b1802fd-2221-4300-9826-346d5d6cbdd4"",
+                    ""name"": ""binding"",
+                    ""id"": ""2cbf8522-0956-4597-9ac3-1762468fed6b"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""NavigatePause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""701bffad-7bf5-4007-898f-7c1168603fb3"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NavigatePause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a80030cc-a978-42af-96fd-63b7e0bb08f9"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Submit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Gamepad"",
-                    ""id"": ""b781a85d-aa97-43b1-a553-a8553d2771c6"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""eeadc768-93ee-4282-a993-87d9aa774bc2"",
-                    ""path"": ""<Gamepad>/leftStick/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""5d508a3c-f67e-423d-82e4-3c4fe5b115fd"",
-                    ""path"": ""<Gamepad>/rightStick/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""9066d987-2f58-44bc-8f7f-a8fab262037b"",
-                    ""path"": ""<Gamepad>/leftStick/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""216820d1-f188-47ba-85d0-d18f79128811"",
-                    ""path"": ""<Gamepad>/rightStick/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""499f9e7b-af82-44b3-939d-b0fb613ea1e1"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""9819d00c-eefc-4b62-b5e5-4747678c7959"",
-                    ""path"": ""<Gamepad>/rightStick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""44c32432-630e-46f0-b6df-c03b2e65e0e9"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""a57a1324-e5e7-460d-84bb-a342d15908b6"",
-                    ""path"": ""<Gamepad>/rightStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5aff9faa-6b39-425d-92f2-3cc6852b0fd3"",
-                    ""path"": ""<Gamepad>/dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Joystick"",
-                    ""id"": ""3941e5de-ea9e-4787-8bdb-279230dce01e"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""f49f1f42-b904-4f85-9ecb-61820a6d82fd"",
-                    ""path"": ""<Joystick>/stick/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""6e50786e-54f2-49c6-bb41-d10f0d7c42f4"",
-                    ""path"": ""<Joystick>/stick/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""d7148d55-0a22-4cbd-a349-85b74243e554"",
-                    ""path"": ""<Joystick>/stick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""8d3d018d-d574-4edb-937f-32cdabd4b82b"",
-                    ""path"": ""<Joystick>/stick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Keyboard"",
-                    ""id"": ""6101bc46-144a-4649-ae72-87d7913f0b0a"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""04af6f03-25da-405e-ac14-9e4ddeee8809"",
-                    ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""a04d7524-b7d3-4923-9248-4ea5c79825fa"",
-                    ""path"": ""<Keyboard>/period"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Navigate"",
+                    ""action"": ""JumpDown1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -1156,7 +887,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         // Player_Action
         m_Player_Action = asset.FindActionMap("Player_Action", throwIfNotFound: true);
         m_Player_Action_Movement = m_Player_Action.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Action_Navigate = m_Player_Action.FindAction("Navigate", throwIfNotFound: true);
         m_Player_Action_Jump = m_Player_Action.FindAction("Jump", throwIfNotFound: true);
         m_Player_Action_Jump2 = m_Player_Action.FindAction("Jump2", throwIfNotFound: true);
         m_Player_Action_Actions = m_Player_Action.FindAction("Actions", throwIfNotFound: true);
@@ -1164,9 +894,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action_Restart = m_Player_Action.FindAction("Restart", throwIfNotFound: true);
         m_Player_Action_JumpDown = m_Player_Action.FindAction("JumpDown", throwIfNotFound: true);
         m_Player_Action_Navigate1 = m_Player_Action.FindAction("Navigate1", throwIfNotFound: true);
-        m_Player_Action_Pause = m_Player_Action.FindAction("Pause", throwIfNotFound: true);
-        m_Player_Action_NavigatePause = m_Player_Action.FindAction("NavigatePause", throwIfNotFound: true);
-        m_Player_Action_Submit = m_Player_Action.FindAction("Submit", throwIfNotFound: true);
+        m_Player_Action_JumpDown1 = m_Player_Action.FindAction("JumpDown1", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1239,7 +967,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player_Action;
     private IPlayer_ActionActions m_Player_ActionActionsCallbackInterface;
     private readonly InputAction m_Player_Action_Movement;
-    private readonly InputAction m_Player_Action_Navigate;
     private readonly InputAction m_Player_Action_Jump;
     private readonly InputAction m_Player_Action_Jump2;
     private readonly InputAction m_Player_Action_Actions;
@@ -1247,15 +974,12 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Action_Restart;
     private readonly InputAction m_Player_Action_JumpDown;
     private readonly InputAction m_Player_Action_Navigate1;
-    private readonly InputAction m_Player_Action_Pause;
-    private readonly InputAction m_Player_Action_NavigatePause;
-    private readonly InputAction m_Player_Action_Submit;
+    private readonly InputAction m_Player_Action_JumpDown1;
     public struct Player_ActionActions
     {
         private @PlayerMovement m_Wrapper;
         public Player_ActionActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Action_Movement;
-        public InputAction @Navigate => m_Wrapper.m_Player_Action_Navigate;
         public InputAction @Jump => m_Wrapper.m_Player_Action_Jump;
         public InputAction @Jump2 => m_Wrapper.m_Player_Action_Jump2;
         public InputAction @Actions => m_Wrapper.m_Player_Action_Actions;
@@ -1263,9 +987,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @Restart => m_Wrapper.m_Player_Action_Restart;
         public InputAction @JumpDown => m_Wrapper.m_Player_Action_JumpDown;
         public InputAction @Navigate1 => m_Wrapper.m_Player_Action_Navigate1;
-        public InputAction @Pause => m_Wrapper.m_Player_Action_Pause;
-        public InputAction @NavigatePause => m_Wrapper.m_Player_Action_NavigatePause;
-        public InputAction @Submit => m_Wrapper.m_Player_Action_Submit;
+        public InputAction @JumpDown1 => m_Wrapper.m_Player_Action_JumpDown1;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1278,9 +1000,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnMovement;
-                @Navigate.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate;
                 @Jump.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJump;
@@ -1302,15 +1021,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Navigate1.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
                 @Navigate1.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
                 @Navigate1.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
-                @Pause.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
-                @NavigatePause.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
-                @NavigatePause.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
-                @NavigatePause.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
-                @Submit.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmit;
-                @Submit.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmit;
-                @Submit.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnSubmit;
+                @JumpDown1.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
+                @JumpDown1.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
+                @JumpDown1.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
             }
             m_Wrapper.m_Player_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -1318,9 +1031,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Navigate.started += instance.OnNavigate;
-                @Navigate.performed += instance.OnNavigate;
-                @Navigate.canceled += instance.OnNavigate;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -1342,15 +1052,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Navigate1.started += instance.OnNavigate1;
                 @Navigate1.performed += instance.OnNavigate1;
                 @Navigate1.canceled += instance.OnNavigate1;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
-                @NavigatePause.started += instance.OnNavigatePause;
-                @NavigatePause.performed += instance.OnNavigatePause;
-                @NavigatePause.canceled += instance.OnNavigatePause;
-                @Submit.started += instance.OnSubmit;
-                @Submit.performed += instance.OnSubmit;
-                @Submit.canceled += instance.OnSubmit;
+                @JumpDown1.started += instance.OnJumpDown1;
+                @JumpDown1.performed += instance.OnJumpDown1;
+                @JumpDown1.canceled += instance.OnJumpDown1;
             }
         }
     }
@@ -1463,7 +1167,6 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     public interface IPlayer_ActionActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnNavigate(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnJump2(InputAction.CallbackContext context);
         void OnActions(InputAction.CallbackContext context);
@@ -1471,9 +1174,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnRestart(InputAction.CallbackContext context);
         void OnJumpDown(InputAction.CallbackContext context);
         void OnNavigate1(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
-        void OnNavigatePause(InputAction.CallbackContext context);
-        void OnSubmit(InputAction.CallbackContext context);
+        void OnJumpDown1(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

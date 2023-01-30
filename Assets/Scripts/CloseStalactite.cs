@@ -20,9 +20,10 @@ public class CloseStalactite : MonoBehaviour
     void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
-       // if (downTunnel && ButtonManger.PlayerNumberInDownTunnel == 1) 
+        if ((downTunnel && ButtonManger.PlayerNumberInDownTunnel == 1) || 
+            (!downTunnel && ButtonManger.PlayerNumberInDownTunnel == 2))
             player = _gameManager.GETPlayer1().gameObject.transform;
-       // else
+        else
             player = _gameManager.GETPlayer2().gameObject.transform;
         _playerPos = downTunnel ? 0.66f : -1.01f;
         print(player.gameObject.GetComponent<Acting>());

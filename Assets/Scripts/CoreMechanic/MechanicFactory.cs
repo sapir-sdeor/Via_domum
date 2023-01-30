@@ -6,7 +6,7 @@ namespace CoreMechanic
 {
     public class MechanicFactory : MonoBehaviour
     {
-        public ICoreMechanic CreateMechanic(String name, Light2D[] light2D, LayerMask echoLayer)
+        public ICoreMechanic CreateMechanic(String name, Light2D[] light2D)
         {
             switch (name)
             {
@@ -16,6 +16,7 @@ namespace CoreMechanic
                     gameObject.GetComponent<Light>().SetLightOff(light2D);
                     return gameObject.GetComponent<Light>();
                 case "blowUp":
+                    print("blow factory");
                     if (gameObject.GetComponent<Blow>()) return gameObject.GetComponent<Blow>();
                     gameObject.AddComponent<Blow>();
                     return gameObject.GetComponent<Blow>();
@@ -30,7 +31,6 @@ namespace CoreMechanic
                 case "echo":
                     if (gameObject.GetComponent<Echo>()) return gameObject.GetComponent<Echo>();
                     gameObject.AddComponent<Echo>();
-                    gameObject.GetComponent<Echo>().SetLayer(echoLayer);
                     return gameObject.GetComponent<Echo>();
 
             }
@@ -38,3 +38,15 @@ namespace CoreMechanic
         }
     }
 }
+
+/*case "connect":
+                    if (gameObject.GetComponent<ConnectBubbles>()) return gameObject.GetComponent<ConnectBubbles>();
+                    gameObject.AddComponent<ConnectBubbles>();
+                    gameObject.GetComponent<ConnectBubbles>().SetCollider(collider2D);
+                    gameObject.GetComponent<ConnectBubbles>().SetSprite(sprite, background);
+                    return gameObject.GetComponent<ConnectBubbles>();*/
+/*case "moveWalls":
+    if (gameObject.GetComponent<MoveBetweenWalls>()) return gameObject.GetComponent<MoveBetweenWalls>();
+    gameObject.AddComponent<MoveBetweenWalls>();
+    gameObject.GetComponent<MoveBetweenWalls>().SetCollider(collider2D);
+    return gameObject.GetComponent<MoveBetweenWalls>();*/
