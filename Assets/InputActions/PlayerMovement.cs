@@ -98,6 +98,15 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JumpDown1"",
+                    ""type"": ""Button"",
+                    ""id"": ""bdb94fe6-fa12-4fae-a8d7-5bb52cc3dc3f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -461,6 +470,39 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Navigate1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""c803e0a8-82d7-4b54-ab3f-b2722fb51bee"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpDown1"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""f701c9b3-5d0d-4589-97ee-97d10d76e782"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpDown1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""2cbf8522-0956-4597-9ac3-1762468fed6b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpDown1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -852,6 +894,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action_Restart = m_Player_Action.FindAction("Restart", throwIfNotFound: true);
         m_Player_Action_JumpDown = m_Player_Action.FindAction("JumpDown", throwIfNotFound: true);
         m_Player_Action_Navigate1 = m_Player_Action.FindAction("Navigate1", throwIfNotFound: true);
+        m_Player_Action_JumpDown1 = m_Player_Action.FindAction("JumpDown1", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -931,6 +974,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Action_Restart;
     private readonly InputAction m_Player_Action_JumpDown;
     private readonly InputAction m_Player_Action_Navigate1;
+    private readonly InputAction m_Player_Action_JumpDown1;
     public struct Player_ActionActions
     {
         private @PlayerMovement m_Wrapper;
@@ -943,6 +987,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @Restart => m_Wrapper.m_Player_Action_Restart;
         public InputAction @JumpDown => m_Wrapper.m_Player_Action_JumpDown;
         public InputAction @Navigate1 => m_Wrapper.m_Player_Action_Navigate1;
+        public InputAction @JumpDown1 => m_Wrapper.m_Player_Action_JumpDown1;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -976,6 +1021,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Navigate1.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
                 @Navigate1.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
                 @Navigate1.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigate1;
+                @JumpDown1.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
+                @JumpDown1.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
+                @JumpDown1.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
             }
             m_Wrapper.m_Player_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -1004,6 +1052,9 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @Navigate1.started += instance.OnNavigate1;
                 @Navigate1.performed += instance.OnNavigate1;
                 @Navigate1.canceled += instance.OnNavigate1;
+                @JumpDown1.started += instance.OnJumpDown1;
+                @JumpDown1.performed += instance.OnJumpDown1;
+                @JumpDown1.canceled += instance.OnJumpDown1;
             }
         }
     }
@@ -1123,6 +1174,7 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnRestart(InputAction.CallbackContext context);
         void OnJumpDown(InputAction.CallbackContext context);
         void OnNavigate1(InputAction.CallbackContext context);
+        void OnJumpDown1(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     private static int _level = 1;
     private GameManager _gameManager;
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
-    private float _messagePos = 0.7f;
+    // private float _messagePos = 0.7f;
     private int lastIndex1, lastIndex2;
     private int lastPower1, lastPower2;
     private static bool setLevelPos2 = false;

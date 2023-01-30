@@ -16,6 +16,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask ignoreLayer;
     [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
@@ -71,12 +72,14 @@ public class Acting : MonoBehaviour
 
     private readonly int GROUND_LAYER = 6;
     private readonly int PLAYER1_LAYER = 9;
-    private readonly int PLAYER2_LAYER = 10;
-    private readonly int IGNORE_LAYER = 2;
+    private readonly int PLAYER2_LAYER = 8;
+    private readonly int IGNORE_LAYER = 2;  
     private readonly int WATER_LAYER = 4;
     private static bool _enterLoadLevel;
     private bool _enterHole;
     private bool _exitHole;
+    private bool ignoreCollision1, ignoreCollision2;
+    private Collider2D coll1, coll2;
 
     #endregion
    
@@ -88,6 +91,8 @@ public class Acting : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
+        coll1= coll2 = gameObject.GetComponent<Collider2D>();
+        // coll1 = gameObject.GetComponent<Collider2D>();
     }
 
     public int GETPlayerNumber()
@@ -146,21 +151,19 @@ public class Acting : MonoBehaviour
 
     public void JumpDown(InputAction.CallbackContext context)
     {
-        print("Jump Down");
+      
         if (context.performed )
         {
-            // SetJumpAnimation();
-            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER1_LAYER , true);
+            ignoreCollision1 = true;
         }  
     }
     
     public void JumpDown2(InputAction.CallbackContext context)
     {
-        print("Jump Down");
+        print(ignoreCollision2 + " jump Down player 2");
         if (context.performed )
         {
-            // SetJumpAnimation();
-            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER2_LAYER , true);
+            otherPlayer.ignoreCollision2 = true;
         }  
     }
 
@@ -200,8 +203,9 @@ public class Acting : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer) 
-               || Physics2D.OverlapCircle(groundCheck.position, 0.2f,IGNORE_LAYER );
+        var groundPos = groundCheck.position;
+        return Physics2D.OverlapCircle(groundPos, 0.2f, groundLayer) 
+               || Physics2D.OverlapCircle(groundPos, 0.2f,ignoreLayer );
     }
 
 
@@ -264,32 +268,7 @@ public class Acting : MonoBehaviour
 
     }
 
-  
-
-    private void setOnEachOther()
-    {
-        _animator.SetBool(BelowOther, true);
-        otherPlayer.GetComponent<SpriteRenderer>().enabled = false;
-        otherPlayer.transform.parent = transform;
-        if (otherPlayer.GetComponent<Rigidbody2D>())
-        {
-            Destroy(otherPlayer.GetComponent<Rigidbody2D>());
-        }
-        otherPlayer.GetComponent<Animator>().enabled = false;
-    }
     
-    private void removeOnEachOther()
-    {
-        if (!_rigidbody)
-        {
-            _rigidbody = this.AddComponent<Rigidbody2D>();
-            _rigidbody.freezeRotation = true;
-        }
-        otherPlayer._animator.SetBool(BelowOther, false);
-        GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<Animator>().enabled = true;
-        transform.parent = null;
-    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -306,7 +285,6 @@ public class Acting : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("particle system"))
         {
-            print("collide");    
         }
         else if (other.gameObject.CompareTag("obstcale")&& _destroyObstacle)
         {
@@ -316,9 +294,22 @@ public class Acting : MonoBehaviour
         {
             Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER1_LAYER , false);
         }
-        if (other.gameObject.layer == WATER_LAYER && playerNumber == 1)
+        if (other.gameObject.layer == WATER_LAYER && playerNumber == 2)
         {
             Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER2_LAYER , false);
+        }
+        if (ignoreCollision1 && (other.gameObject.layer & groundLayer) == 0&&
+            (string.Compare(other.gameObject.name,"ground")!= 0))
+        {
+            ignoreCollision1 = false;
+            StartCoroutine(FallDownAndCancel(other,1));
+        }
+        if (ignoreCollision2 && (other.gameObject.layer & groundLayer) == 0 &&  
+            (string.Compare(other.gameObject.name,"ground")!= 0))
+        {   
+            print("fall player 2 collision");
+            ignoreCollision2 = false;
+            StartCoroutine(FallDownAndCancel(other,2));
         }
     }
 
@@ -328,6 +319,34 @@ public class Acting : MonoBehaviour
             if (_rigidbody) _rigidbody.velocity = Vector2.zero; 
         }
     }
+
+    IEnumerator FallDownAndCancel(Collision2D other, int playerAction)
+    {
+        print("fall down");
+        if (playerAction == 1)
+        {
+            Physics2D.IgnoreCollision(other.collider,gameObject.GetComponent<Collider2D>());
+            coll1 = other.collider;
+        }
+
+        if (playerAction == 2)
+        {
+            print("fall player 2");
+            coll2 = other.collider;
+            Physics2D.IgnoreCollision(other.collider,gameObject.GetComponent<Collider2D>());
+        }
+        yield return new WaitForSeconds(0.05f);
+
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if( playerNumber==1 && other.collider != coll1)
+           Physics2D.IgnoreCollision(coll1,gameObject.GetComponent<Collider2D>(),false);
+        if( playerNumber==2 && other.collider != coll2)
+           Physics2D.IgnoreCollision(coll2,gameObject.GetComponent<Collider2D>(),false);
+    }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -380,7 +399,7 @@ public class Acting : MonoBehaviour
     {
         if (LevelManager.GETLevel() == 1)
         {
-            print("mushroom");
+            // print("mushroom");
             gameManager.OpenGate();
             mushroom.GetComponent<Animator>().SetTrigger("Collision");
         }
