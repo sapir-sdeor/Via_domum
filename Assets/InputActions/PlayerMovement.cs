@@ -107,6 +107,24 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""53bdff99-fc73-4a0b-80b9-c5dd73699826"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NavigatePause"",
+                    ""type"": ""Button"",
+                    ""id"": ""460a6718-4154-4328-8f12-e2e5459a4628"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -505,6 +523,72 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                     ""action"": ""JumpDown1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""021992e3-3dd7-46d6-916d-5ee0eb4d943b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""b99f3fe0-a286-4f62-aff3-f24d49c583b4"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigatePause"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""805589d8-8f4b-470e-9215-6922d95b79b9"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigatePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""3107c218-a349-454d-b428-06d2e5ac2d73"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigatePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""08321207-7f1f-40d5-86ef-d3bab8f8a92b"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigatePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""75be9442-5f6e-41c7-9d0a-8e81c1bb4476"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigatePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -895,6 +979,8 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         m_Player_Action_JumpDown = m_Player_Action.FindAction("JumpDown", throwIfNotFound: true);
         m_Player_Action_Navigate1 = m_Player_Action.FindAction("Navigate1", throwIfNotFound: true);
         m_Player_Action_JumpDown1 = m_Player_Action.FindAction("JumpDown1", throwIfNotFound: true);
+        m_Player_Action_Pause = m_Player_Action.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Action_NavigatePause = m_Player_Action.FindAction("NavigatePause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -975,6 +1061,8 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Action_JumpDown;
     private readonly InputAction m_Player_Action_Navigate1;
     private readonly InputAction m_Player_Action_JumpDown1;
+    private readonly InputAction m_Player_Action_Pause;
+    private readonly InputAction m_Player_Action_NavigatePause;
     public struct Player_ActionActions
     {
         private @PlayerMovement m_Wrapper;
@@ -988,6 +1076,8 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         public InputAction @JumpDown => m_Wrapper.m_Player_Action_JumpDown;
         public InputAction @Navigate1 => m_Wrapper.m_Player_Action_Navigate1;
         public InputAction @JumpDown1 => m_Wrapper.m_Player_Action_JumpDown1;
+        public InputAction @Pause => m_Wrapper.m_Player_Action_Pause;
+        public InputAction @NavigatePause => m_Wrapper.m_Player_Action_NavigatePause;
         public InputActionMap Get() { return m_Wrapper.m_Player_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1024,6 +1114,12 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @JumpDown1.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
                 @JumpDown1.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
                 @JumpDown1.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnJumpDown1;
+                @Pause.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnPause;
+                @NavigatePause.started -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
+                @NavigatePause.performed -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
+                @NavigatePause.canceled -= m_Wrapper.m_Player_ActionActionsCallbackInterface.OnNavigatePause;
             }
             m_Wrapper.m_Player_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -1055,6 +1151,12 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
                 @JumpDown1.started += instance.OnJumpDown1;
                 @JumpDown1.performed += instance.OnJumpDown1;
                 @JumpDown1.canceled += instance.OnJumpDown1;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @NavigatePause.started += instance.OnNavigatePause;
+                @NavigatePause.performed += instance.OnNavigatePause;
+                @NavigatePause.canceled += instance.OnNavigatePause;
             }
         }
     }
@@ -1175,6 +1277,8 @@ public partial class @PlayerMovement : IInputActionCollection2, IDisposable
         void OnJumpDown(InputAction.CallbackContext context);
         void OnNavigate1(InputAction.CallbackContext context);
         void OnJumpDown1(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnNavigatePause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
