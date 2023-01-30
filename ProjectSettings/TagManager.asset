@@ -35,6 +35,7 @@ TagManager:
   - fade
   - echo
   - ignore
+  - root
   layers:
   - Default
   - TransparentFX
