@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gate;
     [SerializeField] private GameObject diamond;
-    [SerializeField] private RuntimeAnimatorController animatorBigPlayer;
-    [SerializeField] private RuntimeAnimatorController animatorYoungPlayer;
     private GameObject _player1;
     private GameObject _player2;
 

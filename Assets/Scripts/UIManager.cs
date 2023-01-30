@@ -2,30 +2,34 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class UIManager : MonoBehaviour
 {
-  
+    public static string PLAYER1 = "Player1";
+    public static string PLAYER2 = "Player2";
+    public bool isPause;
+    
     private int _powerCounterPlayer1 = -1;
     private int _startCounterPlayer1 = -1;
     private int _powerCounterPlayer2 = -1;
-    private int _startCounterPlayer2=-1;
-    public static string PLAYER1 = "Player1";
-    public static string PLAYER2 = "Player2";
+    private int _startCounterPlayer2 = -1;
     
     private int _indexPowerPlayer1=0, _indexPowerPlayer2=0;
     private float _indexHor1,_indexHor2;
-    private LevelManager _levelManager;
     private bool _flyAlready;
-    private bool isPause;
     private  GameObject[] buttonManager1 = new GameObject[5], buttonManager2=new GameObject[5];
     private  GameObject[] buttonManagerAll1 = new GameObject[5], buttonManagerAll2=new GameObject[5];
     [SerializeField] private Button _button1;
     [SerializeField] private Button _button2;
     [SerializeField] private GameObject touch;
     [SerializeField] private GameObject pausePanel;
+    
     private GameManager gameManager;
     private GameObject[] power1,power2,power3;
 
@@ -33,19 +37,18 @@ public class UIManager : MonoBehaviour
     private static readonly int Collect = Animator.StringToHash("collect");
     [SerializeField] private Sprite[] _sprites;
     private bool start;
-
     private readonly float showNewPowerTime = 2f;
 
     private void Start()
     {
-        _levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
         CollectPowerPlayer1(touch,false,0);
         CollectPowerPlayer2(touch,false,0);
         // DontDestroyOnLoad(gameObject);
         // DontDestroyOnLoad(this);
     }
-    
+
+   
     public void Pause(InputAction.CallbackContext context) {
         if (context.performed)
         {
@@ -63,7 +66,6 @@ public class UIManager : MonoBehaviour
             isPause = !isPause;
         }
     }
-
     
     public void Return() {
         Time.timeScale = 1;
@@ -89,6 +91,7 @@ public class UIManager : MonoBehaviour
         //need to change
         SceneManager.LoadScene("Controller");
     }
+    
     
     
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)

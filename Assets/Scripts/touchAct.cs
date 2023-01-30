@@ -37,6 +37,7 @@ public class touchAct : MonoBehaviour
 
     private void ApplyRoot()
     {
+        print("touchRoot");
         if (_indexFlower < _flower.Length)
         {
             _flower[_indexFlower].GetComponent<Animator>().SetBool(Explode, true);
