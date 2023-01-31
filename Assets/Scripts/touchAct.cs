@@ -10,6 +10,7 @@ public class touchAct : MonoBehaviour
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject[] leafs;
     private int _indexLeaf;
+    public bool gotRona;
     public bool alreadyGrow;
     private static readonly int Connect = Animator.StringToHash("connect");
     private static readonly int Explode = Animator.StringToHash("explode");
@@ -45,6 +46,7 @@ public class touchAct : MonoBehaviour
     private void ConnectBubbles()
     {
         if (!background) return;
+        gotRona = true;
         background.GetComponent<Collider2D>().isTrigger = true;
         background.GetComponent<Animator>().SetTrigger(Connect);
     }

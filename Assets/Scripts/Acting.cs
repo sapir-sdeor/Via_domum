@@ -18,7 +18,6 @@ public class Acting : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask echoLayer;
     [SerializeField] private LayerMask ignoreLayer;
-    [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
     [SerializeField] private GameManager gameManager;
@@ -60,11 +59,12 @@ public class Acting : MonoBehaviour
     private static readonly int Walk1 = Animator.StringToHash(Walk);
     private static readonly int Jump1 = Animator.StringToHash(JumpMove);
     private static readonly int ONGround = Animator.StringToHash("onGround");
-    private static readonly int BelowOther = Animator.StringToHash("belowOther");
     private static readonly int Falling = Animator.StringToHash("falling");
     private bool _isClimbing;
     private bool dontMove;
 
+    
+    public bool gotHole;
     #endregion
 
     #region readonly
@@ -218,11 +218,6 @@ public class Acting : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerNumber == 2)
-        {
-            print("on leaf " + _onLeaf);
-            print("move " + dontMove);
-        }
         if (_rigidbody)  _rigidbody.velocity = new Vector2(_horizontal * speed, _rigidbody.velocity.y);
         switch (_isFacingRight)
         {
@@ -247,7 +242,7 @@ public class Acting : MonoBehaviour
 
     private void EnterHole()
     {
-        print("enter hole");
+        gotHole = true;
         _enterHole = true;
         transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
         GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
@@ -284,15 +279,6 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        /*if (other.gameObject.CompareTag("flower") && playerNumber == 2)
-        {
-            _rigidbody.gravityScale = 0;
-            GetComponent<Collider2D>().enabled = false;
-            transform.parent = other.transform;
-        }*/
-        /*else if (!_onLeaf)
-            Physics2D.IgnoreCollision(other.collider, gameObject.GetComponent<Collider2D>(), false);*/
-
         if (other.gameObject.CompareTag(Button))
             ClickButton();
         

@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
   
-    private int _powerCounterPlayer1 = -1;
+    public int _powerCounterPlayer1 = -1;
     private int _startCounterPlayer1 = -1;
-    private int _powerCounterPlayer2 = -1;
+    public int _powerCounterPlayer2 = -1;
     private int _startCounterPlayer2=-1;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
