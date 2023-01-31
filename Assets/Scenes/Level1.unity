@@ -13672,17 +13672,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
+      propertyPath: m_Size.x
+      value: 19.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
+      propertyPath: m_Size.y
+      value: 10.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 643a8d5fd09d248d88da617b459d3339, type: 3}
+      objectReference: {fileID: 21300000, guid: a07f27cb82e714f5d8933d513bc181b8, type: 3}
     - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_SortingOrder
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_MaskInteraction
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 719413791375681006, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_TagString
       value: legs
