@@ -1236,7 +1236,7 @@ GameObject:
   - component: {fileID: 220501617}
   m_Layer: 0
   m_Name: Leaf3 (1)
-  m_TagString: Untagged
+  m_TagString: flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1266,7 +1266,7 @@ Animator:
   m_GameObject: {fileID: 220501613}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a2c7f4de1c5d402d92bf5652cc7f595, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9a8ab6b669cc2c049a3d4e021041eae6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3556,9 +3556,10 @@ GameObject:
   - component: {fileID: 528505472}
   - component: {fileID: 528505474}
   - component: {fileID: 528505473}
+  - component: {fileID: 528505475}
   m_Layer: 0
   m_Name: Leaf3 (3)
-  m_TagString: Untagged
+  m_TagString: flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3571,8 +3572,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528505471}
   m_LocalRotation: {x: -0, y: -0, z: 0.20150532, w: 0.9794875}
-  m_LocalPosition: {x: -6.6, y: -1.27, z: -6.1486354}
-  m_LocalScale: {x: 0.82881856, y: 0.82881856, z: 0.82881856}
+  m_LocalPosition: {x: -6.6, y: -1.27, z: -6.148635}
+  m_LocalScale: {x: 0.82881856, y: 0.82881856, z: 0.8288186}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 940201739}
@@ -3588,7 +3589,7 @@ Animator:
   m_GameObject: {fileID: 528505471}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a2c7f4de1c5d402d92bf5652cc7f595, type: 2}
+  m_Controller: {fileID: 9100000, guid: fac7e68037901b6499528a5f14b981b7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3650,6 +3651,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &528505475
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528505471}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 4.9739423, y: 4.1450005}
+  - {x: 5.2305145, y: 4.2704206}
+  - {x: 5.5408278, y: 4.282283}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &547011652
 GameObject:
   m_ObjectHideFlags: 0
@@ -5744,6 +5768,7 @@ MonoBehaviour:
   _button2: {fileID: 1573677984}
   touch: {fileID: 498863708}
   pausePanel: {fileID: 1065818354}
+  controlPanel: {fileID: 0}
   _sprites:
   - {fileID: 21300000, guid: 86cedeaa7a5094f0582b00f7eb205207, type: 3}
   - {fileID: 21300000, guid: 986d4a6be360e4b0490d748b1bd47a7c, type: 3}
@@ -10297,7 +10322,7 @@ Animator:
   m_GameObject: {fileID: 1261002181}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 460ebf36a458b714ab82e31241d0bba7, type: 2}
+  m_Controller: {fileID: 9100000, guid: b89a8bbc21e8eab4eada2257f27df3c7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -12411,9 +12436,10 @@ GameObject:
   - component: {fileID: 1408951241}
   - component: {fileID: 1408951243}
   - component: {fileID: 1408951242}
+  - component: {fileID: 1408951244}
   m_Layer: 0
   m_Name: Leaf1 (1)
-  m_TagString: Untagged
+  m_TagString: flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12443,7 +12469,7 @@ Animator:
   m_GameObject: {fileID: 1408951240}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a2c7f4de1c5d402d92bf5652cc7f595, type: 2}
+  m_Controller: {fileID: 9100000, guid: 460ebf36a458b714ab82e31241d0bba7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -12505,6 +12531,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &1408951244
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408951240}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -4.9675794, y: 4.120187}
+  - {x: -5.3024263, y: 4.291711}
+  - {x: -5.624785, y: 4.243141}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &1424626261
 GameObject:
   m_ObjectHideFlags: 0
@@ -15936,11 +15985,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1
+      value: -1.51
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.29
+      value: 2.22
       objectReference: {fileID: 0}
     - target: {fileID: 1440928998622120891, guid: fe17dee81a79cf54d9b7d72e907b26be, type: 3}
       propertyPath: m_LocalPosition.z
