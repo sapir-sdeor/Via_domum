@@ -206,7 +206,7 @@ public class UIManager : MonoBehaviour
         if (context.performed)
         {
             var val = context.ReadValue<Vector2>().x;
-            print(val + " val");
+            print("nevigate menu 2");
             if (_indexHor2 >= _powerCounterPlayer2 && val > 0) _indexHor2=0;
             else if(_indexHor2 == 0 && val < 0) _indexHor2 = _powerCounterPlayer2;
             else { _indexHor2 += val;}

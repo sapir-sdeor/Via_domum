@@ -9237,7 +9237,7 @@ GameObject:
   - component: {fileID: 1056465204}
   - component: {fileID: 1056465205}
   - component: {fileID: 1056465206}
-  m_Layer: 1
+  m_Layer: 2
   m_Name: ignore
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -13088,13 +13088,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 0.38311845, y: -1.6578568}
-  - {x: 0.5950286, y: -1.7329835}
-  - {x: 1.106828, y: -1.7914994}
-  - {x: 2.2040384, y: -1.6673126}
-  - {x: 2.855152, y: -1.2792}
-  - {x: 2.847889, y: -1.1775179}
-  - {x: 2.9859269, y: -1.0901985}
+  - {x: 3.2998629, y: -2.0608137}
+  - {x: 3.3599808, y: -1.8513228}
+  - {x: 3.3146982, y: -1.3473953}
+  - {x: 2.7654881, y: -1.2619203}
   - {x: 3.388619, y: -0.7677066}
   - {x: 3.5351808, y: -0.6758234}
   - {x: 3.535181, y: -0.67582345}
@@ -16423,7 +16420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1841658807
 Transform:
   m_ObjectHideFlags: 0
