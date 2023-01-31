@@ -34,13 +34,11 @@ public class touchAct : MonoBehaviour
 
     private void ApplyRoot()
     {
+        GetComponentInParent<Animator>().SetTrigger("root");
         if (leafs.Length == 0) return;
         if (_indexLeaf == leafs.Length)
             _indexLeaf = 0;
-        if (leafs[_indexLeaf].name == "mainLeaf")
-        {
-            leafs[_indexLeaf].GetComponent<Animator>().SetTrigger("moveLeaf");
-        }
+        leafs[_indexLeaf].GetComponent<Animator>().SetTrigger("moveLeaf");
         _indexLeaf++;
     }
 

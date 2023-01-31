@@ -403,7 +403,6 @@ public class Acting : MonoBehaviour
     {
         if (LevelManager.GETLevel() == 1)
         {
-            // print("mushroom");
             gameManager.OpenGate();
             mushroom.GetComponent<Animator>().SetTrigger("Collision");
         }
@@ -446,6 +445,7 @@ public class Acting : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         gameManager = FindObjectOfType<GameManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        _enterLoadLevel = false;
         switch (scene.name)
         {
             case "Level1":
@@ -453,9 +453,6 @@ public class Acting : MonoBehaviour
             case "Level2":
                 gameManager.SetPosPlayer1(_pos1Level2);
                 gameManager.SetPosPlayer2(_pos2Level2);
-                if (playerNumber == 2)
-                    gameObject.AddComponent<Fly>();
-                
                 break;
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);

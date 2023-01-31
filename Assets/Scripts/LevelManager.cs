@@ -40,6 +40,7 @@ public class LevelManager : MonoBehaviour
             DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
             DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
             DontDestroyOnLoad(FindObjectOfType<EventSystem>());
+            
         }
         GameObject.FindGameObjectWithTag("fade").GetComponent<Animator>().SetTrigger("fadeOut");
     }
