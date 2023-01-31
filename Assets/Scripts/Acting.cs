@@ -84,6 +84,7 @@ public class Acting : MonoBehaviour
     private bool _exitHole;
     private bool ignoreCollision1, ignoreCollision2;
     private Collider2D coll1, coll2;
+    private GameObject _light1,_light2;
 
     #endregion
    
@@ -445,6 +446,7 @@ public class Acting : MonoBehaviour
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
+                SetPlayersLight();
                 break;
         }
     }
@@ -457,5 +459,31 @@ public class Acting : MonoBehaviour
     public static void SetDestroyObstcale()
     {
         _destroyObstacle = true;
+    }
+
+    public static void SetLightPlayer1(GameObject light1, Vector3 pos1)
+    {
+        
+    }
+
+    private void SetPlayersLight()
+    {
+        if (playerNumber == 1)
+        {
+            _light1 = GameObject.FindGameObjectWithTag("light1");
+            _light1.transform.parent = transform;
+        }
+
+        if (playerNumber == 2)
+        {
+            _light2 = GameObject.FindGameObjectWithTag("light2");
+            _light2.transform.parent = transform;
+        }
+            
+    }
+
+    public static void SetLightPlayer2( GameObject light2, Vector3 pos2)
+    {
+       
     }
 }

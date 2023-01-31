@@ -36,6 +36,8 @@ TagManager:
   - echo
   - ignore
   - root
+  - light1
+  - light2
   layers:
   - Default
   - TransparentFX

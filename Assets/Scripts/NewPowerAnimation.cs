@@ -37,11 +37,7 @@ public class NewPowerAnimation : MonoBehaviour
             // auraAnimator.SetBool(FadeIn,false);
         }
     }
-
-    private void Update()
-    {
-        
-    }
+    
 
 
     IEnumerator waitBeforeDestroy1()

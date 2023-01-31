@@ -9,7 +9,7 @@ using Touch = UnityEngine.Touch;
 
 public class LevelManager : MonoBehaviour
 {
-    private static int _level = 1;
+    private static int _level = 3;
     private GameManager _gameManager;
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
     // private float _messagePos = 0.7f;
