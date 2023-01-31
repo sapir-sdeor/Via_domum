@@ -231,7 +231,8 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < holeLimit && LevelManager.GETLevel() == 1)
+        if (transform.position.y < holeLimit && LevelManager.GETLevel() == 1 &&
+                GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
             EnterHole();
         if (LevelManager.GETLevel() == 1 && !_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
             ExitHole();
