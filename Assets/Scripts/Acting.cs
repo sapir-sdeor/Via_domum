@@ -433,6 +433,7 @@ public class Acting : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         levelManager = FindObjectOfType<LevelManager>();
         _enterLoadLevel = false;
+        _onDiamond = false;
         switch (scene.name)
         {
             case "Level1":
