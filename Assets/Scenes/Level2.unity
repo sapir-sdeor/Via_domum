@@ -1233,6 +1233,7 @@ GameObject:
   - component: {fileID: 220501614}
   - component: {fileID: 220501616}
   - component: {fileID: 220501615}
+  - component: {fileID: 220501617}
   m_Layer: 0
   m_Name: Leaf3 (1)
   m_TagString: Untagged
@@ -1327,6 +1328,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &220501617
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220501613}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 4.914713, y: 4.1575947}
+  - {x: 5.219458, y: 4.2685304}
+  - {x: 5.625992, y: 4.2661543}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &245105436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,6 +2720,7 @@ MonoBehaviour:
   - {fileID: 2047556396}
   - {fileID: 93865374}
   - {fileID: 961127488}
+  gotRona: 0
   alreadyGrow: 0
 --- !u!1 &481781257
 GameObject:
@@ -3782,6 +3807,7 @@ MonoBehaviour:
   - {fileID: 1261002181}
   - {fileID: 220501613}
   - {fileID: 528505471}
+  gotRona: 0
   alreadyGrow: 0
 --- !u!1 &555621781
 GameObject:
@@ -5630,6 +5656,7 @@ MonoBehaviour:
   - {fileID: 367997563}
   - {fileID: 916368863}
   - {fileID: 1903014617}
+  gotRona: 0
   alreadyGrow: 0
 --- !u!1 &780775839
 GameObject:
@@ -5710,6 +5737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff42f4b59beaef4fbb953d4278d8631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _powerCounterPlayer1: -1
+  _powerCounterPlayer2: -1
   isPause: 0
   _button1: {fileID: 1052895841}
   _button2: {fileID: 1573677984}
@@ -7393,6 +7422,7 @@ MonoBehaviour:
   - {fileID: 1886401216}
   - {fileID: 511298334}
   - {fileID: 826171475}
+  gotRona: 0
   alreadyGrow: 0
 --- !u!1 &944465074
 GameObject:
@@ -10220,6 +10250,7 @@ MonoBehaviour:
   - {fileID: 1886401216}
   - {fileID: 511298334}
   - {fileID: 826171475}
+  gotRona: 0
   alreadyGrow: 0
 --- !u!1 &1261002181
 GameObject:
