@@ -1614,7 +1614,7 @@ GameObject:
   - component: {fileID: 335312769}
   - component: {fileID: 335312771}
   - component: {fileID: 335312770}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom4 (3)
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -2202,7 +2202,7 @@ GameObject:
   - component: {fileID: 445840775}
   - component: {fileID: 445840777}
   - component: {fileID: 445840776}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom4 (1)
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -2907,10 +2907,11 @@ EdgeCollider2D:
   - {x: -1.0121136, y: -1.3702627}
   - {x: -1.069396, y: -1.3012702}
   - {x: -0.9142723, y: -1.1139505}
-  - {x: -0.41676354, y: -0.85863745}
-  - {x: 0.06932771, y: -0.70333815}
-  - {x: 0.74776983, y: -0.438662}
-  - {x: 1.2866938, y: -0.27265555}
+  - {x: -0.45778584, y: -0.8951405}
+  - {x: -0.34901905, y: -0.86616457}
+  - {x: 0.12201774, y: -0.76355535}
+  - {x: 0.7825146, y: -0.59848785}
+  - {x: 1.3631324, y: -0.3907877}
   - {x: 1.8004457, y: -0.17516415}
   - {x: 2.35561, y: -0.059875116}
   - {x: 2.9880161, y: -0.008416593}
@@ -3486,7 +3487,7 @@ GameObject:
   - component: {fileID: 661041181}
   - component: {fileID: 661041183}
   - component: {fileID: 661041182}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom2 (1)
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -4118,7 +4119,7 @@ GameObject:
   - component: {fileID: 838905622}
   - component: {fileID: 838905621}
   m_Layer: 6
-  m_Name: mushroom9 (3)
+  m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5424,7 +5425,7 @@ GameObject:
   - component: {fileID: 1133113413}
   m_Layer: 6
   m_Name: ground
-  m_TagString: ignore
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6333,7 +6334,7 @@ GameObject:
   - component: {fileID: 1353724948}
   - component: {fileID: 1353724950}
   - component: {fileID: 1353724949}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom5
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -8158,7 +8159,7 @@ GameObject:
   - component: {fileID: 1575806884}
   - component: {fileID: 1575806886}
   - component: {fileID: 1575806885}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom8
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -8236,7 +8237,7 @@ GameObject:
   - component: {fileID: 1580018319}
   - component: {fileID: 1580018321}
   - component: {fileID: 1580018320}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom9 (1)
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -11115,7 +11116,7 @@ GameObject:
   - component: {fileID: 1789057316}
   - component: {fileID: 1789057318}
   - component: {fileID: 1789057317}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom9
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -11498,7 +11499,7 @@ GameObject:
   - component: {fileID: 1847170544}
   - component: {fileID: 1847170546}
   - component: {fileID: 1847170545}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom9 (2)
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -12518,7 +12519,7 @@ GameObject:
   - component: {fileID: 2014498593}
   - component: {fileID: 2014498595}
   - component: {fileID: 2014498594}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom7
   m_TagString: ignore
   m_Icon: {fileID: 0}
@@ -13025,7 +13026,7 @@ GameObject:
   - component: {fileID: 2063918590}
   - component: {fileID: 2063918592}
   - component: {fileID: 2063918591}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: mushroom4 (2)
   m_TagString: ignore
   m_Icon: {fileID: 0}
