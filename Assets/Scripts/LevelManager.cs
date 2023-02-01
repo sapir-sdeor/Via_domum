@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3 holePosition;
     [SerializeField] private Vector3 runaPosition;
     [SerializeField] private Vector3 mushroomPosition;
+    [SerializeField] private Vector3 littlePosition;
     
     private Vector3 echoPosition = new(-1.58000004f,2.27999997f,0);
     private Vector3 rootPosition = new(1.17999995f,0.0299999993f,0);
@@ -93,7 +94,8 @@ public class LevelManager : MonoBehaviour
         if (FindObjectOfType<UIManager>()._powerCounterPlayer1 == 0 
                 && FindObjectOfType<UIManager>()._powerCounterPlayer2 == 0 )
         {
-            hint.transform.position = GameObject.FindWithTag("little").transform.position;
+            print("here");
+            hint.transform.position = littlePosition;
             hint.SetActive(true);
             applyHint = true;
         }

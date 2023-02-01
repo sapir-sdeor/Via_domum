@@ -5824,7 +5824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805329989}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.419171, y: 0.23945081, z: 0.015380826}
+  m_LocalPosition: {x: -2.14, y: -0.13, z: 0.015380826}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15711,9 +15711,7 @@ MonoBehaviour:
   holePosition: {x: -1.43, y: -2.87, z: 0}
   runaPosition: {x: -4.72, y: 2.6, z: 0}
   mushroomPosition: {x: -0.85, y: -2.79, z: 0}
-  echoPosition: {x: 0, y: 0, z: 0}
-  rootPosition: {x: 0, y: 0, z: 0}
-  flyPosition: {x: 0, y: 0, z: 0}
+  littlePosition: {x: -0.7, y: 2.9, z: 0.015380826}
   timeForHint: 2
   timeHintAppear: 6
   canvasToNotDestroy: {fileID: 0}
