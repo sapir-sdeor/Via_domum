@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     private static bool setLevelPos2 = false;
     private LevelManager _levelManager;
     private float time;
-    private bool applyHint;
+    private bool applyHint,applyHintLeft,applyHintRight;
     [SerializeField] private Vector3 holePosition;
     [SerializeField] private Vector3 runaPosition;
     [SerializeField] private Vector3 mushroomPosition;
@@ -31,9 +31,9 @@ public class LevelManager : MonoBehaviour
 
     private Vector3 tunnelPos2 = new Vector3(-1.63f, 2.92000008f, 0.0153808258f);
     private Vector3 tunnelPos1= new Vector3(-2,-1.36000001f,0.0153808258f);
-    private Vector3 UIposLeft =new Vector3(-8.97999954f, -4.61000013f, 0.0153808258f);
-    private Vector3 UIposRight =new Vector3(6.05000019f,-4.61000013f,0.0153808258f);
-    private Vector3 UIscale = new(2, 2, 0);
+    // private Vector3 UIposLeft =new Vector3(-8.97999954f, -4.61000013f, 0.0153808258f);
+    // private Vector3 UIposRight =new Vector3(6.05000019f,-4.61000013f,0.0153808258f);
+    // private Vector3 UIscale = new(2, 2, 0);
     private static bool passTunnelPos2, passTunnelPos1;
     private static bool shrink1,shrink2, echo;
     
@@ -76,6 +76,9 @@ public class LevelManager : MonoBehaviour
                 case 2:
                     CheckHintsLevel2();
                     break;
+                case 3:
+                    CheckHintsLevel3();
+                    break;
             }
             time = 0;
         }
@@ -85,6 +88,19 @@ public class LevelManager : MonoBehaviour
             hint.SetActive(false);
             time = 0;
             applyHint = false;
+        }
+        if (applyHintLeft && time > timeHintAppear)
+        {
+            hint.SetActive(false);
+            time = 0;
+            applyHintLeft = false;
+        }
+        
+        if (applyHintRight && time > timeHintAppear)
+        {
+            hint.SetActive(false);
+            time = 0;
+            applyHintRight = false;
         }
     }
 
@@ -130,13 +146,60 @@ public class LevelManager : MonoBehaviour
 
     private void CheckHintsLevel2()
     {
-        /*GameObject echo = GameObject.FindWithTag("echo");
-        if (echo)
+        GameObject echo = GameObject.FindWithTag("echo");
+        if (echo && echo.name == "stone")
         {
             hint.transform.position = echoPosition;
             hint.SetActive(true);
             applyHint = true;
-        }*/
+        }
+        else if (!Legs.Pass)
+        {
+            hint.transform.position = rootPosition;
+            hint.SetActive(true);
+            applyHint = true;
+        }
+        else if (!Echo.removeWebs)
+        {
+            hint.transform.position = flyPosition;
+            hint.SetActive(true);
+            applyHint = true;
+        }
+    }
+    
+    private void CheckHintsLevel3()
+    { 
+        if (!passTunnelPos2)
+        {
+            hint.transform.position = tunnelPos2;
+            hint.SetActive(true);
+            applyHint = true;
+            print("tunnelPos2");
+        }
+        else if (!passTunnelPos1)
+        {
+            hint.transform.position = tunnelPos1;
+            hint.SetActive(true);
+            applyHint = true;
+            print("tunnelPos1");
+        }
+      
+        else if (!shrink1)
+        {
+            // hint.transform.position = UIposRight;
+            // hint.transform.localScale = UIscale;
+            hintUIRight.SetActive(true);
+            applyHintRight = true;
+            print("shrink1");
+        }
+        else if (!echo||!shrink2)
+        {
+            // hint.transform.position = UIposLeft;
+            // hint.transform.localScale = UIscale;
+            hintUILeft.SetActive(true);
+            applyHintLeft = true;
+            print("shrink2");
+        }
     }
 
 
