@@ -9,7 +9,11 @@ public class fade : MonoBehaviour
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene("Level"+LevelManager.GETLevel());
+        if (SceneManager.GetActiveScene().name == "Tutorial1")
+        {
+            SceneManager.LoadScene("Tutorial2");
+        }
+        else SceneManager.LoadScene("Level"+LevelManager.GETLevel());
     }
     
     

@@ -30,7 +30,15 @@ public class touchAct : MonoBehaviour
             case "root":
                 ApplyRoot();
                 break;
+            case "blowUp":
+                Flower();
+                break;
         }
+    }
+
+    private void Flower()
+    {
+        GetComponentInParent<Animator>().SetTrigger("flower");
     }
 
     private void ApplyRoot()
