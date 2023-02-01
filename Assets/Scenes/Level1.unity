@@ -606,7 +606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48601104}
   - component: {fileID: 48601105}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,7 +688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 52008649}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3666,7 +3666,7 @@ GameObject:
   - component: {fileID: 525298776}
   - component: {fileID: 525298777}
   - component: {fileID: 525298778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4944,7 +4944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 688447723}
   - component: {fileID: 688447724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Full1
   m_TagString: Shrink
   m_Icon: {fileID: 0}
@@ -6348,7 +6348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 972450691}
   - component: {fileID: 972450692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bubble (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7824,7 +7824,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1292843547}
   - component: {fileID: 1292843548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mask (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11046,7 +11046,7 @@ GameObject:
   - component: {fileID: 1746637538}
   - component: {fileID: 1746637536}
   - component: {fileID: 1746637537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Foreground1
   m_TagString: wall
   m_Icon: {fileID: 0}
@@ -12971,7 +12971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1829718862}
   - component: {fileID: 1829718863}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bubble (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
