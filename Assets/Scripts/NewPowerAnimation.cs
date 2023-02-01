@@ -55,7 +55,7 @@ public class NewPowerAnimation : MonoBehaviour
         aura.SetActive(false);
         text.SetActive(false);
         auraAnimator.SetBool(FadeOut,true);
-        if (LevelManager.GETLevel() == 1)
+        if (LevelManager.GETLevel() == 1||LevelManager.GETLevel() == 0)
         {
             newPowerAnimator.SetBool(Player2, true);
         }
