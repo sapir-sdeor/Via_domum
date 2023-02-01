@@ -53,6 +53,7 @@ public class Acting : MonoBehaviour
     private PlayerMovement _inputAction;
     private Animator _animator;
     private bool falling;
+    private static bool player1Little, player2Little;
     private static bool _destroyObstacle;
     
     private static readonly int Wait1 = Animator.StringToHash(Wait);
@@ -70,6 +71,8 @@ public class Acting : MonoBehaviour
     #region readonly
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
+    // private readonly Vector3 _pos2Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
+
 
     private readonly Vector3 _pos1Level3 = new(4.11999989f, -1.65999997f, 0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
@@ -86,6 +89,8 @@ public class Acting : MonoBehaviour
     private bool ignoreCollision1, ignoreCollision2;
     private Collider2D coll1, coll2;
     private GameObject _light1,_light2;
+    // private Vector3 _shrinkPosLeft = new(-4.94665909f,4.01503992f,-0.0584629141f);
+    private Vector3 _shrinkPosRight = new (5.05000019f,-1.16999996f,-0.0397099368f);
 
     #endregion
    
@@ -113,7 +118,7 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        if (uiManager.isPause) return;
+        if (LevelManager.GETLevel() > -1 && uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -378,7 +383,14 @@ public class Acting : MonoBehaviour
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
         ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D, echoLayer);
+        if(other.gameObject.CompareTag("little")) SetLittleBool();
         coreMechanic.ApplyMechanic();
+    }
+
+    private void SetLittleBool()
+    {
+        if (playerNumber == 1) player1Little = true;
+        if (playerNumber == 2) player2Little = true;
     }
 
     private void CollectStone(Collision2D other)
@@ -447,7 +459,7 @@ public class Acting : MonoBehaviour
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
-                SetPlayersLight();
+                // SetPlayersLight();
                 SetShrinkPower();
                 break;
         }
@@ -455,10 +467,18 @@ public class Acting : MonoBehaviour
 
     private void SetShrinkPower()
     {
-        if (GetComponent<changeSize>().GETLittle())
+        if (player2Little)
         {
-            if (playerNumber == 1) ShrinkManager.SetLeftShrink();
-            else ShrinkManager.setRightShrink();
+            // var shrink = GameObject.FindGameObjectWithTag("little");
+            // if(shrink == null) print("shrink is null, do you know why its happend?");
+            // else print("shrink need to be in the opposite side");
+            // shrink.gameObject.transform.position = _shrinkPosRight;
+            ShrinkManager.setRightShrink();
+        }
+
+        if (player1Little)
+        {
+            ShrinkManager.SetLeftShrink();
         }
     }
     
