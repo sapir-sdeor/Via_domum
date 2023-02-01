@@ -38,6 +38,7 @@ TagManager:
   - root
   - light1
   - light2
+  - canvas
   layers:
   - Default
   - TransparentFX

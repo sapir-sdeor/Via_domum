@@ -237,8 +237,6 @@ public class LevelManager : MonoBehaviour
             Destroy(_gameManager.gameObject);
             Destroy(_gameManager.GETPlayer1().gameObject);
             Destroy(_gameManager.GETPlayer2().gameObject);
-            Destroy(canvasToNotDestroy);
-            Destroy(FindObjectOfType<UIManager>());
         }
         GameObject.FindGameObjectWithTag("fade").GetComponent<Animator>().SetTrigger("fadeOut");
     }
