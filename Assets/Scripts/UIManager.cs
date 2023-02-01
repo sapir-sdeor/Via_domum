@@ -16,18 +16,16 @@ public class UIManager : MonoBehaviour
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
     public bool isPause;
-    
+    private bool startControl = true;
     private bool controlOpen;
     private bool start;
     private int _indexPowerPlayer1=0, _indexPowerPlayer2=0;
     private float _indexHor1,_indexHor2;
-    private LevelManager _levelManager;
     private bool _flyAlready;
     private  GameObject[] buttonManager1 = new GameObject[5], buttonManager2=new GameObject[5];
     private  GameObject[] buttonManagerAll1 = new GameObject[5], buttonManagerAll2=new GameObject[5];
     [SerializeField] private Button _button1;
     [SerializeField] private Button _button2;
-    [SerializeField] private GameObject touch;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject controlPanel;
     private GameManager gameManager;
@@ -42,18 +40,23 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
-        CollectPowerPlayer1(touch,false,0);
-        CollectPowerPlayer2(touch,false,0);
-        // DontDestroyOnLoad(gameObject);
-        // DontDestroyOnLoad(this);
+        Time.timeScale = 0;
+        /*CollectPowerPlayer1(touch,false,0);
+        CollectPowerPlayer2(touch,false,0);*/
     }
 
 
     public void Pause(InputAction.CallbackContext context)
     {
-        if (isPause && !controlOpen)
+        if (startControl)
+        {
+            startControl = false;
+            controlPanel.SetActive(false);
+            pausePanel.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else if (isPause && !controlOpen)
         {
             pausePanel.SetActive(false);
             Time.timeScale = 1;
@@ -78,7 +81,10 @@ public class UIManager : MonoBehaviour
 
     public void BackHomeScreen()
     {
-       // SceneManager.LoadScene("");
+        LevelManager.SetLevel(-1);
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
+        SceneManager.LoadScene("HomeScreen");
     }
     
     public void ControllerScene()
@@ -138,7 +144,6 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                print("apply2");
                 buttonManager2[_indexPowerPlayer2].GetComponent<AudioSource>().Play();
                 gameManager.GETPlayer2().Act(buttonManager2[_indexPowerPlayer2].gameObject,
                     buttonManager2[_indexPowerPlayer2].GetComponent<AudioSource>().clip);
@@ -217,7 +222,6 @@ public class UIManager : MonoBehaviour
         if (context.performed)
         {
             var val = context.ReadValue<Vector2>().x;
-            print("nevigate menu 2");
             if (_indexHor2 >= _powerCounterPlayer2 && val > 0) _indexHor2=0;
             else if(_indexHor2 == 0 && val < 0) _indexHor2 = _powerCounterPlayer2;
             else { _indexHor2 += val;}
@@ -228,7 +232,6 @@ public class UIManager : MonoBehaviour
                 _button2.GetComponent<Image>().sprite = t; 
                 break;
             }
-            print(_indexHor2);
         }
         _indexPowerPlayer2 =(int) _indexHor2;
     }
@@ -296,6 +299,7 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
+    
 
     void OnSceneLoaded(Scene scene,LoadSceneMode mode)
     {

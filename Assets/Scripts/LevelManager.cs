@@ -10,10 +10,9 @@ using Touch = UnityEngine.Touch;
 public class LevelManager : MonoBehaviour
 {
 
-    private static int _level = 1;
+    private static int _level = -1;
     private GameManager _gameManager;
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
-    // private float _messagePos = 0.7f;
     private int lastIndex1, lastIndex2;
     private int lastPower1, lastPower2;
     private static bool setLevelPos2 = false;
@@ -25,9 +24,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3 mushroomPosition;
     [SerializeField] private Vector3 littlePosition;
     
-    private Vector3 echoPosition = new(-1.58000004f,2.27999997f,0);
-    private Vector3 rootPosition = new(1.17999995f,0.0299999993f,0);
-    private Vector3 flyPosition = new(2.61999989f,-2.8599999f,0);
+    private Vector3 echoPosition = new(-1.59000003f,2.27999997f,0);
+    private Vector3 rootPosition = new(1.16999996f,0.0299999993f,0);
+    private Vector3 flyPosition = new(2.6400001f,-2.82999992f,0);
 
 
     private Vector3 tunnelPos2 = new Vector3(-1.63f, 2.92000008f, 0.0153808258f);
@@ -67,6 +66,11 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
+        if (_level < 1)
+        {
+            print("return");
+            return;
+        }
         time += Time.deltaTime;
         if (time > timeForHint && !applyHint)
         {
@@ -111,7 +115,6 @@ public class LevelManager : MonoBehaviour
         if (FindObjectOfType<UIManager>()._powerCounterPlayer1 == 0 
                 && FindObjectOfType<UIManager>()._powerCounterPlayer2 == 0 )
         {
-            print("here");
             hint.transform.position = littlePosition;
             hint.SetActive(true);
             applyHint = true;
@@ -220,7 +223,7 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
-        if (_level != 3)
+        if (_level != 4)
         {
             DontDestroyOnLoad(canvasToNotDestroy);
             canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
@@ -230,6 +233,14 @@ public class LevelManager : MonoBehaviour
             DontDestroyOnLoad(FindObjectOfType<EventSystem>());
             
         }
+        else
+        {
+            Destroy(_gameManager.gameObject);
+            Destroy(_gameManager.GETPlayer1().gameObject);
+            Destroy(_gameManager.GETPlayer2().gameObject);
+            Destroy(canvasToNotDestroy);
+            Destroy(FindObjectOfType<UIManager>());
+        }
         GameObject.FindGameObjectWithTag("fade").GetComponent<Animator>().SetTrigger("fadeOut");
     }
 
@@ -238,6 +249,11 @@ public class LevelManager : MonoBehaviour
     public static int GETLevel()
     {
         return _level;
+    }
+    
+    public static void SetLevel(int level)
+    {
+        _level = level;
     }
     
     public void CloseUIMessage(String playerName)
