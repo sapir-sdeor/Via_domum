@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float timeForHint;
     [SerializeField] private float timeHintAppear = 6f;
     [SerializeField] private UIManager canvasToNotDestroy;
-    [SerializeField] private GameObject hint;
+    [SerializeField] private GameObject hint,hintUILeft,hintUIRight;
     public static void SetPassTunnelPos2()
     {
         passTunnelPos2 = true;
