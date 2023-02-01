@@ -14,9 +14,9 @@ public class Legs : MonoBehaviour
     {
         if (other.gameObject.CompareTag("flower") && !_onLeaf && !pass)
         {
-            print("on leaf");
             _onLeaf = true;
             leaf = other.transform;
+            GetComponentInParent<Animator>().SetBool("walk", false);
             GetComponentsInParent<Transform>()[1].parent = leaf;
             GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
             GetComponentsInParent<Collider2D>()[1].enabled = false;
@@ -24,7 +24,6 @@ public class Legs : MonoBehaviour
 
         else if (other.gameObject.CompareTag("Finish"))
         {
-            print("exit leaf");
             _onLeaf = false;
             pass = true;
             GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;

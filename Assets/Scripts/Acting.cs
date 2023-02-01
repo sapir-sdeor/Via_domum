@@ -71,9 +71,13 @@ public class Acting : MonoBehaviour
     #region readonly
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
-    // private readonly Vector3 _pos2Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
+    
+    private readonly Vector3 _pos1Tutorial2 = new(-2.1500001f,-2.51999998f,0.0770900697f);
+    private readonly Vector3 _pos2Tutorial2 = new(-2.80999994f,-2.6099999f,0.0770900697f);
 
-
+    private readonly Vector3 _pos1Level1 = new(-0.730000019f, 0.540000021f, 0.0770900697f);
+    private readonly Vector3 _pos2Level1 = new(-1.36000001f, 0.419999987f, 0.0770900697f);
+    
     private readonly Vector3 _pos1Level3 = new(4.11999989f, -1.65999997f, 0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
   
@@ -118,7 +122,7 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        if (LevelManager.GETLevel() > -1 && uiManager.isPause) return;
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -446,11 +450,18 @@ public class Acting : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         gameManager = FindObjectOfType<GameManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        _animator.SetBool(Wait1, false);
         _enterLoadLevel = false;
         _onDiamond = false;
         switch (scene.name)
         {
+            case "Tutorial2":
+                gameManager.SetPosPlayer1(_pos1Tutorial2);
+                gameManager.SetPosPlayer2(_pos2Tutorial2);
+                break;
             case "Level1":
+                gameManager.SetPosPlayer1(_pos1Level1);
+                gameManager.SetPosPlayer2(_pos2Level1);
                 break;
             case "Level2":
                 gameManager.SetPosPlayer1(_pos1Level2);

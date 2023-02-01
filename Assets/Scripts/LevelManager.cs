@@ -99,13 +99,13 @@ public class LevelManager : MonoBehaviour
 
     private void CheckHintsLevel2()
     {
-        GameObject echo = GameObject.FindWithTag("echo");
+        /*GameObject echo = GameObject.FindWithTag("echo");
         if (echo)
         {
             hint.transform.position = echoPosition;
             hint.SetActive(true);
             applyHint = true;
-        }
+        }*/
     }
 
 
