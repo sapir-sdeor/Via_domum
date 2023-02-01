@@ -211,6 +211,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+        _level = -1;
         _gameManager = FindObjectOfType<GameManager>();
         canvasToNotDestroy = FindObjectOfType<UIManager>();
     }

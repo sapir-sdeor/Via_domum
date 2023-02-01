@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using Touch = CoreMechanic.Touch;
 
 public class Acting : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class Acting : MonoBehaviour
     #region private
     
    // private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
+    private bool hasTouch;
     private bool _onDiamond;
     private bool _onLeaf;
     private Rigidbody2D _rigidbody;
@@ -292,8 +294,11 @@ public class Acting : MonoBehaviour
             ClickButton();
         
         else if (other.gameObject.name == "stone")
+        {
+            if (hasTouch && other.gameObject.CompareTag("touch")) return;
             CollectStone(other);
-        
+        }
+
         else if (other.gameObject.CompareTag("light"))
         {
             Destroy(other.gameObject);
@@ -396,6 +401,8 @@ public class Acting : MonoBehaviour
 
     private void CollectStone(Collision2D other)
     {
+        if (other.gameObject.CompareTag("touch"))
+            hasTouch = true;
         _audioSource.clip = collectPowerSound;
         _audioSource.Play();
         uiManager.CollectPowerPlayer(gameObject ,other.gameObject);
@@ -467,6 +474,7 @@ public class Acting : MonoBehaviour
                 gameManager.SetPosPlayer2(_pos2Level1);
                 break;
             case "Level2":
+                _animator.SetTrigger("hello");
                 gameManager.SetPosPlayer1(_pos1Level2);
                 gameManager.SetPosPlayer2(_pos2Level2);
                 break;
