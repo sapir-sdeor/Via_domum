@@ -23,6 +23,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3 holePosition;
     [SerializeField] private Vector3 runaPosition;
     [SerializeField] private Vector3 mushroomPosition;
+    
+    [SerializeField] private Vector3 echoPosition;
+    [SerializeField] private Vector3 rootPosition;
+    [SerializeField] private Vector3 flyPosition;
+    
     [SerializeField] private float timeForHint;
     [SerializeField] private float timeHintAppear = 6f;
     [SerializeField] private UIManager canvasToNotDestroy;
@@ -36,6 +41,9 @@ public class LevelManager : MonoBehaviour
             {
                 case 1:
                     CheckHintsLevel1();
+                    break;
+                case 2:
+                    CheckHintsLevel2();
                     break;
             }
             time = 0;
@@ -54,7 +62,6 @@ public class LevelManager : MonoBehaviour
         if (FindObjectOfType<UIManager>()._powerCounterPlayer1 == 0 
                 && FindObjectOfType<UIManager>()._powerCounterPlayer2 == 0 )
         {
-            print("littlehint");
             hint.transform.position = GameObject.FindWithTag("little").transform.position;
             hint.SetActive(true);
             applyHint = true;
@@ -62,12 +69,10 @@ public class LevelManager : MonoBehaviour
         else if (!_gameManager.GETPlayer1().gotHole &&
                  !_gameManager.GETPlayer2().gotHole)
         {
-            print("holehint");
             hint.transform.position = holePosition;
             hint.SetActive(true);
             applyHint = true;
         }
-
         else
         {
             touchAct[] touches = FindObjectsOfType<touchAct>();
@@ -92,6 +97,16 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    private void CheckHintsLevel2()
+    {
+        GameObject echo = GameObject.FindWithTag("echo");
+        if (echo)
+        {
+            hint.transform.position = echoPosition;
+            hint.SetActive(true);
+            applyHint = true;
+        }
+    }
 
 
     private void Awake()
