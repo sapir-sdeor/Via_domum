@@ -53,12 +53,10 @@ public class NewPowerAnimation : MonoBehaviour
         auraAnimator.SetBool(FadeOut,true);
         if (LevelManager.GETLevel() == 1)
         {
-            print("set animation player 1");
             newPowerAnimator.SetBool(Player2, true);
         }
         else
         {
-            print("set animation level 2");
             newPowerAnimator.SetBool(Level2,true);
         }
     }
