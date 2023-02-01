@@ -116,6 +116,7 @@ public class Acting : MonoBehaviour
 
     public void Restart(InputAction.CallbackContext context)
     {
+        hasTouch = false;
         levelManager.Restart();
     }
     
