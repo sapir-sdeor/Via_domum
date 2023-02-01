@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             _player1 = players[1].gameObject;
             _player2 = players[0].gameObject;
         }
-        print(_player1);
+        // print(_player1);
     }
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
