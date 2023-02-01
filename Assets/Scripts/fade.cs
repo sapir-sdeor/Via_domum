@@ -13,8 +13,21 @@ public class fade : MonoBehaviour
         {
             SceneManager.LoadScene("Tutorial2");
         }
+        else if (SceneManager.GetActiveScene().name == "Level3")
+        {
+            SceneManager.LoadScene("End");
+        }
         else SceneManager.LoadScene("Level"+LevelManager.GETLevel());
     }
+
+    /*public void ApplyMove()
+    {
+        Acting.DontMove = false;
+        Acting[] players = FindObjectsOfType<Acting>();
+        players[0].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        players[1].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+    }*/
     
     
 }

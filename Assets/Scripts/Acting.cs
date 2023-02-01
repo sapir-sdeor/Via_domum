@@ -26,7 +26,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private float fallingThreshold = -0.01f;
-    [SerializeField] private float holeLimit=-3.2f;
+    [SerializeField] private float holeLimit=-3.1f;
     
     #endregion
 
@@ -62,18 +62,20 @@ public class Acting : MonoBehaviour
     private static readonly int ONGround = Animator.StringToHash("onGround");
     private static readonly int Falling = Animator.StringToHash("falling");
     private bool _isClimbing;
-    private bool dontMove;
 
-    
     public bool gotHole;
     #endregion
 
     #region readonly
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
-    // private readonly Vector3 _pos2Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
+    
+    private readonly Vector3 _pos1Tutorial2 = new(0.689999998f,-2.31999993f,0.0770900697f);
+    private readonly Vector3 _pos2Tutorial2 = new(1.25f,-2.21000004f,0.0770900697f);
 
-
+    private readonly Vector3 _pos1Level1 = new(-0.730000019f, 0.540000021f, 0.0770900697f);
+    private readonly Vector3 _pos2Level1 = new(-1.36000001f, 0.419999987f, 0.0770900697f);
+    
     private readonly Vector3 _pos1Level3 = new(4.11999989f, -1.65999997f, 0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
   
@@ -103,7 +105,6 @@ public class Acting : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
         coll1 = coll2 = gameObject.GetComponent<Collider2D>();
-        // coll1 = gameObject.GetComponent<Collider2D>();
     }
 
     public int GETPlayerNumber()
@@ -118,7 +119,7 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        if (LevelManager.GETLevel() > -1 && uiManager.isPause) return;
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -130,7 +131,7 @@ public class Acting : MonoBehaviour
 
     public void Jump2(InputAction.CallbackContext context)
     {
-        if (uiManager.isPause || !GetComponent<Collider2D>().enabled) return;
+        if (uiManager.isPause || !GetComponent<Collider2D>().enabled ) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -142,7 +143,7 @@ public class Acting : MonoBehaviour
     
     public void Move(InputAction.CallbackContext context)
     {
-        if (gameObject.name != UIManager.PLAYER1) return; 
+        if (gameObject.name != UIManager.PLAYER1 ) return; 
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return; 
         SetMoveAnimation(context);
@@ -150,7 +151,7 @@ public class Acting : MonoBehaviour
 
     public void Move2(InputAction.CallbackContext context)
     {
-        if (gameObject.name != UIManager.PLAYER2) return;
+        if (gameObject.name != UIManager.PLAYER2 ) return;
         if (!GetComponent<Collider2D>().enabled) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
@@ -238,8 +239,8 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < holeLimit && LevelManager.GETLevel() == 1 &&
-                GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
+        if (transform.position.y <= holeLimit && LevelManager.GETLevel() == 1 &&
+            GetComponent<changeSize>())
             EnterHole();
         if (LevelManager.GETLevel() == 1 && !_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
             ExitHole();
@@ -435,22 +436,35 @@ public class Acting : MonoBehaviour
         yield return new WaitForSeconds(1f);
         levelManager.LoadNextLevel();
     }
+    
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded; 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         uiManager = FindObjectOfType<UIManager>();
         gameManager = FindObjectOfType<GameManager>();
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = FindObjectOfType<LevelManager>(); 
+        if (_animator) _animator.SetBool(Wait1, false);
         _enterLoadLevel = false;
         _onDiamond = false;
-        switch (scene.name)
+        switch (scene.name) 
         {
+            case "Tutorial2":
+                gameManager.SetPosPlayer1(_pos1Tutorial2);
+                gameManager.SetPosPlayer2(_pos2Tutorial2);
+                break;
             case "Level1":
+                gameManager.SetPosPlayer1(_pos1Level1);
+                gameManager.SetPosPlayer2(_pos2Level1);
                 break;
             case "Level2":
                 gameManager.SetPosPlayer1(_pos1Level2);
@@ -499,7 +513,6 @@ public class Acting : MonoBehaviour
         if (playerNumber == 1)
         {
             _light1 = GameObject.FindGameObjectWithTag("light1");
-            // if(_light1!= null) print(_light1.);
             _light1.transform.parent = transform;
         }
 

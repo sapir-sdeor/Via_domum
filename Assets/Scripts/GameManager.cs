@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
     
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded; 
+    }
+    
     public void SetPosPlayer1(Vector3 pos)
     {
         _player1.gameObject.transform.position = pos;
@@ -82,11 +87,11 @@ public class GameManager : MonoBehaviour
             _player1 = players[1].gameObject;
             _player2 = players[0].gameObject;
         }
-        // print(_player1);
     }
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         diamond = GameObject.FindGameObjectWithTag("diamond");
+        SavePlayers();
     }
 }

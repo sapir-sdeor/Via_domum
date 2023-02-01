@@ -7,16 +7,17 @@ public class Legs : MonoBehaviour
 {
     private float time = 0;
     private bool _onLeaf; 
-    private bool pass;
+    public static bool Pass;
     private Transform leaf;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("flower") && !_onLeaf && !pass)
+        if (other.gameObject.CompareTag("flower") && !_onLeaf && !Pass)
         {
-            print("on leaf");
             _onLeaf = true;
             leaf = other.transform;
+            GetComponentInParent<SpriteRenderer>().sortingOrder = 7;
+            GetComponentInParent<Animator>().SetBool("walk", false);
             GetComponentsInParent<Transform>()[1].parent = leaf;
             GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
             GetComponentsInParent<Collider2D>()[1].enabled = false;
@@ -24,9 +25,9 @@ public class Legs : MonoBehaviour
 
         else if (other.gameObject.CompareTag("Finish"))
         {
-            print("exit leaf");
             _onLeaf = false;
-            pass = true;
+            Pass = true;
+            GetComponentInParent<SpriteRenderer>().sortingOrder = 4;
             GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             GetComponentsInParent<Collider2D>()[1].enabled = true;
             GetComponentsInParent<Transform>()[1].parent = null;
