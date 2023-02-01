@@ -62,9 +62,7 @@ public class Acting : MonoBehaviour
     private static readonly int ONGround = Animator.StringToHash("onGround");
     private static readonly int Falling = Animator.StringToHash("falling");
     private bool _isClimbing;
-    private bool dontMove;
 
-    
     public bool gotHole;
     #endregion
 
@@ -133,7 +131,7 @@ public class Acting : MonoBehaviour
 
     public void Jump2(InputAction.CallbackContext context)
     {
-        if (uiManager.isPause || !GetComponent<Collider2D>().enabled) return;
+        if (uiManager.isPause || !GetComponent<Collider2D>().enabled ) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -145,7 +143,7 @@ public class Acting : MonoBehaviour
     
     public void Move(InputAction.CallbackContext context)
     {
-        if (gameObject.name != UIManager.PLAYER1) return; 
+        if (gameObject.name != UIManager.PLAYER1 ) return; 
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return; 
         SetMoveAnimation(context);
@@ -153,7 +151,7 @@ public class Acting : MonoBehaviour
 
     public void Move2(InputAction.CallbackContext context)
     {
-        if (gameObject.name != UIManager.PLAYER2) return;
+        if (gameObject.name != UIManager.PLAYER2 ) return;
         if (!GetComponent<Collider2D>().enabled) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
@@ -241,8 +239,11 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < holeLimit && LevelManager.GETLevel() == 1 &&
-                GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
+        print(transform.position.y <= holeLimit);
+        print(LevelManager.GETLevel());
+        print(GetComponent<changeSize>());
+        if (transform.position.y <= holeLimit && LevelManager.GETLevel() == 1 &&
+            GetComponent<changeSize>())
             EnterHole();
         if (LevelManager.GETLevel() == 1 && !_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
             ExitHole();
@@ -445,7 +446,7 @@ public class Acting : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
-    void OnDisable()
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -454,8 +455,8 @@ public class Acting : MonoBehaviour
     {
         uiManager = FindObjectOfType<UIManager>();
         gameManager = FindObjectOfType<GameManager>();
-        levelManager = FindObjectOfType<LevelManager>();
-        // _animator.SetBool(Wait1, false);
+        levelManager = FindObjectOfType<LevelManager>(); 
+        if (_animator) _animator.SetBool(Wait1, false);
         _enterLoadLevel = false;
         _onDiamond = false;
         switch (scene.name) 
