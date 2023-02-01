@@ -6743,7 +6743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74db25d7d1a8ac84f917663a5e40c859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newScale: {x: 0.5, y: 0.5, z: 0}
+  newScale: {x: 1, y: 1, z: 0}
   lampPos: 0.26
   playerNumber: 2
 --- !u!1 &794033171
@@ -7695,7 +7695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74db25d7d1a8ac84f917663a5e40c859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newScale: {x: 0.5, y: 0.5, z: 0}
+  newScale: {x: 1, y: 1, z: 0}
   lampPos: 0.26
   playerNumber: 1
 --- !u!1 &975683371
