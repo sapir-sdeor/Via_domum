@@ -71,8 +71,9 @@ public class Acting : MonoBehaviour
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
 
-    private readonly Vector3 _pos1Level3 = new(4.11999989f,-3.81999993f,0.0770537108f);
+    private readonly Vector3 _pos1Level3 = new(4.11999989f, -1.65999997f, 0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
+  
 
     private readonly int GROUND_LAYER = 6;
     private readonly int PLAYER1_LAYER = 9;
@@ -447,9 +448,20 @@ public class Acting : MonoBehaviour
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
                 SetPlayersLight();
+                SetShrinkPower();
                 break;
         }
     }
+
+    private void SetShrinkPower()
+    {
+        if (GetComponent<changeSize>().GETLittle())
+        {
+            if (playerNumber == 1) ShrinkManager.SetLeftShrink();
+            else ShrinkManager.setRightShrink();
+        }
+    }
+    
 
     private bool getOnDiamond()
     {
@@ -460,19 +472,15 @@ public class Acting : MonoBehaviour
     {
         _destroyObstacle = true;
     }
-
-    public static void SetLightPlayer1(GameObject light1, Vector3 pos1)
-    {
-        
-    }
+    
 
     private void SetPlayersLight()
     {
         if (playerNumber == 1)
         {
-            // _light1 = GameObject.FindGameObjectWithTag("light1");
+            _light1 = GameObject.FindGameObjectWithTag("light1");
             // if(_light1!= null) print(_light1.);
-            // _light1.transform.parent = transform;
+            _light1.transform.parent = transform;
         }
 
         if (playerNumber == 2)
@@ -482,9 +490,6 @@ public class Acting : MonoBehaviour
         }
             
     }
-
-    public static void SetLightPlayer2( GameObject light2, Vector3 pos2)
-    {
-       
-    }
+    
 }
+
