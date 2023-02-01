@@ -16,4 +16,9 @@ public class ButtonManger : MonoBehaviour
     {
         SceneManager.LoadScene("Tutorial1");
     }
+
+    public void HomeScreen(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene("HomeScreen");
+    }
 }

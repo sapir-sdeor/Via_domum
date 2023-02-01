@@ -81,12 +81,7 @@ public class Acting : MonoBehaviour
     private readonly Vector3 _pos1Level3 = new(4.11999989f, -1.65999997f, 0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
   
-
-    private readonly int GROUND_LAYER = 6;
-    private readonly int PLAYER1_LAYER = 9;
-    private readonly int PLAYER2_LAYER = 8;
-    private readonly int IGNORE_LAYER = 2;  
-    private readonly int WATER_LAYER = 4;
+    
     private static bool _enterLoadLevel;
     private bool _enterHole;
     private bool _exitHole;
@@ -434,10 +429,6 @@ public class Acting : MonoBehaviour
         if (otherPlayer.getOnDiamond())
         {
             _animator.SetBool(Wait1, true);
-            if (GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
-            {
-                GetComponent<changeSize>().ApplyMechanic();
-            }
             other.GetComponent<Animator>().SetTrigger("second");
             if (!_enterLoadLevel) StartCoroutine(LoadLevelAfterSecond());
         }
@@ -473,6 +464,10 @@ public class Acting : MonoBehaviour
         if (_animator) _animator.SetBool(Wait1, false);
         _enterLoadLevel = false;
         _onDiamond = false;
+        if (GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
+        {
+            GetComponent<changeSize>().ApplyMechanic();
+        }
         switch (scene.name) 
         {
             case "Tutorial2":
