@@ -8,6 +8,7 @@ namespace CoreMechanic
     {
         private static readonly int ApplyEcho = Animator.StringToHash("applyEcho");
         private LayerMask echoLayer;
+        public static bool removeWebs; 
 
         public void SetLayer(LayerMask layerMask)
         {
@@ -22,7 +23,11 @@ namespace CoreMechanic
             {
                 overlapCircle.gameObject.GetComponentInParent<Animator>().SetTrigger(ApplyEcho);
                 if (overlapCircle.gameObject.name == "flyCollider")
+                {
+                    removeWebs = true;
                     StartCoroutine(WaitToOpenWebs(overlapCircle));
+                }
+                    
             }
         }
 

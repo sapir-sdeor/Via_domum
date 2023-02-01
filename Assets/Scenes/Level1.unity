@@ -4979,7 +4979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654433, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1419405072460654433, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_LocalScale.x
@@ -5823,13 +5823,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805329989}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 1.04, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960.08, y: -538.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_Father: {fileID: 2137829332}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &805329992
 Animator:
@@ -10383,7 +10383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513499, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4994050742053513499, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_LocalScale.x
@@ -15710,8 +15710,6 @@ MonoBehaviour:
   holePosition: {x: -1.43, y: -2.87, z: 0}
   runaPosition: {x: -4.72, y: 2.6, z: 0}
   mushroomPosition: {x: -0.85, y: -2.79, z: 0}
-  echoPosition: {x: 0, y: 0, z: 0}
-  rootPosition: {x: 0, y: 0, z: 0}
   flyPosition: {x: 0, y: 0, z: 0}
   timeForHint: 60
   timeHintAppear: 6
@@ -16552,6 +16550,7 @@ RectTransform:
   - {fileID: 2045160627}
   - {fileID: 1191266861}
   - {fileID: 1244803841}
+  - {fileID: 805329991}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

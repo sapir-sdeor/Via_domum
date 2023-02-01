@@ -7,12 +7,12 @@ public class Legs : MonoBehaviour
 {
     private float time = 0;
     private bool _onLeaf; 
-    private bool pass;
+    public static bool Pass;
     private Transform leaf;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("flower") && !_onLeaf && !pass)
+        if (other.gameObject.CompareTag("flower") && !_onLeaf && !Pass)
         {
             _onLeaf = true;
             leaf = other.transform;
@@ -25,7 +25,7 @@ public class Legs : MonoBehaviour
         else if (other.gameObject.CompareTag("Finish"))
         {
             _onLeaf = false;
-            pass = true;
+            Pass = true;
             GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             GetComponentsInParent<Collider2D>()[1].enabled = true;
             GetComponentsInParent<Transform>()[1].parent = null;

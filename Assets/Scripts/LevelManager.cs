@@ -24,9 +24,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3 runaPosition;
     [SerializeField] private Vector3 mushroomPosition;
     
-    [SerializeField] private Vector3 echoPosition;
-    [SerializeField] private Vector3 rootPosition;
-    [SerializeField] private Vector3 flyPosition;
+    private Vector3 echoPosition = new(-1.58000004f,2.27999997f,0);
+    private Vector3 rootPosition = new(1.17999995f,0.0299999993f,0);
+    private Vector3 flyPosition = new(2.61999989f,-2.8599999f,0);
     
     [SerializeField] private float timeForHint;
     [SerializeField] private float timeHintAppear = 6f;
@@ -99,13 +99,25 @@ public class LevelManager : MonoBehaviour
 
     private void CheckHintsLevel2()
     {
-        /*GameObject echo = GameObject.FindWithTag("echo");
-        if (echo)
+        GameObject echo = GameObject.FindWithTag("echo");
+        if (echo && echo.name == "stone")
         {
             hint.transform.position = echoPosition;
             hint.SetActive(true);
             applyHint = true;
-        }*/
+        }
+        else if (!Legs.Pass)
+        {
+            hint.transform.position = rootPosition;
+            hint.SetActive(true);
+            applyHint = true;
+        }
+        else if (!Echo.removeWebs)
+        {
+            hint.transform.position = flyPosition;
+            hint.SetActive(true);
+            applyHint = true;
+        }
     }
 
 
