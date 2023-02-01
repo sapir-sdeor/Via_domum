@@ -27,9 +27,9 @@ public class LevelManager : MonoBehaviour
     private Vector3 rootPosition = new(1.16999996f,0.0299999993f,0);
     private Vector3 flyPosition = new(2.6400001f,-2.82999992f,0);
 
-
+   
     private Vector3 tunnelPos2 = new Vector3(-1.51999998f,2.97000003f,0.0153808258f);
-    private Vector3 tunnelPos1= new Vector3(-1.51999998f,-2.1400001f,0.0153808258f);
+    private Vector3 tunnelPos1= new Vector3(0.109999999f,-1.46000004f,0f);
     // private Vector3 UIposLeft =new Vector3(-8.97999954f, -4.61000013f, 0.0153808258f);
     // private Vector3 UIposRight =new Vector3(6.05000019f,-4.61000013f,0.0153808258f);
     // private Vector3 UIscale = new(2, 2, 0);
