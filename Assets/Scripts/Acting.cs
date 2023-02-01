@@ -113,7 +113,7 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        if (uiManager.isPause) return;
+        if (LevelManager.GETLevel() > -1 && uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
