@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,7 @@ public class ButtonManger : MonoBehaviour
     public void HomeScreen(InputAction.CallbackContext context)
     {
         Destroy(GameObject.FindWithTag("canvas"));
+        Destroy(FindObjectOfType<EventSystem>());
         SceneManager.LoadScene("HomeScreen");
     }
 
