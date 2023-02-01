@@ -130,13 +130,26 @@ public class LevelManager : MonoBehaviour
 
     private void CheckHintsLevel2()
     {
-        /*GameObject echo = GameObject.FindWithTag("echo");
-        if (echo)
+        GameObject echo = GameObject.FindWithTag("echo");
+        if (echo && echo.name == "stone")
         {
             hint.transform.position = echoPosition;
             hint.SetActive(true);
             applyHint = true;
-        }*/
+        }
+        else if (!Legs.Pass)
+        {
+            hint.transform.position = rootPosition;
+            hint.SetActive(true);
+            applyHint = true;
+        }
+        else if (!Echo.removeWebs)
+        {
+            hint.transform.position = flyPosition;
+            hint.SetActive(true);
+            applyHint = true;
+        }
+        
     }
 
 
