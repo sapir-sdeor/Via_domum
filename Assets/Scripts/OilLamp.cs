@@ -13,7 +13,7 @@ public class OilLamp : MonoBehaviour
         {
             var trans = other.gameObject.transform;
             var pos = trans.position;
-            GameObject oilLamp = Instantiate(gameObject,pos+Vector3.left*lampPos,
+            GameObject oilLamp = Instantiate(gameObject,pos+Vector3.up*lampPos,
                 Quaternion.identity,trans.transform); 
             oilLamp.GetComponent<Collider2D>().enabled = false;
             oilLamp.transform.localScale = newScale;
