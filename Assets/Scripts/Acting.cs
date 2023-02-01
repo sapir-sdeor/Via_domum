@@ -286,7 +286,10 @@ public class Acting : MonoBehaviour
         }
     }
 
-
+    public bool GetTouch()
+    {
+        return hasTouch;
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -295,8 +298,14 @@ public class Acting : MonoBehaviour
         
         else if (other.gameObject.name == "stone")
         {
-            if (hasTouch && other.gameObject.CompareTag("touch")) return;
-            CollectStone(other);
+            if (!hasTouch && other.gameObject.CompareTag("touch"))
+            {
+                CollectStone(other); 
+            }
+            else if (!other.gameObject.CompareTag("touch"))
+            {
+                CollectStone(other); 
+            }
         }
 
         else if (other.gameObject.CompareTag("light"))
