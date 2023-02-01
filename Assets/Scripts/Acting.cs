@@ -16,8 +16,8 @@ public class Acting : MonoBehaviour
     [SerializeField] private float jumpHeight = 16f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask echoLayer;
     [SerializeField] private LayerMask ignoreLayer;
-    [SerializeField] private Vector3 flyPosition;
     [SerializeField] private Light2D[] light2D;
     [SerializeField] private Acting otherPlayer;
     [SerializeField] private GameManager gameManager;
@@ -26,6 +26,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private float fallingThreshold = -0.01f;
+    [SerializeField] private float holeLimit=-3.2f;
     
     #endregion
 
@@ -43,6 +44,7 @@ public class Acting : MonoBehaviour
     
    // private static readonly Vector3 ScaleYoung = new(0.589166641f,0.465384871f,1);
     private bool _onDiamond;
+    private bool _onLeaf;
     private Rigidbody2D _rigidbody;
     private AudioSource _audioSource;
     private float _horizontal;
@@ -57,18 +59,21 @@ public class Acting : MonoBehaviour
     private static readonly int Walk1 = Animator.StringToHash(Walk);
     private static readonly int Jump1 = Animator.StringToHash(JumpMove);
     private static readonly int ONGround = Animator.StringToHash("onGround");
-    private static readonly int BelowOther = Animator.StringToHash("belowOther");
     private static readonly int Falling = Animator.StringToHash("falling");
     private bool _isClimbing;
+    private bool dontMove;
 
+    
+    public bool gotHole;
     #endregion
 
     #region readonly
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
 
-    private readonly Vector3 _pos1Level3 = new(4.11999989f,-3.81999993f,0.0770537108f);
+    private readonly Vector3 _pos1Level3 = new(4.11999989f, -1.65999997f, 0.0770537108f);
     private readonly Vector3 _pos2Level3 = new(-4.80000019f, 1.70000005f, 0.0770537108f);
+  
 
     private readonly int GROUND_LAYER = 6;
     private readonly int PLAYER1_LAYER = 9;
@@ -80,6 +85,7 @@ public class Acting : MonoBehaviour
     private bool _exitHole;
     private bool ignoreCollision1, ignoreCollision2;
     private Collider2D coll1, coll2;
+    private GameObject _light1,_light2;
 
     #endregion
    
@@ -91,7 +97,7 @@ public class Acting : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
-        coll1= coll2 = gameObject.GetComponent<Collider2D>();
+        coll1 = coll2 = gameObject.GetComponent<Collider2D>();
         // coll1 = gameObject.GetComponent<Collider2D>();
     }
 
@@ -107,6 +113,7 @@ public class Acting : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -118,6 +125,7 @@ public class Acting : MonoBehaviour
 
     public void Jump2(InputAction.CallbackContext context)
     {
+        if (uiManager.isPause || !GetComponent<Collider2D>().enabled) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0.8f);
@@ -138,6 +146,7 @@ public class Acting : MonoBehaviour
     public void Move2(InputAction.CallbackContext context)
     {
         if (gameObject.name != UIManager.PLAYER2) return;
+        if (!GetComponent<Collider2D>().enabled) return;
         if (GetComponent<Fly>() && GetComponent<Fly>().GETFly())
             return;
         SetMoveAnimation(context);
@@ -224,7 +233,8 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < -3.2f && LevelManager.GETLevel() == 1)
+        if (transform.position.y < holeLimit && LevelManager.GETLevel() == 1 &&
+                GetComponent<changeSize>() && GetComponent<changeSize>().GETLittle())
             EnterHole();
         if (LevelManager.GETLevel() == 1 && !_enterHole && transform.position.y > 4.2f && transform.position.x < -3.5f)
             ExitHole();
@@ -235,6 +245,7 @@ public class Acting : MonoBehaviour
 
     private void EnterHole()
     {
+        gotHole = true;
         _enterHole = true;
         transform.position = new Vector3(-4.160326f,4.28f,0.0417999998f);
         GameObject mushroom = GameObject.FindGameObjectWithTag("mushroom");
@@ -265,10 +276,9 @@ public class Acting : MonoBehaviour
             falling = false;
             _animator.SetBool(Falling, falling);
         }
-
     }
 
-    
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -290,14 +300,6 @@ public class Acting : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
-        if (other.gameObject.layer == WATER_LAYER && playerNumber == 1)
-        {
-            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER1_LAYER , false);
-        }
-        if (other.gameObject.layer == WATER_LAYER && playerNumber == 2)
-        {
-            Physics2D.IgnoreLayerCollision(IGNORE_LAYER,PLAYER2_LAYER , false);
-        }
         if (ignoreCollision1 && (other.gameObject.layer & groundLayer) == 0&&
             (string.Compare(other.gameObject.name,"ground")!= 0)&& other.gameObject.CompareTag("ignore"))
         {
@@ -311,6 +313,9 @@ public class Acting : MonoBehaviour
             StartCoroutine(FallDownAndCancel(other,2));
         }
     }
+
+    
+    
 
     private void OnCollisionStay2D(Collision2D other)
     {
@@ -326,7 +331,6 @@ public class Acting : MonoBehaviour
             Physics2D.IgnoreCollision(other.collider,gameObject.GetComponent<Collider2D>());
             coll1 = other.collider;
         }
-
         if (playerAction == 2)
         {
             coll2 = other.collider;
@@ -338,22 +342,13 @@ public class Acting : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if( playerNumber==1 && other.collider != coll1)
+        if(playerNumber==1 && other.collider != coll1 && coll1 != null)
            Physics2D.IgnoreCollision(coll1,gameObject.GetComponent<Collider2D>(),false);
-        if( playerNumber==2 && other.collider != coll2)
+        if( playerNumber==2 && other.collider != coll2 && coll2 != null)
            Physics2D.IgnoreCollision(coll2,gameObject.GetComponent<Collider2D>(),false);
+        
     }
     
-    
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("flower"))
-        {
-            GetComponent<Fly>().StartFlying(flyPosition);
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(Button))
@@ -382,7 +377,7 @@ public class Acting : MonoBehaviour
         MechanicFactory mechanicFactory = gameObject.GetComponent<MechanicFactory>();
         if (!mechanicFactory)
             mechanicFactory = gameObject.AddComponent<MechanicFactory>();
-        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D);
+        ICoreMechanic coreMechanic = mechanicFactory.CreateMechanic(other.gameObject.tag, light2D, echoLayer);
         coreMechanic.ApplyMechanic();
     }
 
@@ -397,7 +392,6 @@ public class Acting : MonoBehaviour
     {
         if (LevelManager.GETLevel() == 1)
         {
-            // print("mushroom");
             gameManager.OpenGate();
             mushroom.GetComponent<Animator>().SetTrigger("Collision");
         }
@@ -440,6 +434,8 @@ public class Acting : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         gameManager = FindObjectOfType<GameManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        _enterLoadLevel = false;
+        _onDiamond = false;
         switch (scene.name)
         {
             case "Level1":
@@ -447,16 +443,25 @@ public class Acting : MonoBehaviour
             case "Level2":
                 gameManager.SetPosPlayer1(_pos1Level2);
                 gameManager.SetPosPlayer2(_pos2Level2);
-                if (playerNumber == 2)
-                    gameObject.AddComponent<Fly>();
-                
                 break;
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
+                SetPlayersLight();
+                SetShrinkPower();
                 break;
         }
     }
+
+    private void SetShrinkPower()
+    {
+        if (GetComponent<changeSize>().GETLittle())
+        {
+            if (playerNumber == 1) ShrinkManager.SetLeftShrink();
+            else ShrinkManager.setRightShrink();
+        }
+    }
+    
 
     private bool getOnDiamond()
     {
@@ -467,4 +472,24 @@ public class Acting : MonoBehaviour
     {
         _destroyObstacle = true;
     }
+    
+
+    private void SetPlayersLight()
+    {
+        if (playerNumber == 1)
+        {
+            _light1 = GameObject.FindGameObjectWithTag("light1");
+            // if(_light1!= null) print(_light1.);
+            _light1.transform.parent = transform;
+        }
+
+        if (playerNumber == 2)
+        {
+            _light2 = GameObject.FindGameObjectWithTag("light2");
+            _light2.transform.parent = transform;
+        }
+            
+    }
+    
 }
+

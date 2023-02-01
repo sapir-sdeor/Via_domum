@@ -9,14 +9,16 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
   
-    private int _powerCounterPlayer1 = -1;
+    public int _powerCounterPlayer1 = -1;
     private int _startCounterPlayer1 = -1;
-    private int _powerCounterPlayer2 = -1;
+    public int _powerCounterPlayer2 = -1;
     private int _startCounterPlayer2=-1;
     public static string PLAYER1 = "Player1";
     public static string PLAYER2 = "Player2";
     public bool isPause;
     
+    private bool controlOpen;
+    private bool start;
     private int _indexPowerPlayer1=0, _indexPowerPlayer2=0;
     private float _indexHor1,_indexHor2;
     private LevelManager _levelManager;
@@ -27,13 +29,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _button2;
     [SerializeField] private GameObject touch;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject controlPanel;
     private GameManager gameManager;
     private GameObject[] power1,power2,power3;
 
     private PlayerMovement.UIActions UImanager;
     private static readonly int Collect = Animator.StringToHash("collect");
     [SerializeField] private Sprite[] _sprites;
-    private bool start;
+    
 
     private readonly float showNewPowerTime = 2f;
 
@@ -50,24 +53,26 @@ public class UIManager : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext context)
     {
-        if (isPause)
+        if (isPause && !controlOpen)
         {
-            Time.timeScale = 1;
             pausePanel.SetActive(false);
+            Time.timeScale = 1;
+            isPause = false;
         }
         else
         {
-            Time.timeScale = 0;
             pausePanel.SetActive(true);
+            controlPanel.SetActive(false);
+            Time.timeScale = 0;
+            isPause = true;
+            controlOpen = false;
         }
-        isPause = !isPause;
     }
 
     public void Return()
     {
-        print("return");
-        Time.timeScale = 1;
         pausePanel.SetActive(false);
+        Time.timeScale = 1;
         isPause = !isPause;
     }
 
@@ -78,12 +83,16 @@ public class UIManager : MonoBehaviour
     
     public void ControllerScene()
     {
-        SceneManager.LoadScene("Mika Controller");
+        controlOpen = true;
+        pausePanel.SetActive(false);
+        controlPanel.SetActive(true);
     }
     
     
     public void Restart()
     {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -204,7 +213,7 @@ public class UIManager : MonoBehaviour
         if (context.performed)
         {
             var val = context.ReadValue<Vector2>().x;
-            print(val + " val");
+            print("nevigate menu 2");
             if (_indexHor2 >= _powerCounterPlayer2 && val > 0) _indexHor2=0;
             else if(_indexHor2 == 0 && val < 0) _indexHor2 = _powerCounterPlayer2;
             else { _indexHor2 += val;}

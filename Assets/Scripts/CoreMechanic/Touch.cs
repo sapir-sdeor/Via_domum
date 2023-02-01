@@ -12,6 +12,7 @@ namespace CoreMechanic
             touchAct[] touchGameObjects = FindObjectsOfType<touchAct>();
             foreach (var obj in touchGameObjects)
             {
+                if (!obj.GetComponent<Collider2D>()) continue;
                 if (GetComponent<Collider2D>().IsTouching(obj.GetComponent<Collider2D>()))
                 {
                     obj.TouchFactory();

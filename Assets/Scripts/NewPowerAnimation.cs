@@ -14,7 +14,7 @@ public class NewPowerAnimation : MonoBehaviour
     private static readonly int Player2 = Animator.StringToHash("player2");
     private static readonly int FadeIn = Animator.StringToHash("fadeIn");
     private static readonly int FadeOut = Animator.StringToHash("fadeOut");
-
+    private static readonly int Level2 = Animator.StringToHash("level2");
 
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -30,10 +30,10 @@ public class NewPowerAnimation : MonoBehaviour
         else if (other.gameObject.name == UIManager.PLAYER2)
         {
             StartCoroutine(waitBeforeDestroy2());
-            auraAnimator.SetBool(FadeIn,false);
         }
     }
     
+
 
     IEnumerator waitBeforeDestroy1()
     {
@@ -42,6 +42,7 @@ public class NewPowerAnimation : MonoBehaviour
         text.SetActive(false);
         auraAnimator.SetBool(FadeOut, true);
         newPowerAnimator.SetBool(Player1, true);
+        
     }
     
     IEnumerator waitBeforeDestroy2()
@@ -50,6 +51,15 @@ public class NewPowerAnimation : MonoBehaviour
         aura.SetActive(false);
         text.SetActive(false);
         auraAnimator.SetBool(FadeOut,true);
-        newPowerAnimator.SetBool(Player2, true);
+        if (LevelManager.GETLevel() == 1)
+        {
+            print("set animation player 1");
+            newPowerAnimator.SetBool(Player2, true);
+        }
+        else
+        {
+            print("set animation level 2");
+            newPowerAnimator.SetBool(Level2,true);
+        }
     }
 }
