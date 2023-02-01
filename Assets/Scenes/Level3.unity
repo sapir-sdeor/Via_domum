@@ -4623,7 +4623,6 @@ MonoBehaviour:
   isPause: 0
   _button1: {fileID: 1955146008}
   _button2: {fileID: 1607877710}
-  touch: {fileID: 253239552}
   pausePanel: {fileID: 1294644402}
   controlPanel: {fileID: 0}
   _sprites:
@@ -6034,7 +6033,6 @@ MonoBehaviour:
   isPause: 0
   _button1: {fileID: 201843191}
   _button2: {fileID: 325367636}
-  touch: {fileID: 486747017}
   pausePanel: {fileID: 1886465565}
   controlPanel: {fileID: 1775580445}
   _sprites:
@@ -6169,7 +6167,6 @@ MonoBehaviour:
   isPause: 0
   _button1: {fileID: 1218909096}
   _button2: {fileID: 1282196743}
-  touch: {fileID: 1482058748}
   pausePanel: {fileID: 402545600}
   controlPanel: {fileID: 1123944005}
   _sprites:
@@ -24854,9 +24851,7 @@ MonoBehaviour:
   holePosition: {x: -1.43, y: -2.87, z: 0}
   runaPosition: {x: -4.72, y: 2.6, z: 0}
   mushroomPosition: {x: -0.85, y: -2.79, z: 0}
-  echoPosition: {x: 0, y: 0, z: 0}
-  rootPosition: {x: 0, y: 0, z: 0}
-  flyPosition: {x: 0, y: 0, z: 0}
+  littlePosition: {x: 0, y: 0, z: 0}
   timeForHint: 3
   timeHintAppear: 6
   canvasToNotDestroy: {fileID: 0}
@@ -26475,7 +26470,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136250426}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.419171, y: 0.23945081, z: 0.015380826}
+  m_LocalPosition: {x: -1.52, y: 2.97, z: 0.015380826}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
