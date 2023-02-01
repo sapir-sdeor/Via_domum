@@ -15,7 +15,6 @@ public class LevelManager : MonoBehaviour
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
     private int lastIndex1, lastIndex2;
     private int lastPower1, lastPower2;
-    private static bool setLevelPos2 = false;
     private LevelManager _levelManager;
     private float time;
     private bool applyHint,applyHintLeft,applyHintRight;
@@ -68,7 +67,6 @@ public class LevelManager : MonoBehaviour
     {
         if (_level < 1)
         {
-            print("return");
             return;
         }
         time += Time.deltaTime;
@@ -239,8 +237,6 @@ public class LevelManager : MonoBehaviour
             Destroy(_gameManager.gameObject);
             Destroy(_gameManager.GETPlayer1().gameObject);
             Destroy(_gameManager.GETPlayer2().gameObject);
-            Destroy(canvasToNotDestroy);
-            Destroy(FindObjectOfType<UIManager>());
         }
         GameObject.FindGameObjectWithTag("fade").GetComponent<Animator>().SetTrigger("fadeOut");
     }
