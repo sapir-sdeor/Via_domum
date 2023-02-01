@@ -15,7 +15,6 @@ public class LevelManager : MonoBehaviour
     private GameObject _openUIInstantiate1, _openUIInstantiate2;
     private int lastIndex1, lastIndex2;
     private int lastPower1, lastPower2;
-    private static bool setLevelPos2 = false;
     private LevelManager _levelManager;
     private float time;
     private bool applyHint,applyHintLeft,applyHintRight;
@@ -68,7 +67,6 @@ public class LevelManager : MonoBehaviour
     {
         if (_level < 1)
         {
-            print("return");
             return;
         }
         time += Time.deltaTime;
