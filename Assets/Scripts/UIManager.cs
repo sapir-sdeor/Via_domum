@@ -191,7 +191,6 @@ public class UIManager : MonoBehaviour
         buttonManager2[_powerCounterPlayer2].GetComponent<AudioSource>().playOnAwake = false;
         _indexHor2 = _indexPowerPlayer2 = _powerCounterPlayer2;
         if(showNewPower) ShowNewPower(power.transform);
-        print(buttonManager1[_powerCounterPlayer1].tag +" 2");
         StartCoroutine(ChangeButtonSprite2(time));
     }
 
@@ -322,7 +321,6 @@ public class UIManager : MonoBehaviour
     {
         _startCounterPlayer1 = _powerCounterPlayer1;
         _startCounterPlayer2 = _powerCounterPlayer2;
-        print(_startCounterPlayer1 +" start counter player");
         for (int i = 0; i < buttonManager1.Length; i++)
         {
             buttonManagerAll1[i] = buttonManager1[i];
