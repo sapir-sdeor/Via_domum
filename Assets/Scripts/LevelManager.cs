@@ -27,11 +27,41 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Vector3 echoPosition;
     [SerializeField] private Vector3 rootPosition;
     [SerializeField] private Vector3 flyPosition;
+
+    private Vector3 tunnelPos2 = new Vector3(-1.63f, 2.92000008f, 0.0153808258f);
+    private Vector3 tunnelPos1= new Vector3(-2,-1.36000001f,0.0153808258f);
+    private Vector3 UIposLeft =new Vector3(-8.97999954f, -4.61000013f, 0.0153808258f);
+    private Vector3 UIposRight =new Vector3(6.05000019f,-4.61000013f,0.0153808258f);
+    private Vector3 UIscale = new(2, 2, 0);
+    private static bool passTunnelPos2, passTunnelPos1;
+    private static bool shrink1,shrink2, echo;
     
     [SerializeField] private float timeForHint;
     [SerializeField] private float timeHintAppear = 6f;
     [SerializeField] private UIManager canvasToNotDestroy;
     [SerializeField] private GameObject hint;
+    public static void SetPassTunnelPos2()
+    {
+        passTunnelPos2 = true;
+    }
+    
+    public static void SetPassTunnelPos1()
+    {
+        passTunnelPos1 = true;
+    }
+    
+    public static void SetShrink1()
+    {
+        shrink1 = true;
+    }
+    public static void SetShrink2()
+    {
+        shrink2 = true;
+    }
+    public static void SetEcho()
+    {
+        echo = true;
+    }
     private void Update()
     {
         time += Time.deltaTime;
@@ -44,6 +74,9 @@ public class LevelManager : MonoBehaviour
                     break;
                 case 2:
                     CheckHintsLevel2();
+                    break;
+                case 3:
+                    CheckHintsLevel3();
                     break;
             }
             time = 0;
@@ -95,6 +128,41 @@ public class LevelManager : MonoBehaviour
             }
         }
         
+    }
+
+    private void CheckHintsLevel3()
+    { 
+        if (!passTunnelPos2)
+        {
+            hint.transform.position = tunnelPos2;
+            hint.SetActive(true);
+            applyHint = true;
+            print("tunnelPos2");
+        }
+        else if (!passTunnelPos1)
+        {
+            hint.transform.position = tunnelPos1;
+            hint.SetActive(true);
+            applyHint = true;
+            print("tunnelPos1");
+        }
+      
+        else if (!shrink1)
+        {
+            hint.transform.position = UIposRight;
+            hint.transform.localScale = UIscale;
+            hint.SetActive(true);
+            applyHint = true;
+            print("shrink1");
+        }
+        else if (!echo||!shrink2)
+        {
+            hint.transform.position = UIposLeft;
+            hint.transform.localScale = UIscale;
+            hint.SetActive(true);
+            applyHint = true;
+            print("shrink2");
+        }
     }
 
     private void CheckHintsLevel2()
