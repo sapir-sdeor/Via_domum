@@ -470,8 +470,9 @@ public class Acting : MonoBehaviour
     {
         if (playerNumber == 1)
         {
-            _light1 = GameObject.FindGameObjectWithTag("light1");
-            _light1.transform.parent = transform;
+            // _light1 = GameObject.FindGameObjectWithTag("light1");
+            // if(_light1!= null) print(_light1.);
+            // _light1.transform.parent = transform;
         }
 
         if (playerNumber == 2)
