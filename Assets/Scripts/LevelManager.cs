@@ -27,11 +27,42 @@ public class LevelManager : MonoBehaviour
     private Vector3 echoPosition = new(-1.58000004f,2.27999997f,0);
     private Vector3 rootPosition = new(1.17999995f,0.0299999993f,0);
     private Vector3 flyPosition = new(2.61999989f,-2.8599999f,0);
+
+
+    private Vector3 tunnelPos2 = new Vector3(-1.63f, 2.92000008f, 0.0153808258f);
+    private Vector3 tunnelPos1= new Vector3(-2,-1.36000001f,0.0153808258f);
+    private Vector3 UIposLeft =new Vector3(-8.97999954f, -4.61000013f, 0.0153808258f);
+    private Vector3 UIposRight =new Vector3(6.05000019f,-4.61000013f,0.0153808258f);
+    private Vector3 UIscale = new(2, 2, 0);
+    private static bool passTunnelPos2, passTunnelPos1;
+    private static bool shrink1,shrink2, echo;
     
     [SerializeField] private float timeForHint;
     [SerializeField] private float timeHintAppear = 6f;
     [SerializeField] private UIManager canvasToNotDestroy;
     [SerializeField] private GameObject hint;
+    public static void SetPassTunnelPos2()
+    {
+        passTunnelPos2 = true;
+    }
+    
+    public static void SetPassTunnelPos1()
+    {
+        passTunnelPos1 = true;
+    }
+    
+    public static void SetShrink1()
+    {
+        shrink1 = true;
+    }
+    public static void SetShrink2()
+    {
+        shrink2 = true;
+    }
+    public static void SetEcho()
+    {
+        echo = true;
+    }
     private void Update()
     {
         time += Time.deltaTime;
@@ -99,25 +130,13 @@ public class LevelManager : MonoBehaviour
 
     private void CheckHintsLevel2()
     {
-        GameObject echo = GameObject.FindWithTag("echo");
-        if (echo && echo.name == "stone")
+        /*GameObject echo = GameObject.FindWithTag("echo");
+        if (echo)
         {
             hint.transform.position = echoPosition;
             hint.SetActive(true);
             applyHint = true;
-        }
-        else if (!Legs.Pass)
-        {
-            hint.transform.position = rootPosition;
-            hint.SetActive(true);
-            applyHint = true;
-        }
-        else if (!Echo.removeWebs)
-        {
-            hint.transform.position = flyPosition;
-            hint.SetActive(true);
-            applyHint = true;
-        }
+        }*/
     }
 
 

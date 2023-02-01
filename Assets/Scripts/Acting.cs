@@ -450,10 +450,10 @@ public class Acting : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         gameManager = FindObjectOfType<GameManager>();
         levelManager = FindObjectOfType<LevelManager>();
-        _animator.SetBool(Wait1, false);
+        // _animator.SetBool(Wait1, false);
         _enterLoadLevel = false;
         _onDiamond = false;
-        switch (scene.name)
+        switch (scene.name) 
         {
             case "Tutorial2":
                 gameManager.SetPosPlayer1(_pos1Tutorial2);
