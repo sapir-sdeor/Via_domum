@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.InputSystem.Editor;
 
 namespace CoreMechanic
 {
@@ -11,10 +12,12 @@ namespace CoreMechanic
         public bool GETLittle()
         {
             return _little;
+            // return true;
         }
         private void Awake()
         {
             _regularScale = transform.localScale;
+            
         }
 
         public void ApplyMechanic()
