@@ -88,6 +88,10 @@ public class UIManager : MonoBehaviour
         controlPanel.SetActive(true);
     }
     
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
     
     public void Restart()
     {
@@ -286,6 +290,7 @@ public class UIManager : MonoBehaviour
             Destroy(gameObjects.gameObject);
         }
     }
+
 
     private void OnEnable()
     {

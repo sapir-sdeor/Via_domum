@@ -26,7 +26,7 @@ public class Acting : MonoBehaviour
     [SerializeField] private int playerNumber;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private float fallingThreshold = -0.01f;
-    [SerializeField] private float holeLimit=-3.2f;
+    [SerializeField] private float holeLimit=-3.1f;
     
     #endregion
 
@@ -107,7 +107,6 @@ public class Acting : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
         coll1 = coll2 = gameObject.GetComponent<Collider2D>();
-        // coll1 = gameObject.GetComponent<Collider2D>();
     }
 
     public int GETPlayerNumber()
@@ -439,10 +438,16 @@ public class Acting : MonoBehaviour
         yield return new WaitForSeconds(1f);
         levelManager.LoadNextLevel();
     }
+    
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded; 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
