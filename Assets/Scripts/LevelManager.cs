@@ -149,13 +149,12 @@ public class LevelManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        // SceneManager.LoadScene("Scenes/Tutorial2");
     }
     
     public void LoadNextLevel()
     {
         _level++;
-        if (_level != 1)
+        if (_level != 3)
         {
             DontDestroyOnLoad(canvasToNotDestroy);
             canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
