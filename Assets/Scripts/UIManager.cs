@@ -81,6 +81,7 @@ public class UIManager : MonoBehaviour
 
     public void BackHomeScreen()
     {
+        LevelManager.SetLevel(-1);
         Time.timeScale = 1;
         pausePanel.SetActive(false);
         SceneManager.LoadScene("HomeScreen");

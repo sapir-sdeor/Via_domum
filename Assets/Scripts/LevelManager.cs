@@ -251,6 +251,11 @@ public class LevelManager : MonoBehaviour
         return _level;
     }
     
+    public static void SetLevel(int level)
+    {
+        _level = level;
+    }
+    
     public void CloseUIMessage(String playerName)
     {
         if (playerName == UIManager.PLAYER1)
