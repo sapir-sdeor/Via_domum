@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -84,6 +85,9 @@ public class UIManager : MonoBehaviour
         LevelManager.SetLevel(-1);
         Time.timeScale = 1;
         pausePanel.SetActive(false);
+        Destroy(gameManager.GETPlayer1().gameObject);
+        Destroy(gameManager.GETPlayer2().gameObject);
+        Destroy(gameManager);
         SceneManager.LoadScene("HomeScreen");
     }
     

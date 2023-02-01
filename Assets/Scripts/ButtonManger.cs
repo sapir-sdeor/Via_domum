@@ -29,6 +29,10 @@ public class ButtonManger : MonoBehaviour
     private void Update()
     {
         if (GameObject.FindWithTag("canvas"))
+        {
             GameObject.FindWithTag("canvas").SetActive(false);
+            Destroy(FindObjectOfType<EventSystem>());
+        }
+            
     }
 }
