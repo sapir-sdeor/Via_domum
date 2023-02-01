@@ -70,8 +70,8 @@ public class Acting : MonoBehaviour
 
     #region readonly
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
-    // private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
-    private readonly Vector3 _pos2Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
+    private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
+    // private readonly Vector3 _pos2Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
 
 
     private readonly Vector3 _pos1Level3 = new(4.11999989f, -1.65999997f, 0.0770537108f);
@@ -459,7 +459,7 @@ public class Acting : MonoBehaviour
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
-                SetPlayersLight();
+                // SetPlayersLight();
                 SetShrinkPower();
                 break;
         }
