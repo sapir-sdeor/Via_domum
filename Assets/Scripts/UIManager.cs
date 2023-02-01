@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     private bool controlOpen;
     private bool start;
     private int _indexPowerPlayer1=0, _indexPowerPlayer2=0;
-    private float _indexHor1=-1,_indexHor2=-1;
+    private float _indexHor1,_indexHor2;
     private bool _flyAlready;
     private  GameObject[] buttonManager1 = new GameObject[5], buttonManager2=new GameObject[5];
     private  GameObject[] buttonManagerAll1 = new GameObject[5], buttonManagerAll2=new GameObject[5];

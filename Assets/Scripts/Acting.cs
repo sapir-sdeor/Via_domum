@@ -71,7 +71,7 @@ public class Acting : MonoBehaviour
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
     
     private readonly Vector3 _pos1Tutorial2 = new(0.689999998f,-2.31999993f,0.0770900697f);
-    private readonly Vector3 _pos2Tutorial2 = new(-2.80999994f,-2.6099999f,0.0770900697f);
+    private readonly Vector3 _pos2Tutorial2 = new(1.25f,-2.21000004f,0.0770900697f);
 
     private readonly Vector3 _pos1Level1 = new(-0.730000019f, 0.540000021f, 0.0770900697f);
     private readonly Vector3 _pos2Level1 = new(-1.36000001f, 0.419999987f, 0.0770900697f);
