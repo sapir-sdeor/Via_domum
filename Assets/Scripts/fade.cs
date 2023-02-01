@@ -13,6 +13,10 @@ public class fade : MonoBehaviour
         {
             SceneManager.LoadScene("Tutorial2");
         }
+        else if (SceneManager.GetActiveScene().name == "Level3")
+        {
+            SceneManager.LoadScene("End");
+        }
         else SceneManager.LoadScene("Level"+LevelManager.GETLevel());
     }
     
