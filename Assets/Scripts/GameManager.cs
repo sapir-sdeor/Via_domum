@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
     
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded; 
+    }
+    
     public void SetPosPlayer1(Vector3 pos)
     {
         _player1.gameObject.transform.position = pos;

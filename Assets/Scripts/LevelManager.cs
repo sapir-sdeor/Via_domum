@@ -41,7 +41,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float timeForHint;
     [SerializeField] private float timeHintAppear = 6f;
     [SerializeField] private UIManager canvasToNotDestroy;
-    [SerializeField] private GameObject hint,hintUILeft,hintUIRight;
+    [SerializeField] private GameObject hint;
+        //,hintUILeft,hintUIRight;
     public static void SetPassTunnelPos2()
     {
         passTunnelPos2 = true;
@@ -186,7 +187,7 @@ public class LevelManager : MonoBehaviour
             print("tunnelPos1");
         }
       
-        else if (!shrink1)
+        /*else if (!shrink1)
         {
             // hint.transform.position = UIposRight;
             // hint.transform.localScale = UIscale;
@@ -201,7 +202,7 @@ public class LevelManager : MonoBehaviour
             hintUILeft.SetActive(true);
             applyHintLeft = true;
             print("shrink2");
-        }
+        }*/
     }
 
 
