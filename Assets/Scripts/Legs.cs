@@ -16,6 +16,7 @@ public class Legs : MonoBehaviour
         {
             _onLeaf = true;
             leaf = other.transform;
+            GetComponentInParent<SpriteRenderer>().sortingOrder = 7;
             GetComponentInParent<Animator>().SetBool("walk", false);
             GetComponentsInParent<Transform>()[1].parent = leaf;
             GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
@@ -26,6 +27,7 @@ public class Legs : MonoBehaviour
         {
             _onLeaf = false;
             Pass = true;
+            GetComponentInParent<SpriteRenderer>().sortingOrder = 4;
             GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
             GetComponentsInParent<Collider2D>()[1].enabled = true;
             GetComponentsInParent<Transform>()[1].parent = null;

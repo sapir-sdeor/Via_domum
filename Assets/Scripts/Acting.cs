@@ -70,7 +70,7 @@ public class Acting : MonoBehaviour
     private readonly Vector3 _pos1Level2 = new(2.16000009f,-2.10665536f,0.0770537108f);
     private readonly Vector3 _pos2Level2 = new(-3.63643527f,1.41309333f,0.0770537108f);
     
-    private readonly Vector3 _pos1Tutorial2 = new(-2.1500001f,-2.51999998f,0.0770900697f);
+    private readonly Vector3 _pos1Tutorial2 = new(0.689999998f,-2.31999993f,0.0770900697f);
     private readonly Vector3 _pos2Tutorial2 = new(-2.80999994f,-2.6099999f,0.0770900697f);
 
     private readonly Vector3 _pos1Level1 = new(-0.730000019f, 0.540000021f, 0.0770900697f);
@@ -239,9 +239,6 @@ public class Acting : MonoBehaviour
 
     private void Update()
     {
-        print(transform.position.y <= holeLimit);
-        print(LevelManager.GETLevel());
-        print(GetComponent<changeSize>());
         if (transform.position.y <= holeLimit && LevelManager.GETLevel() == 1 &&
             GetComponent<changeSize>())
             EnterHole();
@@ -516,7 +513,6 @@ public class Acting : MonoBehaviour
         if (playerNumber == 1)
         {
             _light1 = GameObject.FindGameObjectWithTag("light1");
-            // if(_light1!= null) print(_light1.);
             _light1.transform.parent = transform;
         }
 
