@@ -118,6 +118,7 @@ public class LevelManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene("Scenes/Tutorial2");
     }
     
     public void LoadNextLevel()

@@ -2272,7 +2272,7 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: 86cedeaa7a5094f0582b00f7eb205207, type: 3}
   - {fileID: 21300000, guid: 986d4a6be360e4b0490d748b1bd47a7c, type: 3}
-  - {fileID: 21300000, guid: 0a02258eec4a64f84b5413b7ebbf1b8d, type: 3}
+  - {fileID: 21300000, guid: 4effa36aecb34474c8c458e087f4a9ca, type: 3}
   - {fileID: 21300000, guid: bec6b5192544e4d6ab1c2e949a790719, type: 3}
   - {fileID: 21300000, guid: f87bed55852454cd785e2ddb4911378b, type: 3}
 --- !u!224 &620589454
@@ -2666,7 +2666,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a07f27cb82e714f5d8933d513bc181b8, type: 3}
     - target: {fileID: 579823601447098294, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 579823601447098294, guid: 786ca57f8506f544994618a80555e468, type: 3}
       propertyPath: m_MaskInteraction
@@ -4360,7 +4360,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 643a8d5fd09d248d88da617b459d3339, type: 3}
     - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 508662195379668476, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_MaskInteraction
