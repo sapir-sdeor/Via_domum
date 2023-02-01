@@ -681,7 +681,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199435375}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -13940,19 +13940,19 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 25d3a8624b4cc2247939539737cb5482, type: 2}
     - target: {fileID: 8710700639666988242, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Size.x
-      value: 0.5495789
+      value: 0.50467217
       objectReference: {fileID: 0}
     - target: {fileID: 8710700639666988242, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Size.y
-      value: 0.99027264
+      value: 0.9902727
       objectReference: {fileID: 0}
     - target: {fileID: 8710700639666988242, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Offset.x
-      value: -0.00453498
+      value: -0.012531694
       objectReference: {fileID: 0}
     - target: {fileID: 8710700639666988242, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Offset.y
-      value: -0.2846024
+      value: -0.28460243
       objectReference: {fileID: 0}
     - target: {fileID: 8859877568183018150, guid: 5aaef6e1ed35f0d47ae458c768c7fb95, type: 3}
       propertyPath: m_Layer
