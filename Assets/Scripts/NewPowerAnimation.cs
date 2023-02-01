@@ -19,6 +19,10 @@ public class NewPowerAnimation : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (gameObject.CompareTag("touch") && other.gameObject.GetComponent<Acting>().GetTouch())
+        {
+            return;
+        }
         newPowerAnimator.gameObject.SetActive(true);
         auraAnimator = aura.GetComponent<Animator>();
         auraAnimator.gameObject.SetActive(true);
