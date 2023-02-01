@@ -298,7 +298,7 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
-    
+
 
     void OnSceneLoaded(Scene scene,LoadSceneMode mode)
     {
@@ -313,8 +313,26 @@ public class UIManager : MonoBehaviour
        
         _indexHor1 = _indexPowerPlayer1 =  0;
         _indexHor2 = _indexPowerPlayer2 = 0;
-        if(_button1) _button1.GetComponent<Image>().sprite = _sprites[0];
-        if(_button2) _button2.GetComponent<Image>().sprite = _sprites[0];
+        if (LevelManager.GETLevel() == 0)
+        {
+            if (_button1)
+            {
+                _button1.GetComponent<Image>().sprite = null;
+                _button1.GetComponent<Image>().color = Color.clear;
+            }
+
+            if (_button2)
+            {
+                _button2.GetComponent<Image>().sprite = null;
+                _button2.GetComponent<Image>().color = Color.clear;
+            }
+        }
+        else
+        {
+            if(_button1) _button1.GetComponent<Image>().sprite = _sprites[0];
+            if(_button2) _button2.GetComponent<Image>().sprite = _sprites[0]; 
+        }
+        
     }
 
     public void SaveBeforeLoad()
