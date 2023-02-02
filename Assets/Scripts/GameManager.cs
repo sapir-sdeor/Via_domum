@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     
     private void OnDisable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded; 
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
     public void SetPosPlayer1(Vector3 pos)

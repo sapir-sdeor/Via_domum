@@ -225,8 +225,7 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
-        print(_level);
-        if (_level == 0)
+        if (_level != 4)
         {
             DontDestroyOnLoad(canvasToNotDestroy);
             canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
@@ -243,7 +242,7 @@ public class LevelManager : MonoBehaviour
                 DontDestroyOnLoad(FindObjectsOfType<EventSystem>()[0]);
             }
         }
-        else if (_level == 4)
+        else
         {
             Destroy(_gameManager.gameObject);
             Destroy(_gameManager.GETPlayer1().gameObject);

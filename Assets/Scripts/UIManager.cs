@@ -116,8 +116,11 @@ public class UIManager : MonoBehaviour
     {
         if (context.performed)
         {
+            print("performed");
             if (_powerCounterPlayer1 < 0)
             {
+                print("return");
+                print(_powerCounterPlayer1);
                 return;
             }
             if (buttonManager1[_indexPowerPlayer1].CompareTag("fly"))
@@ -205,6 +208,7 @@ public class UIManager : MonoBehaviour
         
         if (context.performed)
         {
+            print("navigate");
             var val = context.ReadValue<Vector2>().x;
             if (_powerCounterPlayer1 < 0) return;
             if (_indexHor1 >= _powerCounterPlayer1 && val > 0) _indexHor1=0;
