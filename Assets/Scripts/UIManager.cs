@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject controlPanel;
     private GameManager gameManager;
+    private LevelManager levelManager;
     private GameObject[] power1,power2,power3;
 
     private PlayerMovement.UIActions UImanager;
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        levelManager = FindObjectOfType<LevelManager>();
         gameManager = FindObjectOfType<GameManager>();
         Time.timeScale = 0;
         /*CollectPowerPlayer1(touch,false,0);
@@ -106,16 +108,20 @@ public class UIManager : MonoBehaviour
     
     public void Restart()
     {
+        levelManager.ResetTimeHints();
         if (SceneManager.GetActiveScene().name == "Level2")
         {
             if (FindObjectOfType<Legs>()._onLeaf) return;
             DontDestroyOnLoad(gameManager.GETPlayer2());
         }
+        if (SceneManager.GetActiveScene().name == "Level2")
+            LevelManager.ResetStaticVars();
         isPause = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
 
     public void ApplyPowerPlayer1(InputAction.CallbackContext context)
     {

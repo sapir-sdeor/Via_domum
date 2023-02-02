@@ -40,8 +40,20 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float timeHintAppear = 6f;
     [SerializeField] private UIManager canvasToNotDestroy;
     [SerializeField] private GameObject hint;
-        //,hintUILeft,hintUIRight;
-        
+
+    public void ResetTimeHints()
+    {
+        time = 0;
+    }
+
+    public static void ResetStaticVars()
+    {
+        shrink1 = false;
+        shrink2 = false;
+        echo = false;
+        passTunnelPos2 = false;
+        passTunnelPos1 = false;
+    }
 
     public static void SetPassTunnelPos2()
     {
@@ -180,14 +192,12 @@ public class LevelManager : MonoBehaviour
             hint.transform.position = tunnelPos2;
             hint.SetActive(true);
             applyHint = true;
-            print("tunnelPos2");
         }
         else if (!passTunnelPos1)
         {
             hint.transform.position = tunnelPos1;
             hint.SetActive(true);
             applyHint = true;
-            print("tunnelPos1");
         }
       
         /*else if (!shrink1)
@@ -207,16 +217,20 @@ public class LevelManager : MonoBehaviour
             print("shrink2");
         }*/
     }
-
-
+    
     private void Awake()
     {
         _level = -1;
         _gameManager = FindObjectOfType<GameManager>();
         canvasToNotDestroy = FindObjectOfType<UIManager>();
-        print(_gameManager);
+        shrink1 = false;
+        shrink2 = false;
+        echo = false;
+        passTunnelPos2 = false;
+        passTunnelPos1 = false;
+        time = 0;
     }
-
+    
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -225,6 +239,7 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
+        time = 0;
         if (_level != 4)
         {
             DontDestroyOnLoad(canvasToNotDestroy);
