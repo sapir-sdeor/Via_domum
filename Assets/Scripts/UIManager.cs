@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -81,9 +82,13 @@ public class UIManager : MonoBehaviour
 
     public void BackHomeScreen()
     {
+        isPause = false;
         LevelManager.SetLevel(-1);
         Time.timeScale = 1;
         pausePanel.SetActive(false);
+        Destroy(gameManager.GETPlayer1().gameObject);
+        Destroy(gameManager.GETPlayer2().gameObject);
+        Destroy(gameManager.gameObject);
         SceneManager.LoadScene("HomeScreen");
     }
     
@@ -101,6 +106,7 @@ public class UIManager : MonoBehaviour
     
     public void Restart()
     {
+        isPause = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

@@ -41,6 +41,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private UIManager canvasToNotDestroy;
     [SerializeField] private GameObject hint;
         //,hintUILeft,hintUIRight;
+        
+
     public static void SetPassTunnelPos2()
     {
         passTunnelPos2 = true;
@@ -212,6 +214,7 @@ public class LevelManager : MonoBehaviour
         _level = -1;
         _gameManager = FindObjectOfType<GameManager>();
         canvasToNotDestroy = FindObjectOfType<UIManager>();
+        print(_gameManager);
     }
 
     public void Restart()
@@ -222,17 +225,25 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _level++;
-        if (_level != 4)
+        print(_level);
+        if (_level == 0)
         {
             DontDestroyOnLoad(canvasToNotDestroy);
             canvasToNotDestroy.GetComponent<UIManager>().SaveBeforeLoad();
             DontDestroyOnLoad(_gameManager.gameObject);
             DontDestroyOnLoad(_gameManager.GETPlayer1().gameObject);
             DontDestroyOnLoad(_gameManager.GETPlayer2().gameObject);
-            DontDestroyOnLoad(FindObjectOfType<EventSystem>());
-            
+            if (FindObjectsOfType<EventSystem>().Length > 1)
+            {
+                DontDestroyOnLoad(FindObjectsOfType<EventSystem>()[1]);
+                FindObjectsOfType<EventSystem>()[0].gameObject.SetActive(false);
+            }
+            else
+            {
+                DontDestroyOnLoad(FindObjectsOfType<EventSystem>()[0]);
+            }
         }
-        else
+        else if (_level == 4)
         {
             Destroy(_gameManager.gameObject);
             Destroy(_gameManager.GETPlayer1().gameObject);
