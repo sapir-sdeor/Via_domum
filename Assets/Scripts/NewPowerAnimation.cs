@@ -17,6 +17,11 @@ public class NewPowerAnimation : MonoBehaviour
     private static readonly int Level2 = Animator.StringToHash("level2");
     private static string playerName = null;
 
+    private void Awake()
+    {
+        playerName = null;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
