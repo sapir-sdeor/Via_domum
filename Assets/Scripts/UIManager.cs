@@ -109,6 +109,12 @@ public class UIManager : MonoBehaviour
     public void Restart()
     {
         levelManager.ResetTimeHints();
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            if (FindObjectOfType<movingMusroom>().onMushroom) return;
+            DontDestroyOnLoad(gameManager.GETPlayer2());
+            DontDestroyOnLoad(gameManager.GETPlayer1());
+        }
         if (SceneManager.GetActiveScene().name == "Level2")
         {
             if (FindObjectOfType<Legs>()._onLeaf) return;

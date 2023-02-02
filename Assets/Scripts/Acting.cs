@@ -520,7 +520,7 @@ public class Acting : MonoBehaviour
         }
     }
 
-    public void ResetPlayer2()
+    private void ResetPlayer2()
     {
         GetComponent<SpriteRenderer>().sortingOrder = 4;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
