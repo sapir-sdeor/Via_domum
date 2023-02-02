@@ -481,7 +481,12 @@ public class Acting : MonoBehaviour
                 gameManager.SetPosPlayer2(_pos2Level1);
                 break;
             case "Level2":
+                if (playerNumber == 2)
+                {
+                    ResetPlayer2();
+                }
                 _animator.SetTrigger("hello");
+                Legs.Pass = false;
                 gameManager.SetPosPlayer1(_pos1Level2);
                 gameManager.SetPosPlayer2(_pos2Level2);
                 break;
@@ -492,6 +497,15 @@ public class Acting : MonoBehaviour
                 SetShrinkPower();
                 break;
         }
+    }
+
+    private void ResetPlayer2()
+    {
+        GetComponent<SpriteRenderer>().sortingOrder = 4;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<Transform>().parent = null;
+        GetComponent<Transform>().eulerAngles = Vector3.zero;
     }
 
     private void SetShrinkPower()

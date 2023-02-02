@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class Legs : MonoBehaviour
 {
-    private bool _onLeaf; 
-    public static bool Pass;
+    private bool _onLeaf;
     private Transform leaf;
-    
+    public static bool Pass;
+
+    private void Awake()
+    {
+        _onLeaf = false;
+        Pass = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("flower") && !_onLeaf && !Pass)
