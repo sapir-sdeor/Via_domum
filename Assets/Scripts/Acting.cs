@@ -55,7 +55,7 @@ public class Acting : MonoBehaviour
     private PlayerMovement _inputAction;
     private Animator _animator;
     private bool falling;
-    private static bool player1Little, player2Little;
+    private bool player1Little = false, player2Little= false;
     private static bool _destroyObstacle;
     
     private static readonly int Wait1 = Animator.StringToHash(Wait);
@@ -96,6 +96,8 @@ public class Acting : MonoBehaviour
    
     private void Start()
     {
+        player1Little = false;
+        player2Little = false;
         _enterLoadLevel = false;
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -493,6 +495,18 @@ public class Acting : MonoBehaviour
             case "Level3":
                 gameManager.SetPosPlayer1(_pos1Level3);
                 gameManager.SetPosPlayer2(_pos2Level3);
+                var light1 = transform.GetChild(transform.childCount-1);
+                if (light1.CompareTag("light1")&& playerNumber==1)
+                {
+                    Destroy(light1.gameObject);
+                    print("light1");
+                }
+                var light2 = transform.GetChild(transform.childCount-1);
+                if (light2.CompareTag("light2")&&playerNumber==2)
+                {
+                    Destroy(light2.gameObject);
+                    print("light2");
+                }
                 // SetPlayersLight();
                 SetShrinkPower();
                 break;
@@ -512,14 +526,10 @@ public class Acting : MonoBehaviour
     {
         if (player2Little)
         {
-            // var shrink = GameObject.FindGameObjectWithTag("little");
-            // if(shrink == null) print("shrink is null, do you know why its happend?");
-            // else print("shrink need to be in the opposite side");
-            // shrink.gameObject.transform.position = _shrinkPosRight;
             ShrinkManager.setRightShrink();
         }
 
-        if (player1Little)
+        else if (player1Little)
         {
             ShrinkManager.SetLeftShrink();
         }
