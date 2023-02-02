@@ -15,26 +15,30 @@ public class NewPowerAnimation : MonoBehaviour
     private static readonly int FadeIn = Animator.StringToHash("fadeIn");
     private static readonly int FadeOut = Animator.StringToHash("fadeOut");
     private static readonly int Level2 = Animator.StringToHash("level2");
+    private static string playerName = null;
 
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (gameObject.CompareTag("touch") && other.gameObject.GetComponent<Acting>().GetTouch())
+        // && !other.gameObject.GetComponent<Acting>().GetTouch()
+        if (gameObject.CompareTag("touch")&&(playerName==null|| playerName!= other.gameObject.name)||
+            !gameObject.CompareTag("touch"))
         {
-            return;
+            if (playerName == null) playerName = other.gameObject.name;
+            newPowerAnimator.gameObject.SetActive(true);
+            auraAnimator = aura.GetComponent<Animator>();
+            auraAnimator.gameObject.SetActive(true);
+            auraAnimator.SetTrigger(FadeIn);
+            if (other.gameObject.name == UIManager.PLAYER1)
+            {
+                StartCoroutine(waitBeforeDestroy1());
+            }
+            else if (other.gameObject.name == UIManager.PLAYER2)
+            {
+                StartCoroutine(waitBeforeDestroy2());
+            }
         }
-        newPowerAnimator.gameObject.SetActive(true);
-        auraAnimator = aura.GetComponent<Animator>();
-        auraAnimator.gameObject.SetActive(true);
-        auraAnimator.SetTrigger(FadeIn);
-        if (other.gameObject.name == UIManager.PLAYER1)
-        {
-            StartCoroutine(waitBeforeDestroy1());
-        }
-        else if (other.gameObject.name == UIManager.PLAYER2)
-        {
-            StartCoroutine(waitBeforeDestroy2());
-        }
+       
     }
     
 
