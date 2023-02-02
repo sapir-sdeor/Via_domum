@@ -109,6 +109,10 @@ public class UIManager : MonoBehaviour
         isPause = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1;
+        if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            DontDestroyOnLoad(gameManager.GETPlayer2());
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -116,11 +120,8 @@ public class UIManager : MonoBehaviour
     {
         if (context.performed)
         {
-            print("performed");
             if (_powerCounterPlayer1 < 0)
             {
-                print("return");
-                print(_powerCounterPlayer1);
                 return;
             }
             if (buttonManager1[_indexPowerPlayer1].CompareTag("fly"))
