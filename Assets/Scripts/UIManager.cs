@@ -119,6 +119,7 @@ public class UIManager : MonoBehaviour
         isPause = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1;
+        gameManager.GETPlayer1().SetHasTouch();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

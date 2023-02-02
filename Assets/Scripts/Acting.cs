@@ -118,6 +118,12 @@ public class Acting : MonoBehaviour
         otherPlayer.hasTouch = false;
         levelManager.Restart();
     }
+
+    public void SetHasTouch()
+    {
+        hasTouch = false;
+        otherPlayer.hasTouch = false;
+    }
     
     public void Jump(InputAction.CallbackContext context)
     {
@@ -481,6 +487,8 @@ public class Acting : MonoBehaviour
             case "Level1":
                 gameManager.SetPosPlayer1(_pos1Level1);
                 gameManager.SetPosPlayer2(_pos2Level1);
+                player1Little = false;
+                player2Little = false;
                 break;
             case "Level2":
                 if (playerNumber == 2)
