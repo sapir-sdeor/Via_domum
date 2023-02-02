@@ -106,13 +106,14 @@ public class UIManager : MonoBehaviour
     
     public void Restart()
     {
+        if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            if (FindObjectOfType<Legs>()._onLeaf) return;
+            DontDestroyOnLoad(gameManager.GETPlayer2());
+        }
         isPause = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1;
-        if (SceneManager.GetActiveScene().name == "Level2")
-        {
-            DontDestroyOnLoad(gameManager.GETPlayer2());
-        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -131,7 +132,6 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                print("apply1");
                 gameManager.GETPlayer1().Act(buttonManager1[_indexPowerPlayer1],
                     buttonManager1[_indexPowerPlayer1].GetComponent<AudioSource>().clip);
             }

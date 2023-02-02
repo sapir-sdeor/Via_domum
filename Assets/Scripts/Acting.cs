@@ -482,9 +482,8 @@ public class Acting : MonoBehaviour
                 break;
             case "Level2":
                 if (playerNumber == 2)
-                {
                     ResetPlayer2();
-                }
+                
                 _animator.SetTrigger("hello");
                 Legs.Pass = false;
                 gameManager.SetPosPlayer1(_pos1Level2);
@@ -499,7 +498,7 @@ public class Acting : MonoBehaviour
         }
     }
 
-    private void ResetPlayer2()
+    public void ResetPlayer2()
     {
         GetComponent<SpriteRenderer>().sortingOrder = 4;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;

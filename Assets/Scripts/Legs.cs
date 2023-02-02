@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Legs : MonoBehaviour
 {
-    private bool _onLeaf;
+    public bool _onLeaf;
     private Transform leaf;
     public static bool Pass;
 
