@@ -102,6 +102,7 @@ public class Acting : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
         coll1 = coll2 = gameObject.GetComponent<Collider2D>();
+        hasTouch = false;
     }
 
     public int GETPlayerNumber()
@@ -112,6 +113,7 @@ public class Acting : MonoBehaviour
     public void Restart(InputAction.CallbackContext context)
     {
         hasTouch = false;
+        otherPlayer.hasTouch = false;
         levelManager.Restart();
     }
     
