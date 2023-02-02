@@ -1,5 +1,6 @@
 
 using System;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -22,7 +23,7 @@ public class ButtonManger : MonoBehaviour
     public void HomeScreen(InputAction.CallbackContext context)
     {
         Destroy(GameObject.FindWithTag("canvas"));
-        Destroy(FindObjectOfType<EventSystem>());
+       // Destroy(FindObjectOfType<EventSystem>());
         SceneManager.LoadScene("HomeScreen");
     }
 
@@ -30,9 +31,13 @@ public class ButtonManger : MonoBehaviour
     {
         if (GameObject.FindWithTag("canvas"))
         {
-            GameObject.FindWithTag("canvas").SetActive(false);
-            Destroy(FindObjectOfType<EventSystem>());
+            if (SceneManager.GetActiveScene().name == "HomeScreen")
+            {
+                Destroy(GameObject.FindWithTag("canvas"));
+                FindObjectOfType<EventSystem>().gameObject.SetActive(false);
+            }
+            else GameObject.FindWithTag("canvas").SetActive(false);
+          //  Destroy(FindObjectOfType<EventSystem>());
         }
-            
     }
 }
